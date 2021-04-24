@@ -6,6 +6,8 @@ Project - CAL 2º semester 2º year MIEIC FEUP
   <img width="460" height="300" src="https://user-images.githubusercontent.com/40336261/115966058-e0452b80-a523-11eb-886d-3c0a4fd6a748.png">
 </p>
 
+## Supermercado ambulante
+
 <p align="center">
 <pre>
 Eunice Amorim                                                  up201904920
