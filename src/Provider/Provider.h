@@ -5,9 +5,14 @@
 #ifndef SRC_PROVIDER_H
 #define SRC_PROVIDER_H
 
+#include <map>
+#include "../Product/Product.h"
 
 class Provider {
-
+public:
+    Provider();
+private:
+    std::map<Product*, int> products;
 };
 
 
