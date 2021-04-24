@@ -1,6 +1,6 @@
-<h align="center">
+<h1 align="center">
 MarketOnWheels
-</h>
+</h1>
 
 <p align="center">
 Project - CAL 2º semester 2º year MIEIC FEUP
@@ -10,9 +10,9 @@ Project - CAL 2º semester 2º year MIEIC FEUP
   <img width="460" height="300" src="https://user-images.githubusercontent.com/40336261/115966058-e0452b80-a523-11eb-886d-3c0a4fd6a748.png">
 </p>
 
-<h1 align="center">
+<h2 align="center">
 Supermercado ambulante
-</h1>
+</h2>
 
 <p align="center">
 <pre>
