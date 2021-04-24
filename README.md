@@ -1,27 +1,39 @@
-# MarketOnWheels
-
-
-
-Project - CAL 2º semester 2º year MIEIC FEUP
+<h1 align="center">
+MarketOnWheels
+</h1>
 
 <p align="center">
-  <img width="460" height="300" src="https://user-images.githubusercontent.com/40336261/115965516-893e5700-a521-11eb-8991-279903dbba23.png">
+Project - CAL 2º semester 2º year MIEIC FEUP
 </p>
 
 <p align="center">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/40336261/115966058-e0452b80-a523-11eb-886d-3c0a4fd6a748.png">
+</p>
+
+<h2 align="center">
+Supermercado ambulante
+</h2>
+
+<p align="center">
+<pre>
 Eunice Amorim                                                  up201904920
+</pre>
 </p>
 <p align="center">
 [up201904920@fe.up.pt]  
 </p>
 <p align="center">
+<pre>
 Sara Marinha                                                   up201906805
+</pre>
 </p>
 <p align="center">
 [up201906805@fe.up.pt]
 </p>
 <p align="center">
+<pre>
 Sérgio da Gama                                                 up201906690
+</pre>
 </p>
 <p align="center">
 [up201906690@edu.fe.up.pt]
