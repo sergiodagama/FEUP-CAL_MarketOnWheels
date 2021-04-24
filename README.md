@@ -10,12 +10,23 @@ Project - CAL 2º semester 2º year MIEIC FEUP
 
 <p align="center">
 Eunice Amorim                                                  up201904920
-[up201904920@fe.up.pt]                                                               
+</p>
+<p align="center">
+[up201904920@fe.up.pt]  
+</p>
+<p align="center">
 Sara Marinha                                                   up201906805
+</p>
+<p align="center">
 [up201906805@fe.up.pt]
+</p>
+<p align="center">
 Sérgio da Gama                                                 up201906690
+</p>
+<p align="center">
 [up201906690@edu.fe.up.pt]
 </p>
+          
 
 report: https://docs.google.com/document/d/1iD1Ar6z0tSyRc-ARTwChvasTWNwbAf8KBbZE9ckDMZ8/edit?usp=sharing
 
