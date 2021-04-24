@@ -8,14 +8,16 @@
 #include <string>
 
 class Product {
+public:
+    Product(std::string &name, std::string cost, int size);
+    std::string getName();
+    int getPrice();
+    int getSize();
+    void setPrice(int price);
 private:
     std::string name;
     std::string price;
-public:
-    Product(std::string &name, std::string price);
-    std::string getName();
-    int getPrice();
-    void setPrice(int price);
+    int size;
 };
 
 

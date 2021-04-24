@@ -3,3 +3,5 @@
 //
 
 #include "Truck.h"
+
+Truck::Truck(int capacity, int load) : capacity(capacity), load(load) {}

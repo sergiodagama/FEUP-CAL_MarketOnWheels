@@ -4,7 +4,7 @@
 
 #include "Product.h"
 
-Product::Product(std::string &name, std::string cost) : name(name), price(cost) {//lança exceção de preço negativo
+Product::Product(std::string &name, std::string cost, int size) : name(name), price(cost), size(size) {//lança exceção de preço negativo
     }
 
 std::string Product::getName() {
@@ -17,4 +17,8 @@ int Product::getPrice() {
 
 void Product::setPrice(int price) { //lança exceção se preço negativo
 
+}
+
+int Product::getSize() {
+    return 0;
 }
