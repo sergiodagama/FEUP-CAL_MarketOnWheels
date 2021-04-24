@@ -142,6 +142,195 @@ src/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/build
 .PHONY : src/fast
 
+Client/Client.obj: Client/Client.cpp.obj
+
+.PHONY : Client/Client.obj
+
+# target to build an object file
+Client/Client.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Client/Client.cpp.obj
+.PHONY : Client/Client.cpp.obj
+
+Client/Client.i: Client/Client.cpp.i
+
+.PHONY : Client/Client.i
+
+# target to preprocess a source file
+Client/Client.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Client/Client.cpp.i
+.PHONY : Client/Client.cpp.i
+
+Client/Client.s: Client/Client.cpp.s
+
+.PHONY : Client/Client.s
+
+# target to generate assembly for a file
+Client/Client.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Client/Client.cpp.s
+.PHONY : Client/Client.cpp.s
+
+Headquarter/Headquarter.obj: Headquarter/Headquarter.cpp.obj
+
+.PHONY : Headquarter/Headquarter.obj
+
+# target to build an object file
+Headquarter/Headquarter.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Headquarter/Headquarter.cpp.obj
+.PHONY : Headquarter/Headquarter.cpp.obj
+
+Headquarter/Headquarter.i: Headquarter/Headquarter.cpp.i
+
+.PHONY : Headquarter/Headquarter.i
+
+# target to preprocess a source file
+Headquarter/Headquarter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Headquarter/Headquarter.cpp.i
+.PHONY : Headquarter/Headquarter.cpp.i
+
+Headquarter/Headquarter.s: Headquarter/Headquarter.cpp.s
+
+.PHONY : Headquarter/Headquarter.s
+
+# target to generate assembly for a file
+Headquarter/Headquarter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Headquarter/Headquarter.cpp.s
+.PHONY : Headquarter/Headquarter.cpp.s
+
+Map/Map.obj: Map/Map.cpp.obj
+
+.PHONY : Map/Map.obj
+
+# target to build an object file
+Map/Map.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Map/Map.cpp.obj
+.PHONY : Map/Map.cpp.obj
+
+Map/Map.i: Map/Map.cpp.i
+
+.PHONY : Map/Map.i
+
+# target to preprocess a source file
+Map/Map.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Map/Map.cpp.i
+.PHONY : Map/Map.cpp.i
+
+Map/Map.s: Map/Map.cpp.s
+
+.PHONY : Map/Map.s
+
+# target to generate assembly for a file
+Map/Map.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Map/Map.cpp.s
+.PHONY : Map/Map.cpp.s
+
+Order/Order.obj: Order/Order.cpp.obj
+
+.PHONY : Order/Order.obj
+
+# target to build an object file
+Order/Order.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Order/Order.cpp.obj
+.PHONY : Order/Order.cpp.obj
+
+Order/Order.i: Order/Order.cpp.i
+
+.PHONY : Order/Order.i
+
+# target to preprocess a source file
+Order/Order.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Order/Order.cpp.i
+.PHONY : Order/Order.cpp.i
+
+Order/Order.s: Order/Order.cpp.s
+
+.PHONY : Order/Order.s
+
+# target to generate assembly for a file
+Order/Order.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Order/Order.cpp.s
+.PHONY : Order/Order.cpp.s
+
+Product/Product.obj: Product/Product.cpp.obj
+
+.PHONY : Product/Product.obj
+
+# target to build an object file
+Product/Product.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Product/Product.cpp.obj
+.PHONY : Product/Product.cpp.obj
+
+Product/Product.i: Product/Product.cpp.i
+
+.PHONY : Product/Product.i
+
+# target to preprocess a source file
+Product/Product.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Product/Product.cpp.i
+.PHONY : Product/Product.cpp.i
+
+Product/Product.s: Product/Product.cpp.s
+
+.PHONY : Product/Product.s
+
+# target to generate assembly for a file
+Product/Product.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Product/Product.cpp.s
+.PHONY : Product/Product.cpp.s
+
+Provider/Provider.obj: Provider/Provider.cpp.obj
+
+.PHONY : Provider/Provider.obj
+
+# target to build an object file
+Provider/Provider.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Provider/Provider.cpp.obj
+.PHONY : Provider/Provider.cpp.obj
+
+Provider/Provider.i: Provider/Provider.cpp.i
+
+.PHONY : Provider/Provider.i
+
+# target to preprocess a source file
+Provider/Provider.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Provider/Provider.cpp.i
+.PHONY : Provider/Provider.cpp.i
+
+Provider/Provider.s: Provider/Provider.cpp.s
+
+.PHONY : Provider/Provider.s
+
+# target to generate assembly for a file
+Provider/Provider.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Provider/Provider.cpp.s
+.PHONY : Provider/Provider.cpp.s
+
+Truck/Truck.obj: Truck/Truck.cpp.obj
+
+.PHONY : Truck/Truck.obj
+
+# target to build an object file
+Truck/Truck.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Truck/Truck.cpp.obj
+.PHONY : Truck/Truck.cpp.obj
+
+Truck/Truck.i: Truck/Truck.cpp.i
+
+.PHONY : Truck/Truck.i
+
+# target to preprocess a source file
+Truck/Truck.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Truck/Truck.cpp.i
+.PHONY : Truck/Truck.cpp.i
+
+Truck/Truck.s: Truck/Truck.cpp.s
+
+.PHONY : Truck/Truck.s
+
+# target to generate assembly for a file
+Truck/Truck.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Truck/Truck.cpp.s
+.PHONY : Truck/Truck.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -178,6 +367,27 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... src
+	@echo ... Client/Client.obj
+	@echo ... Client/Client.i
+	@echo ... Client/Client.s
+	@echo ... Headquarter/Headquarter.obj
+	@echo ... Headquarter/Headquarter.i
+	@echo ... Headquarter/Headquarter.s
+	@echo ... Map/Map.obj
+	@echo ... Map/Map.i
+	@echo ... Map/Map.s
+	@echo ... Order/Order.obj
+	@echo ... Order/Order.i
+	@echo ... Order/Order.s
+	@echo ... Product/Product.obj
+	@echo ... Product/Product.i
+	@echo ... Product/Product.s
+	@echo ... Provider/Provider.obj
+	@echo ... Provider/Provider.i
+	@echo ... Provider/Provider.s
+	@echo ... Truck/Truck.obj
+	@echo ... Truck/Truck.i
+	@echo ... Truck/Truck.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

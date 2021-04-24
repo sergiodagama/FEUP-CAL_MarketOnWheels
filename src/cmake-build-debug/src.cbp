@@ -80,6 +80,48 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Client/Client.cpp">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Client/Client.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Headquarter/Headquarter.cpp">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Headquarter/Headquarter.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Map/Map.cpp">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Map/Map.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Order/Order.cpp">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Order/Order.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Product/Product.cpp">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Product/Product.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Provider/Provider.cpp">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Provider/Provider.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Truck/Truck.cpp">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Truck/Truck.h">
+			<Option target="src"/>
+		</Unit>
 		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/main.cpp">
 			<Option target="src"/>
 		</Unit>
