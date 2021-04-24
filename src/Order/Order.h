@@ -5,9 +5,17 @@
 #ifndef SRC_ORDER_H
 #define SRC_ORDER_H
 
+#include <map>
+#include "../Product/Product.h"
 
 class Order {
-
+public:
+    Order();
+    void addProduct(Product* product, int quantity);
+    int getSize();
+    int getPrice();
+private:
+    std::map<Product*, int> products;
 };
 
 
