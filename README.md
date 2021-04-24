@@ -1,11 +1,9 @@
 # MarketOnWheels
 
-
-
 Project - CAL 2º semester 2º year MIEIC FEUP
 
 <p align="center">
-  <img width="460" height="300" src="https://user-images.githubusercontent.com/40336261/115965516-893e5700-a521-11eb-8991-279903dbba23.png">
+  <img width="460" height="300" src="https://user-images.githubusercontent.com/40336261/115966028-aecc6000-a523-11eb-9c86-324c8a4d9a5b.png">
 </p>
 
 <p align="center">
