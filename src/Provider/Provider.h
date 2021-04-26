@@ -11,8 +11,22 @@
 class Provider {
 public:
     Provider();
+    Provider(std::map<Product*, unsigned > products);
+
+    bool removeProduct(Product* product, unsigned number);
+    bool addProduct(Product* product, unsigned number);
+
+    int getNumProduct(Product* product);
+    std::map<Product*, unsigned>getProducts();
+    int getSizeProducts();
+
+
 private:
-    std::map<Product*, int> products;
+    unsigned int id;
+    static unsigned int id_aux;
+
+    //stock
+    std::map<Product*, unsigned > products;
 };
 
 

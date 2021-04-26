@@ -3,6 +3,8 @@
 
 CMakeFiles/src.dir/Client/Client.cpp.obj: ../Client/Client.cpp
 CMakeFiles/src.dir/Client/Client.cpp.obj: ../Client/Client.h
+CMakeFiles/src.dir/Client/Client.cpp.obj: ../Utils/Date.h
+CMakeFiles/src.dir/Client/Client.cpp.obj: ../Utils/Graph.h
 
 CMakeFiles/src.dir/Exceptions/Exceptions.cpp.obj: ../Exceptions/Exceptions.cpp
 CMakeFiles/src.dir/Exceptions/Exceptions.cpp.obj: ../Exceptions/Exceptions.h
@@ -15,6 +17,7 @@ CMakeFiles/src.dir/Interface/Interface.cpp.obj: ../Interface/Interface.h
 
 CMakeFiles/src.dir/Map/Map.cpp.obj: ../Map/Map.cpp
 CMakeFiles/src.dir/Map/Map.cpp.obj: ../Map/Map.h
+CMakeFiles/src.dir/Map/Map.cpp.obj: ../Utils/Graph.h
 
 CMakeFiles/src.dir/Order/Order.cpp.obj: ../Exceptions/Exceptions.h
 CMakeFiles/src.dir/Order/Order.cpp.obj: ../Order/Order.cpp

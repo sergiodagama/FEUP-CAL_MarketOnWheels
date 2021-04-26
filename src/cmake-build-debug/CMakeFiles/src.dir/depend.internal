@@ -4,6 +4,8 @@
 CMakeFiles/src.dir/Client/Client.cpp.obj
  C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Client/Client.cpp
  C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Client/Client.h
+ C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Utils/Date.h
+ C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Utils/Graph.h
 CMakeFiles/src.dir/Exceptions/Exceptions.cpp.obj
  C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.cpp
  C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.h
@@ -16,6 +18,7 @@ CMakeFiles/src.dir/Interface/Interface.cpp.obj
 CMakeFiles/src.dir/Map/Map.cpp.obj
  C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Map/Map.cpp
  C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Map/Map.h
+ C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Utils/Graph.h
 CMakeFiles/src.dir/Order/Order.cpp.obj
  C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.h
  C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Order/Order.cpp
