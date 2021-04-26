@@ -4,10 +4,13 @@
 
 #include "Product.h"
 
-Product::Product(std::string &name, float cost, int size) : name(name), price(cost), size(size) {
-    if(price)
-    //lança exceção de preço negativo
-    }
+Product::Product(std::string name, float cost, unsigned size){
+    if(price < 0)
+        throw NegativeValue("price");
+    this->name = name;
+    this->size = size;
+    this->price = cost;
+}
 
 std::string Product::getName() {
     return name;
@@ -17,10 +20,19 @@ float Product::getPrice() {
     return price;
 }
 
-void Product::setPrice(float price) { //lança exceção se preço negativo
+void Product::setPrice(float price) {
+    if(price < 0)
+        throw NegativeValue("price");
     this->price = price;
 }
 
-int Product::getSize() {
+unsigned Product::getSize() {
     return size;
 }
+
+////////
+void Product::setSize(unsigned int size) {
+    this->size = size;
+}
+
+

@@ -12,7 +12,7 @@
 
 class NegativeValue :std::exception {
 public:
-    NegativeValue(std::string &parameter);
+    NegativeValue(std::string parameter);
     std::string getParameter() const;
 
 private:
