@@ -4,16 +4,62 @@
 
 #include "Truck.h"
 
-Truck::Truck(int capacity, int load) : capacity(capacity), load(load) {}
+using namespace std;
+
+unsigned int Truck::id_aux = 0;
+
+Truck::Truck(int capacity) : capacity(capacity){
+    this->id = id_aux;
+    id_aux++;
+}
 
 int Truck::getLoad() {
-    return 0;
+    return this->load;
 }
 
 int Truck::getCapacity() {
-    return 0;
+    return this->capacity;
+}
+
+void Truck::removeOrder() {
+    this->orders.pop();
 }
 
 void Truck::addOrder(Order *order) {
-
+    this->orders.push(order);
 }
+
+bool Truck::isFull() {
+    return (this->capacity - this->load) == 0;
+}
+
+bool Truck::updateLoad(int load) {
+    if(isFull()) return false;
+    if(this->load + load <= capacity)
+    {
+        this->load += load;
+        return true;
+    }
+    else
+        return false;
+}
+
+void Truck::deliveryDone() {
+    removeOrder();
+    removePath();
+}
+
+void Truck::addPath(vector<int> newPath) {
+    this->path.push(newPath);
+}
+
+void Truck::removePath() {
+    this->path.pop();
+}
+
+
+
+
+
+
+

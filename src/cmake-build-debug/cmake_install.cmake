@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src
+# Install script for directory: /Users/saramarinha/Downloads/FEUP/Ano_2/2º Semestre/CAL/project/MarketOnWheels/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/src")
+  set(CMAKE_INSTALL_PREFIX "/usr/local")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/saramarinha/Downloads/FEUP/Ano_2/2º Semestre/CAL/project/MarketOnWheels/src/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
