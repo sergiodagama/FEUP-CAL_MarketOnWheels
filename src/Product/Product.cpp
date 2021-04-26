@@ -4,21 +4,23 @@
 
 #include "Product.h"
 
-Product::Product(std::string &name, std::string cost, int size) : name(name), price(cost), size(size) {//lança exceção de preço negativo
+Product::Product(std::string &name, float cost, int size) : name(name), price(cost), size(size) {
+    if(price)
+    //lança exceção de preço negativo
     }
 
 std::string Product::getName() {
-    return std::__cxx11::string();
+    return name;
 }
 
-int Product::getPrice() {
-    return 0;
+float Product::getPrice() {
+    return price;
 }
 
-void Product::setPrice(int price) { //lança exceção se preço negativo
-
+void Product::setPrice(float price) { //lança exceção se preço negativo
+    this->price = price;
 }
 
 int Product::getSize() {
-    return 0;
+    return size;
 }

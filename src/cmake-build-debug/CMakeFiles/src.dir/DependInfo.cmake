@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Client/Client.cpp" "C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/cmake-build-debug/CMakeFiles/src.dir/Client/Client.cpp.obj"
+  "C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.cpp" "C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/cmake-build-debug/CMakeFiles/src.dir/Exceptions/Exceptions.cpp.obj"
   "C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Headquarter/Headquarter.cpp" "C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/cmake-build-debug/CMakeFiles/src.dir/Headquarter/Headquarter.cpp.obj"
   "C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Interface/Interface.cpp" "C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/cmake-build-debug/CMakeFiles/src.dir/Interface/Interface.cpp.obj"
   "C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Map/Map.cpp" "C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/cmake-build-debug/CMakeFiles/src.dir/Map/Map.cpp.obj"

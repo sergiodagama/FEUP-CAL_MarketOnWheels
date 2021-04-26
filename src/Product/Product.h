@@ -9,14 +9,14 @@
 
 class Product {
 public:
-    Product(std::string &name, std::string cost, int size);
+    Product(std::string &name, float cost, int size);
     std::string getName();
-    int getPrice();
+    float getPrice();
     int getSize();
-    void setPrice(int price);
+    void setPrice(float price);
 private:
     std::string name;
-    std::string price;
+    float price;
     int size;
 };
 

@@ -86,6 +86,12 @@
 		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Client/Client.h">
 			<Option target="src"/>
 		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.cpp">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.h">
+			<Option target="src"/>
+		</Unit>
 		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Headquarter/Headquarter.cpp">
 			<Option target="src"/>
 		</Unit>
