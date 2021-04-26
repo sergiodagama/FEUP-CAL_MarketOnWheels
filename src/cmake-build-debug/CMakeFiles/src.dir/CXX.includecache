@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Client/Client.cpp
+Client.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Client/Client.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Client/Client.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.cpp
+Exceptions.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.h
+
 C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.h
 exception
 -
@@ -13,6 +23,24 @@ string
 -
 iostream
 -
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Headquarter/Headquarter.cpp
+Headquarter.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Headquarter/Headquarter.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Headquarter/Headquarter.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Interface/Interface.cpp
+Interface.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Interface/Interface.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Interface/Interface.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Map/Map.cpp
+Map.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Map/Map.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Map/Map.h
 
 C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Order/Order.cpp
 Order.h
@@ -24,11 +52,25 @@ map
 ../Product/Product.h
 C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Product/Product.h
 
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Product/Product.cpp
+Product.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Product/Product.h
+
 C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Product/Product.h
 string
 -
 ../Exceptions/Exceptions.h
 C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Provider/Provider.cpp
+Provider.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Provider/Provider.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Provider/Provider.h
+map
+-
+../Product/Product.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Product/Product.h
 
 C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Truck/Truck.cpp
 Truck.h
@@ -38,5 +80,9 @@ C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Truck/T
 ../Order/Order.h
 C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Order/Order.h
 vector
+-
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/main.cpp
+iostream
 -
 
