@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.h
+exception
+-
+string
+-
+iostream
+-
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Order/Order.cpp
+Order.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Order/Order.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Order/Order.h
+map
+-
+../Product/Product.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Product/Product.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Product/Product.h
+string
+-
+../Exceptions/Exceptions.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Truck/Truck.cpp
+Truck.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Truck/Truck.h
+
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Truck/Truck.h
+../Order/Order.h
+C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Order/Order.h
+vector
+-
+

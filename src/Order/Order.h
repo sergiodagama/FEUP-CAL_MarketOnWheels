@@ -11,11 +11,11 @@
 class Order {
 public:
     Order();
-    void addProduct(Product* product, int quantity);
-    int getSize();
-    int getPrice();
+    void addProduct(Product* product, unsigned quantity);
+    unsigned getSize();
+    float getPrice();
 private:
-    std::map<Product*, int> products;
+    std::map<Product*, unsigned > products;
 };
 
 

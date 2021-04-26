@@ -4,18 +4,31 @@
 
 #include "Order.h"
 
+using namespace std;
+
 Order::Order() {
-
 }
 
-int Order::getSize() {
-    return 0;
+unsigned Order::getSize() {
+    unsigned size = 0;
+    map<Product*, unsigned>::iterator it = products.begin();
+    while(it!=products.end()){
+        size += it->second * it->first->getSize();
+        it++;
+    }
+    return size;
 }
 
-int Order::getPrice() {
-    return 0;
+float Order::getPrice() {
+    unsigned price = 0;
+    map<Product*, unsigned>::iterator it = products.begin();
+    while(it!=products.end()){
+        price += it->second * it->first->getPrice();
+        it++;
+    }
+    return price;
 }
 
-void Order::addProduct(Product *product, int quantity) {
-
+void Order::addProduct(Product *product, unsigned quantity) {
+    this->products.insert(pair <Product*, unsigned> (product, quantity));
 }
