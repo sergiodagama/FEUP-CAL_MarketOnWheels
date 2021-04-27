@@ -5,21 +5,8 @@
 #ifndef SRC_DATE_H
 #define SRC_DATE_H
 
-#include <exception>
+#include "../Exceptions/Exceptions.h"
 #include <iostream>
-
-class InvalidDate : std::exception {
-private:
-    unsigned int day;
-    unsigned int month;
-public:
-    InvalidDate(unsigned int day, unsigned int month){
-        this->day = day;
-        this->month = month;
-
-    std::cout << "Date Error: Month: " << month << " Day: " << day << std::endl;
-    };
-};
 
 class Date {
 private:
