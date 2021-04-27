@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/src.dir/Client/Client.cpp.obj"
+  "CMakeFiles/src.dir/Exceptions/Exceptions.cpp.obj"
   "CMakeFiles/src.dir/Headquarter/Headquarter.cpp.obj"
   "CMakeFiles/src.dir/Interface/Interface.cpp.obj"
   "CMakeFiles/src.dir/Map/Map.cpp.obj"

@@ -6,19 +6,20 @@
 #define SRC_PRODUCT_H
 
 #include <string>
+#include "../Exceptions/Exceptions.h"
 
 class Product {
 private:
     std::string name;
-    unsigned int price;
+    float price;
     unsigned int size;
 public:
-    Product(std::string &name, unsigned int price, unsigned int size);
-    std::string getName() const;
+    Product(std::string name, float cost, unsigned int size);
+    std::string getName();
     void setName(std::string name);
-    unsigned int getPrice() const;
-    void setPrice(unsigned int price);
-    unsigned int getSize() const;
+    float getPrice();
+    unsigned int getSize();
+    void setPrice(float price);
     void setSize(unsigned int size);
 };
 

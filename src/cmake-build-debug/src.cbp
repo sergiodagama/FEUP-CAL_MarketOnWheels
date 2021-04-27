@@ -86,7 +86,17 @@
 		<Unit filename="C:/Users/sergi/OneDrive/Documentos/FEUP/CAL/Project/MarketOnWheels/src/Client/Client.h">
 			<Option target="src"/>
 		</Unit>
+<<<<<<< HEAD
 		<Unit filename="C:/Users/sergi/OneDrive/Documentos/FEUP/CAL/Project/MarketOnWheels/src/Headquarter/Headquarter.cpp">
+=======
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.cpp">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Exceptions/Exceptions.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="C:/Users/eunic/Documents/faculdade/2o_ano/2o_semestre/MarketOnWheels/src/Headquarter/Headquarter.cpp">
+>>>>>>> 6bec72a8f7cd761d5cbb64f3f146a78cd1fb4374
 			<Option target="src"/>
 		</Unit>
 		<Unit filename="C:/Users/sergi/OneDrive/Documentos/FEUP/CAL/Project/MarketOnWheels/src/Headquarter/Headquarter.h">

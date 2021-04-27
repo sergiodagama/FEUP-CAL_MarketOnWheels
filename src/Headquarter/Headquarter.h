@@ -14,7 +14,6 @@
 
 class Headquarter {
 private:
-    std::vector<Order*> orders;
     std::vector<Client*> clients;
     std::vector<Provider*> providers;
     std::vector<Truck*> trucks;

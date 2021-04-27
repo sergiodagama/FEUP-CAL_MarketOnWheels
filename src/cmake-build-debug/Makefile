@@ -169,6 +169,33 @@ Client/Client.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Client/Client.cpp.s
 .PHONY : Client/Client.cpp.s
 
+Exceptions/Exceptions.obj: Exceptions/Exceptions.cpp.obj
+
+.PHONY : Exceptions/Exceptions.obj
+
+# target to build an object file
+Exceptions/Exceptions.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Exceptions/Exceptions.cpp.obj
+.PHONY : Exceptions/Exceptions.cpp.obj
+
+Exceptions/Exceptions.i: Exceptions/Exceptions.cpp.i
+
+.PHONY : Exceptions/Exceptions.i
+
+# target to preprocess a source file
+Exceptions/Exceptions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Exceptions/Exceptions.cpp.i
+.PHONY : Exceptions/Exceptions.cpp.i
+
+Exceptions/Exceptions.s: Exceptions/Exceptions.cpp.s
+
+.PHONY : Exceptions/Exceptions.s
+
+# target to generate assembly for a file
+Exceptions/Exceptions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\src.dir\build.make CMakeFiles/src.dir/Exceptions/Exceptions.cpp.s
+.PHONY : Exceptions/Exceptions.cpp.s
+
 Headquarter/Headquarter.obj: Headquarter/Headquarter.cpp.obj
 
 .PHONY : Headquarter/Headquarter.obj
@@ -424,6 +451,9 @@ help:
 	@echo ... Client/Client.obj
 	@echo ... Client/Client.i
 	@echo ... Client/Client.s
+	@echo ... Exceptions/Exceptions.obj
+	@echo ... Exceptions/Exceptions.i
+	@echo ... Exceptions/Exceptions.s
 	@echo ... Headquarter/Headquarter.obj
 	@echo ... Headquarter/Headquarter.i
 	@echo ... Headquarter/Headquarter.s

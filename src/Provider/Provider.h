@@ -9,10 +9,22 @@
 #include "../Product/Product.h"
 
 class Provider {
+private:
+    unsigned int id;
+    static unsigned int id_aux;
+
+    //stock
+    std::map<Product*, unsigned > products;
 public:
     Provider();
-private:
-    std::map<Product*, int> products;
+    Provider(std::map<Product*, unsigned > products);
+
+    bool removeProduct(Product* product, unsigned number);
+    bool addProduct(Product* product, unsigned number);
+
+    int getNumProduct(Product* product);
+    std::map<Product*, unsigned>getProducts();
+    int getSizeProducts();
 };
 
 

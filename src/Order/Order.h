@@ -10,16 +10,16 @@
 
 class Order {
 private:
-    std::map<Product*, int> products;
+    std::map<Product*, unsigned int> products;
 public:
-    Order(std::map<Product*, int> products);
-    void addProduct(Product* product, int quantity);
+    Order(std::map<Product*, unsigned int> products);
+    void addProduct(Product* product, unsigned int quantity);
     void removeProduct(Product *product);
-    void removeQuantityOfProduct(Product *product, int quantity);
-    int getNumOfProducts();
-    int getNumOfDifProducts();
-    int getSize();
-    int getPrice();
+    void removeQuantityOfProduct(Product *product, unsigned int quantity);
+    unsigned int getNumOfProducts();
+    unsigned int getNumOfDifProducts();
+    unsigned int getSize();
+    float getPrice();
 };
 
 

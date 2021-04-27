@@ -6,20 +6,49 @@
 #define SRC_TRUCK_H
 
 #include "../Order/Order.h"
+#include <queue>
 #include <vector>
 
 class Truck {
-private:
-    int id;
-    unsigned int capacity;
-    unsigned int load;
-    std::vector<Order*> orders;
 public:
-    Truck(unsigned int capacity,unsigned int load);
-    unsigned int getLoad() const;
-    unsigned int getCapacity() const;
+    Truck(int capacity);
+
+    //get methods
+    int getLoad();
+    int getCapacity();
+
+    //when a order is delivered
+    void removeOrder();
     void addOrder(Order* order);
+
+    //when the truck is full -> addOrder()
+    bool isFull();
+
+    //return the update success
+    bool updateLoad(int load);
+
+    //update orders and path
+    void deliveryDone();
+
+    void addPath(std::vector<int> newPath);
+    void removePath();
+
+private:
+    int capacity;
+    int load;
+    unsigned int id;
+    static unsigned int id_aux;
+
+    std::queue<Order*> orders;
+    //a rota que a truck vai ter de fazer , para já está inteiro, mas é só para irmos fazendo
+    std::queue<std::vector<int>> path;
+>>>>>>> 6bec72a8f7cd761d5cbb64f3f146a78cd1fb4374
 };
+
+/*
+ * Notas
+ * ->eliminar uma encomenda espefica
+ */
 
 
 #endif //SRC_TRUCK_H

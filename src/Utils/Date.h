@@ -32,7 +32,7 @@ public:
     unsigned int getMonth() const;
     unsigned int getYear() const;
     friend std::ostream& operator<<(std::ostream& os, const Date& dt);
-    bool validDate
+    bool validDate;
 };
 
 
