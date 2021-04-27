@@ -9,13 +9,17 @@
 #include "../Product/Product.h"
 
 class Order {
-public:
-    Order();
-    void addProduct(Product* product, int quantity);
-    int getSize();
-    int getPrice();
 private:
     std::map<Product*, int> products;
+public:
+    Order(std::map<Product*, int> products);
+    void addProduct(Product* product, int quantity);
+    void removeProduct(Product *product);
+    void removeQuantityOfProduct(Product *product, int quantity);
+    int getNumOfProducts();
+    int getNumOfDifProducts();
+    int getSize();
+    int getPrice();
 };
 
 

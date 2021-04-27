@@ -9,15 +9,16 @@
 #include <vector>
 
 class Truck {
-public:
-    Truck(int capacity, int load);
-    int getLoad();
-    int getCapacity();
-    void addOrder(Order* order);
 private:
-    int capacity;
-    int load;
+    int id;
+    unsigned int capacity;
+    unsigned int load;
     std::vector<Order*> orders;
+public:
+    Truck(unsigned int capacity,unsigned int load);
+    unsigned int getLoad() const;
+    unsigned int getCapacity() const;
+    void addOrder(Order* order);
 };
 
 

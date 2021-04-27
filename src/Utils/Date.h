@@ -5,16 +5,22 @@
 #ifndef SRC_DATE_H
 #define SRC_DATE_H
 
-class InvalidDay extends Exception{
-}
+#include <exception>
+#include <iostream>
 
-class InvalidMonth extends Exception{
-}
+class InvalidDate : std::exception {
+private:
+    unsigned int day;
+    unsigned int month;
+public:
+    InvalidDate(unsigned int day, unsigned int month){
+        this->day = day;
+        this->month = month;
 
-class InvalidYear extends Exception{
-}
-
+    std::cout << "Date Error: Month: " << month << " Day: " << day << std::endl;
+    };
 };
+
 class Date {
 private:
     unsigned int day;
@@ -22,13 +28,11 @@ private:
     unsigned int year;
 public:
     Date(unsigned int day,unsigned int month,unsigned int year);
-    void setDay(unsigned int day);
     unsigned int getDay() const;
-    void setMonth(unsigned int month);
     unsigned int getMonth() const;
-    void setYear(unsigned int year);
     unsigned int getYear() const;
-    friend ostream& operator<<(ostream& os, const Date& dt);
+    friend std::ostream& operator<<(std::ostream& os, const Date& dt);
+    bool validDate
 };
 
 

@@ -7,6 +7,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/src.dir/Product/Product.cpp.obj"
   "CMakeFiles/src.dir/Provider/Provider.cpp.obj"
   "CMakeFiles/src.dir/Truck/Truck.cpp.obj"
+  "CMakeFiles/src.dir/Utils/Date.cpp.obj"
   "CMakeFiles/src.dir/main.cpp.obj"
   "libsrc.dll.a"
   "src.exe"

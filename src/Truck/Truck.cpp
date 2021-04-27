@@ -4,16 +4,16 @@
 
 #include "Truck.h"
 
-Truck::Truck(int capacity, int load) : capacity(capacity), load(load) {}
+Truck::Truck(unsigned int capacity,unsigned int load) : capacity(capacity), load(load) {}
 
-int Truck::getLoad() {
-    return 0;
+unsigned int Truck::getLoad() const{
+    return load;
 }
 
-int Truck::getCapacity() {
-    return 0;
+unsigned int Truck::getCapacity() const{
+    return capacity;
 }
 
 void Truck::addOrder(Order *order) {
-
+    orders.push_back(order);
 }

@@ -7,6 +7,8 @@
 
 
 class Interface {
+public:
+    void printBanner();
 
 };
 

@@ -6,10 +6,19 @@
 
 using namespace std;
 
-Client::Client(std::string name, std::string user_name, Date date, Vertex<T> *address, unsigned int capital){
+Client::Client(std::string name, std::string user_name, Date date, Vertex<T> *address, unsigned int capital) {
+    this->name = name;
+    this->user_name = user_name;
+    this->birthday_date = date;
+    this->address = address;
+    this->capital = capital;
 }
 
-Client::Client(std::string name, std::string user_name, Date date, Vertex<T> *address) {
+Client::Client(std::string name, std::string user_name, Date date, Vertex<T> *address){
+    this->name = name;
+    this->user_name = user_name;
+    this->birthday_date = date;
+    this->address = address;
 }
 
 void Client::setName(string name) {

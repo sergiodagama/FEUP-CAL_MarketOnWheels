@@ -4,21 +4,36 @@
 
 #include "Product.h"
 
-Product::Product(std::string &name, std::string cost, int size) : name(name), price(cost), size(size) {//lança exceção de preço negativo
-    }
-
-std::string Product::getName() {
-    return std::__cxx11::string();
+Product::Product(std::string &name, unsigned int price, unsigned int size) {
+    this->name = name;
+    this->price = price;
+    this->size = size;
 }
 
-int Product::getPrice() {
-    return 0;
+std::string Product::getName() const{
+    return name;
 }
 
-void Product::setPrice(int price) { //lança exceção se preço negativo
-
+void Product::setName(std::string name) {
+    this->name = name;
 }
 
-int Product::getSize() {
-    return 0;
+unsigned int Product::getPrice() const{
+    return price;
 }
+
+void Product::setPrice(unsigned int price) {
+    this->price = price;
+}
+
+unsigned int Product::getSize() const{
+    return size;
+}
+
+void Product::setSize(unsigned int size) {
+    this->size = size;
+}
+
+
+
+

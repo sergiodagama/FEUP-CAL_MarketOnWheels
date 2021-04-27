@@ -3,3 +3,7 @@
 //
 
 #include "Headquarter.h"
+
+Headquarter::Headquarter(unsigned int capital) {
+    this->capital = capital;
+}
