@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-CMakeFiles/src.dir/main.cpp.obj CMakeFiles/src.dir/Client/Client.cpp.obj CMakeFiles/src.dir/Headquarter/Headquarter.cpp.obj CMakeFiles/src.dir/Map/Map.cpp.obj CMakeFiles/src.dir/Order/Order.cpp.obj CMakeFiles/src.dir/Product/Product.cpp.obj CMakeFiles/src.dir/Provider/Provider.cpp.obj CMakeFiles/src.dir/Truck/Truck.cpp.obj CMakeFiles/src.dir/Interface/Interface.cpp.obj CMakeFiles/src.dir/Utils/Date.cpp.obj
-=======
-CMakeFiles/src.dir/main.cpp.obj CMakeFiles/src.dir/Client/Client.cpp.obj CMakeFiles/src.dir/Headquarter/Headquarter.cpp.obj CMakeFiles/src.dir/Map/Map.cpp.obj CMakeFiles/src.dir/Order/Order.cpp.obj CMakeFiles/src.dir/Product/Product.cpp.obj CMakeFiles/src.dir/Provider/Provider.cpp.obj CMakeFiles/src.dir/Truck/Truck.cpp.obj CMakeFiles/src.dir/Interface/Interface.cpp.obj CMakeFiles/src.dir/Exceptions/Exceptions.cpp.obj
->>>>>>> 6bec72a8f7cd761d5cbb64f3f146a78cd1fb4374
