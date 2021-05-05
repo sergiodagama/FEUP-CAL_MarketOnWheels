@@ -14,8 +14,8 @@ unsigned int Order::getSize() {
     int size;
     for (auto it = products.begin(); it != products.end(); it++) {
         size += (it->second * it->first->getSize());
-        return size;
     }
+    return size;
 }
 
 float Order::getPrice() {
