@@ -21,6 +21,7 @@ public:
     unsigned int getSize();
     void setPrice(float price);
     void setSize(unsigned int size);
+
 };
 
 

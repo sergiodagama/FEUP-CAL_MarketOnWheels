@@ -6,11 +6,11 @@
 #define SRC_HEADQUARTER_H
 
 #include <vector>
-#include "..\Order\Order.h"
-#include "..\Product\Product.h"
-#include "..\Provider\Provider.h"
-#include "..\Client\Client.h"
-#include "..\Truck\Truck.h"
+#include "../Order/Order.h"
+#include "../Product/Product.h"
+#include "../Provider/Provider.h"
+#include "../Client/Client.h"
+#include "../Truck/Truck.h"
 
 class Headquarter {
 private:
@@ -18,7 +18,7 @@ private:
     std::vector<Provider*> providers;
     std::vector<Truck*> trucks;
     unsigned int capital;
-    Vertex<T>* address;
+    //Vertex<T>* address;
 public:
     Headquarter(unsigned int capital);
 };

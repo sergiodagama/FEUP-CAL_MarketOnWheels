@@ -11,7 +11,7 @@
 #include <limits>
 #include <cmath>
 #include <algorithm>
-#include "MutablePriorityQueue.h"// falta adicionar mutable
+/*#include "MutablePriorityQueue.h"// falta adicionar mutable*/
 
 
 template <class T> class Edge;
@@ -43,7 +43,7 @@ public:
 
     bool operator<(Vertex<T> & vertex) const; // // required by MutablePriorityQueue
     friend class Graph<T>;
-    friend class MutablePriorityQueue<Vertex<T>>;
+  /*  friend class MutablePriorityQueue<Vertex<T>>;*/
 };
 
 
@@ -220,7 +220,7 @@ void Graph<T>::dijkstraShortestPath(const T &origin) {
     if(start == NULL) return;
     start->dist = 0;
 
-    MutablePriorityQueue<Vertex<T>> vertex_queue;
+  /*  MutablePriorityQueue<Vertex<T>> vertex_queue;
 
     vertex_queue.insert(start);
 
@@ -244,7 +244,7 @@ void Graph<T>::dijkstraShortestPath(const T &origin) {
                 else vertex_queue.decreaseKey(itr.dest);
             }
         }
-    }
+    }*/
 }
 
 

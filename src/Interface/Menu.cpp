@@ -16,7 +16,7 @@ Menu::Menu(std::string title, std::vector<std::string> option_names){
 }
 
 void changeTitle(std::string new_title){
-    this->title = new_title;
+  //  this->title = new_title;
 }
 
 void Menu::addOption(std::string option_name){
@@ -50,7 +50,7 @@ void Menu::show(){
     switch (style_id) {
         case 0: {
             cout << "---------- " << title << " ----------" << endl;
-            cout << "please input the correspondent number"
+            cout << "please input the correspondent number";
             for(int i = 1; i <= option_names.size(); i++){
                 cout << i << " -> " << option_names.at(i - 1) << endl;
             }
@@ -63,7 +63,7 @@ void Menu::show(){
             break;
         }
         default:
-            throw InvalidStyle();
+          //  throw InvalidStyle();
             break;
     }
 }

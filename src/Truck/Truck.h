@@ -42,7 +42,6 @@ private:
     std::queue<Order*> orders;
     //a rota que a truck vai ter de fazer , para já está inteiro, mas é só para irmos fazendo
     std::queue<std::vector<int>> path;
->>>>>>> 6bec72a8f7cd761d5cbb64f3f146a78cd1fb4374
 };
 
 /*

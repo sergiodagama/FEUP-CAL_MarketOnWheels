@@ -5,7 +5,7 @@
 #include "Product.h"
 
 
-std::string Product::getName() const{
+std::string Product::getName(){
     return name;
 }
 
@@ -13,12 +13,12 @@ void Product::setName(std::string name) {
     this->name = name;
 }
 
-float Product::getPrice() const{
+float Product::getPrice(){
     return price;
 }
 
 
-unsigned int Product::getSize() const{
+unsigned int Product::getSize() {
     return size;
 }
 

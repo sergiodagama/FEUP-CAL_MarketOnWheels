@@ -5,12 +5,12 @@
 #include "Client.h"
 
 using namespace std;
-
+/*
 Client::Client(std::string name, std::string user_name, Date date, Vertex<T> *address, unsigned int capital) {
     this->name = name;
     this->user_name = user_name;
     this->birthday_date = date;
-    this->address = address;
+    //this->address = address;
     this->capital = capital;
 }
 
@@ -18,8 +18,8 @@ Client::Client(std::string name, std::string user_name, Date date, Vertex<T> *ad
     this->name = name;
     this->user_name = user_name;
     this->birthday_date = date;
-    this->address = address;
-}
+  //  this->address = address;
+}*/
 
 void Client::setName(string name) {
     this->name = name;

@@ -21,17 +21,18 @@ Provider::Provider(std::map<Product *, unsigned > products) {
 
 bool Provider::removeProduct(Product* product, unsigned number) {
     //Product does not exist
-    if(products.at(product) == NULL) return false;
+    /*if(products.at(product) == NULL) return false;
     else
     {
         products.erase(product);
         return true;
-    }
+    }*/
+    return false;
 }
 
 bool Provider::addProduct(Product *product, unsigned number) {
     //Product does not exist
-    if(products.at(product) == NULL)
+   /* if(products.at(product) == NULL)
     {
         products[product] = number;
     }
@@ -39,7 +40,8 @@ bool Provider::addProduct(Product *product, unsigned number) {
     {
         products.at(product) += number;
         return true;
-    }
+    }*/
+    return false;
 }
 
 int Provider::getNumProduct(Product *product) {
