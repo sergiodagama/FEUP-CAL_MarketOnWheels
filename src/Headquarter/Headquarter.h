@@ -11,6 +11,7 @@
 #include "../Provider/Provider.h"
 #include "../Client/Client.h"
 #include "../Truck/Truck.h"
+#include "../Position/Position.h"
 
 class Headquarter {
 private:
@@ -19,8 +20,13 @@ private:
     std::vector<Truck*> trucks;
     unsigned int capital;
     //Vertex<T>* address;
+    Graph<Position> graph;
 public:
     Headquarter(unsigned int capital);
+    void importMap(std::string nodes_path, std::string edges_path);  //imports the designated map in files into graph
+    Graph<Position> getGraph() const;
+
+    Position getPositionById(double id);
 };
 
 
