@@ -38,4 +38,5 @@ add_executable(MarketOnWheels
         src/Utils/Date.cpp
         src/Utils/Date.h
         src/Utils/Graph.h
-        src/main.cpp)
+        src/main.cpp
+        src/Position/Position.cpp src/Position/Position.h src/Utils/Utils.cpp src/Utils/Utils.h)

@@ -1,6 +1,19 @@
 #include <iostream>
 
+#include "Headquarter.h"
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "Market On Wheels" << std::endl;
+
+    Headquarter headquarter(1000000);
+
+    //--------------------primitive tests to importMap function-------------------------
+
+    headquarter.importMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+
+    std::cout << "Size: " << headquarter.getGraph().getVertexSet().size() << std::endl;
+
+    //------------------end primitive tests to importMap function------------------------
+
     return 0;
 }
