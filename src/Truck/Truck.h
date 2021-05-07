@@ -9,11 +9,15 @@
 #include <queue>
 #include <vector>
 
+//typedef enum {assigned, delivering, completed} state_t;
+
 class Truck {
 public:
     Truck(int capacity);
+    Truck(unsigned id, int capacity, int load, std::queue<Order*> orders);
 
     //get methods
+    unsigned int getId();
     int getLoad();
     int getCapacity();
 
@@ -38,6 +42,8 @@ private:
     int load;
     unsigned int id;
     static unsigned int id_aux;
+
+    //state_t state;
 
     std::queue<Order*> orders;
     //a rota que a truck vai ter de fazer , para já está inteiro, mas é só para irmos fazendo

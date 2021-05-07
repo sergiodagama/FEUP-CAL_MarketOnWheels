@@ -22,7 +22,7 @@ Headquarter::Headquarter(unsigned int capital) {
  * @param nodes_path the path to the file where graph nodes are stored
  * @param edges_path the path to the file where graph edges are stored
  */
-void Headquarter::importMap(std::string nodes_path, std::string edges_path) {
+void Headquarter::loadMap(std::string nodes_path, std::string edges_path) {
     ifstream nodesFile(nodes_path);
     ifstream edgesFile(edges_path);
 
@@ -110,4 +110,57 @@ Graph<Position> Headquarter::getGraph() const {
 
 Position Headquarter::getPositionById(double id) {
     return graph.findVertex(Position(id, 0, 0))->getInfo();
+}
+
+/*id estadoTruck capacidade load
+Idorder1 Idorder2
+END TRUCK*/
+
+void Headquarter::loadTrucks(std::string truck_path) {
+    ifstream trucksFile(truck_path);
+
+    string line;
+    unsigned int id;
+    int capacity, load;
+    queue<Order*> orders;
+    bool doneTruck = false;
+    bool isFirstDone = false;
+
+    //reading nodes file
+    if (trucksFile.is_open()) {
+        while(getline(trucksFile,line)){
+            if(isFirstDone)
+            {
+
+            }
+            if(line == "END TRUCK"){
+                doneTruck = true;
+                Truck* newTruck = new Truck(id, capacity, load, orders);
+                trucks.push_back(newTruck);
+                continue;
+            }
+            else{
+
+                //splitting each line into it's corresponding values
+                stringstream ss(line);
+
+                string splitted;
+                ss >> id >> capacity >> load;
+
+            }
+        }
+        trucksFile.close();
+    }
+    else cout << "Unable to open trucks file";
+
+
+}
+
+void Headquarter::showTrucks() {
+
+    for(int i = 0; i < trucks.size(); i++)
+    {
+        cout << "ID: " << trucks[i]->getId() << " capacity: " << trucks[i]->getCapacity() << " load: "<< trucks[i]->getLoad() << endl;
+    }
+
 }

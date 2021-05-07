@@ -1,3 +1,6 @@
-id estadoTruck capacidade load
-Idorder1 Idorder2
+1 2 3
+END TRUCK
+4 5 6
+END TRUCK
+7 8 6
 END TRUCK

@@ -23,8 +23,11 @@ private:
     Graph<Position> graph;
 public:
     Headquarter(unsigned int capital);
-    void importMap(std::string nodes_path, std::string edges_path);  //imports the designated map in files into graph
+    void loadMap(std::string nodes_path, std::string edges_path);  //imports the designated map in files into graph
+    void loadTrucks(std::string truck_path);
     Graph<Position> getGraph() const;
+
+    void showTrucks();
 
     Position getPositionById(double id);
 };
