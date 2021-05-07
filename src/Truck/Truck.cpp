@@ -57,15 +57,35 @@ void Truck::removePath() {
     this->path.pop();
 }
 
-Truck::Truck(unsigned int id, int capacity, int load, std::queue<Order *> orders) {
+Truck::Truck(unsigned int id, state_t state, int capacity, int load) {
     this->id = id;
+    this->state = state;
     this->capacity = capacity;
     this->load = load;
-    this->orders = orders;
 }
 
 unsigned int Truck::getId() {
     return this->id;
+}
+
+state_t Truck::getState() {
+    return this->state;
+}
+
+std::string Truck::returnStateString(int state) {
+
+    switch(state)
+    {
+        case 0:
+            return "assign";
+        case 1:
+            return "delivering";
+        case 2:
+            return "completed";
+        default:
+            return " ";
+    }
+
 }
 
 

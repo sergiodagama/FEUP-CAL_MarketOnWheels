@@ -113,7 +113,6 @@ Position Headquarter::getPositionById(double id) {
 }
 
 /*id estadoTruck capacidade load
-Idorder1 Idorder2
 END TRUCK*/
 
 void Headquarter::loadTrucks(std::string truck_path) {
@@ -122,32 +121,23 @@ void Headquarter::loadTrucks(std::string truck_path) {
     string line;
     unsigned int id;
     int capacity, load;
-    queue<Order*> orders;
-    bool doneTruck = false;
-    bool isFirstDone = false;
+    string state;
 
     //reading nodes file
     if (trucksFile.is_open()) {
         while(getline(trucksFile,line)){
-            if(isFirstDone)
-            {
+            //splitting each line into it's corresponding values
+            stringstream ss(line);
+            ss  >> id >> state >> capacity >> load;
 
-            }
-            if(line == "END TRUCK"){
-                doneTruck = true;
-                Truck* newTruck = new Truck(id, capacity, load, orders);
-                trucks.push_back(newTruck);
-                continue;
-            }
-            else{
+            state_t newState;
 
-                //splitting each line into it's corresponding values
-                stringstream ss(line);
+            if(state == "assign") newState = assigned;
+            else if(state == "delivering") newState = delivering;
+            else if(state == "completed") newState = completed;
 
-                string splitted;
-                ss >> id >> capacity >> load;
-
-            }
+            Truck* newTruck = new Truck(id, newState, capacity, load);
+            trucks.push_back(newTruck);
         }
         trucksFile.close();
     }
@@ -160,7 +150,7 @@ void Headquarter::showTrucks() {
 
     for(int i = 0; i < trucks.size(); i++)
     {
-        cout << "ID: " << trucks[i]->getId() << " capacity: " << trucks[i]->getCapacity() << " load: "<< trucks[i]->getLoad() << endl;
+        cout << "ID: " << trucks[i]->getId() << " state: " <<  trucks[i]->returnStateString(trucks[i]->getState()) << " capacity: " << trucks[i]->getCapacity() << " load: "<< trucks[i]->getLoad() << endl;
     }
 
 }
