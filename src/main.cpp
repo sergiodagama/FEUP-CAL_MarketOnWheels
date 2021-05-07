@@ -22,7 +22,7 @@ int main() {
 //Map
 
 //2 - Sara
-//Inventário
+//Inventário -
 //Order - estrutura done
 //Truck - estrutura done
 

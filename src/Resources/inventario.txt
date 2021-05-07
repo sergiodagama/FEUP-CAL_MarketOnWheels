@@ -1,1 +1,3 @@
+idProvider
+idProduct quantidade
 END INVENTORY
