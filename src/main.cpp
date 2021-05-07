@@ -17,3 +17,15 @@ int main() {
 
     return 0;
 }
+
+//1 - Sergio
+//Map
+
+//2 - Sara
+//Inventário
+//Order - estrutura done
+//Truck - estrutura done
+
+//3 - EuniceM
+//Provider
+//Client

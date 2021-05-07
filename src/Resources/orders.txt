@@ -1,0 +1,8 @@
+id estadoDaEncomenda date clientId providerId truckId finalPrice
+idProduct Quantidade
+END ORDER
+id estadoDaEncomenda clientId
+idProduct Quantidade
+END ORDER
+...
+
