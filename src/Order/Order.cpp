@@ -18,7 +18,7 @@ unsigned int Order::getSize() {
     return size;
 }
 
-float Order::getPrice() {
+float Order::calculatePrice() {
     float price;
     for(auto it = products.begin(); it != products.end(); it++){
         price += (it->second * it->first->getPrice());
@@ -54,5 +54,52 @@ void Order::removeQuantityOfProduct(Product *product, unsigned int quantity) {
 
 void Order::removeProduct(Product *product) {
     products.erase(product);
+}
+
+Order::Order(unsigned int id, ::state state, Date date, unsigned int idClient, unsigned int idProvider,
+             unsigned int idTruck, double finalPrice) {
+    this->id = id;
+    this->state = state;
+    this->date = date;
+    this->idClient = idClient;
+    this->idProvider = idProvider;
+    this->idTruck = idTruck;
+    this->finalPrice = finalPrice;
+
+}
+
+unsigned int Order::getId()
+{
+    return this->id;
+}
+
+::state Order::getState()
+{
+    return this->state;
+}
+
+Date Order::getDate()
+{
+    return this->date;
+}
+
+unsigned int Order::getIdClient()
+{
+    return this->idClient;
+}
+
+unsigned int Order::getIdProvider()
+{
+    return this->idProvider;
+}
+
+unsigned int Order::getIdTruck()
+{
+    return this->idTruck;
+}
+
+double Order::getFinalPrice()
+{
+    return this->finalPrice;
 }
 

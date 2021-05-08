@@ -112,16 +112,13 @@ Position Headquarter::getPositionById(double id) {
     return graph.findVertex(Position(id, 0, 0))->getInfo();
 }
 
-/*id estadoTruck capacidade load
-END TRUCK*/
-
 void Headquarter::loadTrucks(std::string truck_path) {
     ifstream trucksFile(truck_path);
 
     string line;
     unsigned int id;
     int capacity, load;
-    string state;
+    int state;
 
     //reading nodes file
     if (trucksFile.is_open()) {
@@ -130,27 +127,24 @@ void Headquarter::loadTrucks(std::string truck_path) {
             stringstream ss(line);
             ss  >> id >> state >> capacity >> load;
 
-            state_t newState;
-
-            if(state == "assign") newState = assigned;
-            else if(state == "delivering") newState = delivering;
-            else if(state == "completed") newState = completed;
-
-            Truck* newTruck = new Truck(id, newState, capacity, load);
+            Truck* newTruck = new Truck(id, static_cast<::state>(state), capacity, load);
             trucks.push_back(newTruck);
         }
         trucksFile.close();
     }
     else cout << "Unable to open trucks file";
-
-
 }
+
+
 
 void Headquarter::showTrucks() {
 
     for(int i = 0; i < trucks.size(); i++)
     {
-        cout << "ID: " << trucks[i]->getId() << " state: " <<  trucks[i]->returnStateString(trucks[i]->getState()) << " capacity: " << trucks[i]->getCapacity() << " load: "<< trucks[i]->getLoad() << endl;
+        cout << "ID: " << trucks[i]->getId() << " state: " <<  ::returnStateString(trucks[i]->getState()) << " capacity: " << trucks[i]->getCapacity() << " load: "<< trucks[i]->getLoad() << endl;
     }
 
 }
+
+
+

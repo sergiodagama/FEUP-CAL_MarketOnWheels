@@ -9,18 +9,16 @@
 #include <queue>
 #include <vector>
 
-typedef enum {assigned, delivering, completed} state_t;
-
 class Truck {
 public:
     Truck(int capacity);
-    Truck(unsigned id, state_t state, int capacity, int load);
+    Truck(unsigned id, state state, int capacity, int load);
 
     //get methods
     unsigned int getId();
     int getLoad();
     int getCapacity();
-    state_t getState();
+    state getState();
 
     //when a order is delivered
     void removeOrder();
@@ -31,7 +29,6 @@ public:
 
     //return the update success
     bool updateLoad(int load);
-    std::string returnStateString(int state);
 
     //update orders and path
     void deliveryDone();
@@ -39,18 +36,20 @@ public:
     void addPath(std::vector<int> newPath);
     void removePath();
 
+    void loadOrders(std::string order_path);
+    void showOrders();
+
 private:
     int capacity;
     int load;
     unsigned int id;
     static unsigned int id_aux;
 
-    state_t state;
+    state state;
 
     std::queue<Order*> orders;
     //a rota que a truck vai ter de fazer , para já está inteiro, mas é só para irmos fazendo
     std::queue<std::vector<int>> path;
-
 
 };
 

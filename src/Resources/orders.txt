@@ -1,8 +1,1 @@
-id estadoDaEncomenda date clientId providerId truckId finalPrice
-idProduct Quantidade
-END ORDER
-id estadoDaEncomenda clientId
-idProduct Quantidade
-END ORDER
-...
-
+1 assign 12/2/3 1 1 1 23.5

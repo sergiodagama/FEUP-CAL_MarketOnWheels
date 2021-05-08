@@ -36,3 +36,11 @@ ostream &operator<<(ostream &os, const Date &date) {
     os << date.day << '/' << date.month << '/' << date.year;
     return os;
 }
+
+Date::Date(std::string dateString) {
+    //parsing
+}
+
+Date::Date() {
+
+}

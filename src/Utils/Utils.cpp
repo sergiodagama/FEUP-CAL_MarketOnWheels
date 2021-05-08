@@ -35,3 +35,19 @@ long double distanceBetweenTwoPos(Position position1, Position position2) {
 
     return res * EARTH_RADIUS;
 }
+
+std::string returnStateString(int state) {
+
+    switch(state)
+    {
+        case 0:
+            return "assign";
+        case 1:
+            return "delivering";
+        case 2:
+            return "completed";
+        default:
+            return " ";
+    }
+
+}

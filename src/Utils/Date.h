@@ -15,6 +15,9 @@ private:
     unsigned int year;
 public:
     Date(unsigned int day,unsigned int month,unsigned int year);
+    Date(std::string dateString);
+    Date();
+
     unsigned int getDay() const;
     unsigned int getMonth() const;
     unsigned int getYear() const;
