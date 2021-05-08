@@ -35,6 +35,27 @@ public:
     unsigned int getId() const;
 
     /**
+     * Gets the client name
+     *
+     * @return the client name
+     */
+    std::string getName() const;
+
+    /**
+     * Gets the client user name
+     *
+     * @return the client user name
+     */
+    std::string getUserName() const;
+
+    /**
+     * Gets the address of the client
+     *
+     * @return the address of the client
+     */
+    Position* getAddress() const;
+
+    /**
     * Sets id of client
     */
     void setId(unsigned int id);
@@ -47,25 +68,11 @@ public:
     void setName(const std::string& name);
 
     /**
-     * Gets the client name
-     *
-     * @return the client name
-     */
-    std::string getName() const;
-
-    /**
      * Sets the user_name of the client
      *
      * @param user_name the client user name
      */
     void setUserName(const std::string& user_name);
-
-    /**
-     * Gets the client user name
-     *
-     * @return the client user name
-     */
-    std::string getUserName() const;
 
     /**
      * Sets the address of the client
@@ -74,12 +81,6 @@ public:
      */
     void setAddress(Position *position);
 
-    /**
-     * Gets the address of the client
-     *
-     * @return the address of the client
-     */
-    Position* getAddress() const;
 
     /**
      * Overload to << operator of Client

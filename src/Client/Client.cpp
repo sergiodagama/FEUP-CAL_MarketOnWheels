@@ -16,6 +16,18 @@ unsigned int Client::getId() const {
     return id;
 }
 
+std::string Client::getName() const {
+    return name;
+}
+
+std::string Client::getUserName() const {
+    return user_name;
+}
+
+Position *Client::getAddress() const {
+    return address;
+}
+
 void Client::setId(unsigned int id) {
     this->id = id;
 }
@@ -24,24 +36,12 @@ void Client::setName(const string& name) {
     this->name = name;
 }
 
-std::string Client::getName() const {
-    return name;
-}
-
 void Client::setUserName(const string& user_name) {
     this->user_name = user_name;
 }
 
-std::string Client::getUserName() const {
-    return user_name;
-}
-
 void Client::setAddress(Position *position) {
     this->address = position;
-}
-
-Position *Client::getAddress() const {
-    return address;
 }
 
 ostream &operator<<(ostream &os, const Client &client) {
@@ -50,7 +50,6 @@ ostream &operator<<(ostream &os, const Client &client) {
     os << (*client.address).getId() << endl;
     return os;
 }
-
 
 istream &operator>>(istream &is, Client &client) {
     is >> client.id >> client.name >> client.user_name >> *client.address;

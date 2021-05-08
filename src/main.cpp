@@ -2,7 +2,7 @@
 #include <Menu.h>
 
 int main() {
-    Headquarter headquarter(1000000);
+    Headquarter headquarter("123");
 
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
     //std::map<Product *, unsigned int> products;
@@ -19,7 +19,7 @@ int main() {
     headquarter.addProvider(provider2);*/
 
     //headquarter.saveProvider("../src/Resources/providers.txt");
-  /*  headquarter.loadProvider("../src/Resources/providers.txt");
+    /*headquarter.loadProvider("../src/Resources/providers.txt");
     headquarter.showProviders();*/
 
     std::cout << "|||||||| Market On Wheels ||||||||" << std::endl << std::endl;
@@ -63,13 +63,13 @@ int main() {
         main_menu.show();
         unsigned int user_category = main_menu.getInput();
         switch (user_category) {
-            //error on input
+            //exit option
             case 0: {
                 std::cout << "Goodbye" << std::endl;
                 exit = true;
                 break;
             }
-                //client area
+            //client area
             case 1: {
                 unsigned int client_id;
                 std::cout << "Enter your client id: " << std::endl;
@@ -81,7 +81,7 @@ int main() {
                 } while (std::cin.fail() || headquarter.getClientById(client_id) == nullptr);
                 break;
             }
-                //provider area
+            //provider area
             case 2: {
                 unsigned int provider_id;
                 std::cout << "Enter your provider id: " << std::endl;
@@ -102,7 +102,7 @@ int main() {
                     std::cin >> admin_pass;
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                } while (std::cin.fail() || headquarter.getAdminPassword() == admin_pass);
+                } while (std::cin.fail() || headquarter.getAdminPassword() != admin_pass);
                 break;
             }
             //registering area
@@ -131,7 +131,6 @@ int main() {
                     std::cin >> address;
 
                     headquarter.addClient(name, userName, address);
-
                 } else {
                     std::cout << "Hello Provider\n";
                     break;
@@ -141,8 +140,5 @@ int main() {
         }
     }
     headquarter.saveData("../src/Resources/clients.txt", "", "");
-    /*std::ofstream clientFile("../src/Resources/clients.txt");
-    clientFile << *client;*/
-
     return 0;
 }

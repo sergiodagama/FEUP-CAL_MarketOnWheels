@@ -2,19 +2,21 @@
 
 using namespace std;
 
-/**
- * Headquarters constructor
- * @param capital the capital (funds) that the company has
- */
-Headquarter::Headquarter(unsigned int capital) {
-    this->capital = capital;
+Headquarter::Headquarter(std::string adminPassword) : admin_password(adminPassword) {
 }
 
-/**
- * Gets the Graph of the map that is being used
- *
- * @return the graph of the map
- */
+//##################### GETTERS #########################################
+
+//##################### Add methods #####################################
+
+//##################### Load data methods ###############################
+
+//##################### Save data methods ###############################
+
+//##################### Show collections methods ########################
+
+//##################### Search methods ##################################
+
 Graph<Position> Headquarter::getGraph() const {
     return graph;
 }
