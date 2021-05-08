@@ -1,3 +1,4 @@
+
 #include "Headquarter.h"
 
 using namespace std;
@@ -136,7 +137,7 @@ void Headquarter::loadMap(const std::string& nodes_path, const std::string& edge
     else cout << "Unable to open edges file";
 }
 
-void Headquarter::loadData(const string &clients_path, const string &providers_path, const string &trucks_path) {
+void Headquarter::loadData(const string &clients_path, const string &providers_path, const string &trucks_path, const std::string& orders_path) {
     //clients
     ifstream clientFile(clients_path);
 
@@ -150,7 +151,7 @@ void Headquarter::loadData(const string &clients_path, const string &providers_p
     }
     else cout << "Unable to open clients file" << endl;
     clientFile.close();
-/*
+
     //providers
     ifstream providerFile(providers_path);
 
@@ -178,8 +179,22 @@ void Headquarter::loadData(const string &clients_path, const string &providers_p
     }
     else cout << "Unable to open trucks file" << endl;
     truckFile.close();
-    */
+
+    //orders
+    ifstream orderFile(orders_path);
+
+    Order* order;
+
+    if(orderFile.is_open()){
+        while(!orderFile.eof()){
+            orderFile >> *order;
+            addOrder(order);
+        }
+    }
+    else cout << "Unable to open orders file" << endl;
+    orderFile.close();
 }
+
 
 void Headquarter::loadProvider(const string &providers_path) {
     //providers
@@ -218,20 +233,20 @@ void Headquarter::saveProvider(const string &providers_path) {
 
 }
 
-void Headquarter::saveData(const string &clients_path, const string &providers_path, const string &trucks_path) {
+void Headquarter::saveData(const string &clients_path, const string &providers_path, const string &trucks_path, const std::string& orders_path) {
     //clients
     ofstream clientFile(clients_path);
 
     if(clientFile.is_open()){
         for(auto it = clients.begin(); it != clients.end(); it++) {
-            clientFile << *(*it);
+            clientFile << (*it);
         }
     }
     else cout << "Unable to open clients file" << endl;
     clientFile.close();
 
     //providers
-    /*ofstream providerFile(providers_path);
+    ofstream providerFile(providers_path);
 
     if(providerFile.is_open()){
         for(auto it = providers.begin(); it != providers.end(); it++) {
@@ -250,7 +265,18 @@ void Headquarter::saveData(const string &clients_path, const string &providers_p
         }
     }
     else cout << "Unable to open trucks file" << endl;
-    truckFile.close();*/
+    truckFile.close();
+
+    //orders
+    ofstream orderFile(orders_path);
+
+    if(orderFile.is_open()){
+        for(auto it = orders.begin(); it != orders.end(); it++) {
+            orderFile << (*it);
+        }
+    }
+    else cout << "Unable to open orders file" << endl;
+    orderFile.close();
 }
 
 //##################### Show collections methods ########################
@@ -311,4 +337,3 @@ bool Headquarter::isClientRegistered(std::string userName) {
     }
     return false;
 }
-

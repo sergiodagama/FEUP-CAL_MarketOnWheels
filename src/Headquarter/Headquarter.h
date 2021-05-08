@@ -87,6 +87,7 @@ public:
      */
     void loadMap(const std::string& nodes_path,const std::string& edges_path);  //imports the designated map in files into graph  //TODO change to exceptions
 
+
     /**
      * Loads all company data into the program
      *
@@ -94,7 +95,7 @@ public:
      * @param providers_path path to the providers file
      * @param trucks_path path to the trucks file
      */
-    void loadData(const std::string& clients_path, const std::string& providers_path, const std::string& trucks_path);
+    void loadData(const std::string& clients_path, const std::string& providers_path, const std::string& trucks_path, const std::string& orders_path);
 
     /**
      * Function to load the provider data
@@ -116,7 +117,7 @@ public:
      * @param providers_path path to the providers file
      * @param trucks_path path to the trucks file
      */
-    void saveData(const std::string& clients_path, const std::string& providers_path, const std::string& trucks_path);  //TODO change to exeptions
+    void saveData(const std::string& clients_path, const std::string& providers_path, const std::string& trucks_path, const std::string& orders_path);  //TODO change to exeptions
 
     //##################### Show collections methods ########################
 
@@ -130,6 +131,11 @@ public:
      */
     void showProviders();
 
+    /**
+     * Show client
+     */
+    void showClients();
+
     //##################### Search methods ##################################
     /**
      * Gets the position in graph with the id specified
@@ -137,6 +143,7 @@ public:
      * @param id the id of the position to look for
      * @return the position wanted
      */
+
     Position getPositionById(double id);
 
     /**
