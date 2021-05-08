@@ -219,14 +219,14 @@ void Headquarter::saveData(const string &clients_path, const string &providers_p
 
     if(clientFile.is_open()){
         for(auto it = clients.begin(); it != clients.end(); it++) {
-            clientFile << (*it);
+            clientFile << *(*it);
         }
     }
     else cout << "Unable to open clients file" << endl;
     clientFile.close();
 
     //providers
-    ofstream providerFile(providers_path);
+    /*ofstream providerFile(providers_path);
 
     if(providerFile.is_open()){
         for(auto it = providers.begin(); it != providers.end(); it++) {
@@ -245,7 +245,7 @@ void Headquarter::saveData(const string &clients_path, const string &providers_p
         }
     }
     else cout << "Unable to open trucks file" << endl;
-    truckFile.close();
+    truckFile.close();*/
 }
 
 /**
@@ -311,9 +311,6 @@ void Headquarter::addClient(std::string name, std::string userName, double id) {
 
     Client* client = new Client(name, userName, &position);
     addClient(client);
-
-    std::ofstream clientFile("../src/Resources/clients.txt");
-    clientFile << *client;
 }
 
 bool Headquarter::isClientRegistered(std::string userName) {

@@ -124,5 +124,8 @@ int main() {
             }
         }
     }
+    headquarter.saveData("../src/Resources/clients.txt", "", "");
+    /*std::ofstream clientFile("../src/Resources/clients.txt");
+    clientFile << *client;*/
     return 0;
 }
