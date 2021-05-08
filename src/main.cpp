@@ -101,6 +101,19 @@ int main() {
                 } while (std::cin.fail());
                 if (option == 1) {
                     std::cout << "Hello Client\n";
+
+                    std::cout << "What's your name?\n";
+                    std::string name;
+                    std::cin >> name;
+
+                    std::cout << "What's your user name?\n";
+                    std::string userName;
+                    std::cin >> userName;
+
+                    std::cout << "What's your address id?\n";
+                    std::string address;
+                    std::cin >> address;
+
                 } else {
                     std::cout << "Hello Provider\n";
                     break;

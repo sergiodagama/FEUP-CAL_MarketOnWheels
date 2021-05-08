@@ -15,7 +15,7 @@ unsigned int Client::id_aux = 0;
  * @param date the birthday date of the client
  * @param address the address of the client (graph vertex)
  */
-Client::Client(const std::string& name, const std::string& user_name, Date date, Position *address){
+Client::Client(const std::string& name, const std::string& user_name, Position *address){
     this->name = name;
     this->user_name = user_name;
     this->address = address;

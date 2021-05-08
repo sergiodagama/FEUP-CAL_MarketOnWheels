@@ -13,7 +13,7 @@ private:
     std::string user_name;  //TODO IN HEADQUARTER UNIQUE
     Position* address;
 public:
-    Client(const std::string& name, const std::string& user_name, Date date, Position *address);
+    Client(const std::string& name, const std::string& user_name, Position *address);
     unsigned int getId() const;
     void setId(unsigned int id);
     void setName(const std::string& name);
