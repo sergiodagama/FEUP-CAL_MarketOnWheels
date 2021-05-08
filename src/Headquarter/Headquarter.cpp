@@ -7,61 +7,53 @@ Headquarter::Headquarter(std::string adminPassword) : admin_password(adminPasswo
 
 //##################### GETTERS #########################################
 
-//##################### Add methods #####################################
-
-//##################### Load data methods ###############################
-
-//##################### Save data methods ###############################
-
-//##################### Show collections methods ########################
-
-//##################### Search methods ##################################
-
 Graph<Position> Headquarter::getGraph() const {
     return graph;
 }
 
-/**
- * Adds a client to the headquarters database
- *
- * @param client to be added
- */
+string Headquarter::getAdminPassword() const {
+    return admin_password;
+}
+
+
+//##################### Add methods #####################################
+
 void Headquarter::addClient(Client* client) {
     clients.push_back(client);
 }
 
-/**
- * Adds a provider to the headquarters database
- *
- * @param provider to be added
- */
+void Headquarter::addClient(std::string name, std::string userName, double id) {
+    Position position =getPositionById(id);
+    if(position == Position(-1, -1, -1)){
+        std::cout << "You aren't in our map\n";
+        return;
+    }
+
+    if(isClientRegistered(userName)){
+        std::cout << "You are already registered!\n";
+        return;
+    }
+
+    Client* client = new Client(name, userName, &position);
+
+    addClient(client);
+}
+
 void Headquarter::addProvider(Provider *provider) {
     providers.push_back(provider);
 }
 
-/**
- * Adds a truck to the headquarters database
- *
- * @param truck to be added
- */
 void Headquarter::addTruck(Truck *truck) {
     trucks.push_back(truck);
 }
 
-/**
- * Adds an order to the orders made to the company
- *
- * @param order the order to be added
- */
 void Headquarter::addOrder(Order *order) {
     orders.push_back(order);
 }
 
-/**
- * Imports map into graph from file
- * @param nodes_path the path to the file where graph nodes are stored
- * @param edges_path the path to the file where graph edges are stored
- */
+
+//##################### Load data methods ###############################
+
 void Headquarter::loadMap(const std::string& nodes_path, const std::string& edges_path) {
     ifstream nodesFile(nodes_path);
     ifstream edgesFile(edges_path);
@@ -144,26 +136,6 @@ void Headquarter::loadMap(const std::string& nodes_path, const std::string& edge
     else cout << "Unable to open edges file";
 }
 
-/**
- * Gets the position in graph with the id specified
- *
- * @param id the id of the position to look for
- * @return the position wanted
- */
-Position Headquarter::getPositionById(double id) {
-    Vertex<Position> * position = graph.findVertex(Position(id, 0, 0));
-    if(position == NULL)
-        return Position(-1, -1, -1);
-    return position->getInfo();
-}
-
-/**
- * Loads all company data into the program
- *
- * @param clients_path path to the clients file
- * @param providers_path path to the providers file
- * @param trucks_path path to the trucks file
- */
 void Headquarter::loadData(const string &clients_path, const string &providers_path, const string &trucks_path) {
     //clients
     ifstream clientFile(clients_path);
@@ -209,13 +181,43 @@ void Headquarter::loadData(const string &clients_path, const string &providers_p
     */
 }
 
-/**
- * Saves all company data into the program
- *
- * @param clients_path path to the clients file
- * @param providers_path path to the providers file
- * @param trucks_path path to the trucks file
- */
+void Headquarter::loadProvider(const string &providers_path) {
+    //providers
+    ifstream providerFile(providers_path);
+
+    Provider* provider = new Provider();
+
+    int acc = 5;
+
+    if(providerFile.is_open()){
+
+        //while(!providerFile.eof()){
+        while (providerFile >> *provider){
+            addProvider(provider);
+        }
+    }
+
+    else cout << "Unable to open providers file" << endl;
+    providerFile.close();
+}
+
+//##################### Save data methods ###############################
+
+void Headquarter::saveProvider(const string &providers_path) {
+
+    //providers
+    ofstream providerFile(providers_path);
+
+    if(providerFile.is_open()){
+        for(auto it = providers.begin(); it != providers.end(); it++) {
+            providerFile << *(*it);
+        }
+    }
+    else cout << "Unable to open providers file" << endl;
+    providerFile.close();
+
+}
+
 void Headquarter::saveData(const string &clients_path, const string &providers_path, const string &trucks_path) {
     //clients
     ofstream clientFile(clients_path);
@@ -251,9 +253,8 @@ void Headquarter::saveData(const string &clients_path, const string &providers_p
     truckFile.close();*/
 }
 
-/**
- * Displays trucks to user
- */
+//##################### Show collections methods ########################
+
 void Headquarter::showTrucks() {
     if(trucks.empty()){
         cout << "It does not exist any truck yet" << endl;
@@ -265,104 +266,6 @@ void Headquarter::showTrucks() {
     }
 }
 
-/**
- * Gets the headquarters admin password
- *
- * @return the admin password
- */
-string Headquarter::getAdminPassword() const {
-    return admin_password;
-}
-
-/**
- * Gets a specific provider
- *
- * @param id the id of the provider
- * @return the provider wanted if exists, else nullptr
- */
-Provider* Headquarter::getProviderById(unsigned int id) {
-    for(auto it = providers.begin(); it != providers.end(); it++){
-        if((*it)->getId() == id) return (*it);
-    }
-    return nullptr;
-}
-
-/**
- * Gets a specific client
- *
- * @param id the id of the client
- * @return the client wanted if exists, else nullptr
- */
-Client* Headquarter::getClientById(unsigned int id) {
-    for(auto it = clients.begin(); it != clients.end(); it++){
-        if((*it)->getId() == id) return (*it);
-    }
-    return nullptr;
-}
-
-void Headquarter::addClient(std::string name, std::string userName, double id) {
-    Position position =getPositionById(id);
-    if(position == Position(-1, -1, -1)){
-        std::cout << "You aren't in our map\n";
-        return;
-    }
-
-    if(isClientRegistered(userName)){
-        std::cout << "You are already registered!\n";
-        return;
-    }
-
-    Client* client = new Client(name, userName, &position);
-    addClient(client);
-}
-
-bool Headquarter::isClientRegistered(std::string userName) {
-    for(auto i = clients.begin(); i != clients.end(); i++){
-        if((*i)->getUserName() == userName){
-            return true;
-        }
-    }
-    return false;
-}
-
-void Headquarter::saveProvider(const string &providers_path) {
-
-    //providers
-    ofstream providerFile(providers_path);
-
-    if(providerFile.is_open()){
-        for(auto it = providers.begin(); it != providers.end(); it++) {
-            providerFile << *(*it);
-        }
-    }
-    else cout << "Unable to open providers file" << endl;
-    providerFile.close();
-
-}
-
-void Headquarter::loadProvider(const string &providers_path) {
-    //providers
-    ifstream providerFile(providers_path);
-
-    Provider* provider = new Provider();
-
-    int acc = 5;
-
-    if(providerFile.is_open()){
-
-        //while(!providerFile.eof()){
-        while (providerFile >> *provider){
-            addProvider(provider);
-        }
-    }
-
-    else cout << "Unable to open providers file" << endl;
-    providerFile.close();
-}
-
-/**
- * Shows the providers to the user
- */
 void Headquarter::showProviders() {
     if(providers.empty()){
         cout << "It does not exist any provider yet" << endl;
@@ -375,5 +278,37 @@ void Headquarter::showProviders() {
 
     }
 
+}
+
+//##################### Search methods ##################################
+
+Position Headquarter::getPositionById(double id) {
+    Vertex<Position> * position = graph.findVertex(Position(id, 0, 0));
+    if(position == NULL)
+        return Position(-1, -1, -1);
+    return position->getInfo();
+}
+
+Provider* Headquarter::getProviderById(unsigned int id) {
+    for(auto it = providers.begin(); it != providers.end(); it++){
+        if((*it)->getId() == id) return (*it);
+    }
+    return nullptr;
+}
+
+Client* Headquarter::getClientById(unsigned int id) {
+    for(auto it = clients.begin(); it != clients.end(); it++){
+        if((*it)->getId() == id) return (*it);
+    }
+    return nullptr;
+}
+
+bool Headquarter::isClientRegistered(std::string userName) {
+    for(auto i = clients.begin(); i != clients.end(); i++){
+        if((*i)->getUserName() == userName){
+            return true;
+        }
+    }
+    return false;
 }
 
