@@ -81,7 +81,7 @@ std::ostream &operator<<(ostream &os, const Provider &provider) {
     cout << provider.getProducts().size() << endl;
 
     for(auto it = prods.begin(); it != prods.end(); it++){
-        os << it->first << DELIMITER << it->second << endl;
+        os << *it->first << DELIMITER << it->second << endl;
     }
     os << "END" << endl;
     return os;

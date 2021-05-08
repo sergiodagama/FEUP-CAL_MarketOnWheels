@@ -337,7 +337,7 @@ void Headquarter::showProviders() {
     cout << "Id\tName\tUserName\tNumberOfProducts" << endl;
     for(auto it = providers.begin(); it != providers.end(); it++){
         //cout << *(*it);
-        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t";
+        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t" << endl;
 
     }
 
