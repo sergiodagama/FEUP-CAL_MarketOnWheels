@@ -8,6 +8,8 @@ Client::Client(const std::string& name, const std::string& user_name, Position *
     this->name = name;
     this->user_name = user_name;
     this->address = address;
+    id = id_aux;
+    id_aux ++;
 }
 
 unsigned int Client::getId() const {

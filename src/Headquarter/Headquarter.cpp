@@ -176,7 +176,7 @@ void Headquarter::loadData(const string &clients_path, const string &providers_p
     }
     else cout << "Unable to open clients file" << endl;
     clientFile.close();
-
+/*
     //providers
     ifstream providerFile(providers_path);
 
@@ -204,6 +204,7 @@ void Headquarter::loadData(const string &clients_path, const string &providers_p
     }
     else cout << "Unable to open trucks file" << endl;
     truckFile.close();
+    */
 }
 
 /**
