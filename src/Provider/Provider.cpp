@@ -73,18 +73,18 @@ std::string Provider::getUserName() const {
  * @param provider the provider object
  * @return the output stream
  */
-/*std::ostream &operator<<(ostream &os, const Provider &provider) {
+std::ostream &operator<<(ostream &os, const Provider &provider) {
     os << provider.id << DELIMITER << provider.name << DELIMITER;
     os << provider.user_name << endl;
 
-    //map<Product*, unsigned int> prods = provider.getProducts();
+    map<Product*, unsigned int> prods = provider.getProducts();
 
     for(auto it = prods.begin(); it != prods.end(); it++){
         os << it->first << DELIMITER << it->second << endl;
     }
     os << "END" << endl;
     return os;
-}*/
+}
 
 /**
  * Overload to operator >> of Provider
@@ -93,15 +93,15 @@ std::string Provider::getUserName() const {
  * @return the input stream
  */
 std::istream &operator>>(istream &is, Provider &provider) {
-    is >> provider.id >>provider.name >> provider.user_name;
+    is >> provider.id >> provider.name >> provider.user_name;
 
     Product* product;
     unsigned int quantity;
 
-    /*while(reinterpret_cast<const char *>(is.get()) == "END") {
+    while(reinterpret_cast<const char *>(is.get()) == "END") {
         is >> *product >> quantity;
         provider.addProduct(product, quantity);
-    }*/
+    }
     return is;
 }
 

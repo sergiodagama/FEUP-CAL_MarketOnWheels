@@ -317,29 +317,31 @@ void Headquarter::loadProvider(const string &providers_path) {
     //providers
     ifstream providerFile(providers_path);
 
-    Provider provider;
+    Provider* provider = new Provider();
 
     if(providerFile.is_open()){
         while(!providerFile.eof()){
-            providerFile >> provider;
-            addProvider(&provider);
+            providerFile >> *provider;
+            addProvider(provider);
         }
     }
 
     else cout << "Unable to open providers file" << endl;
-    cout << "SIZE: " << providers.size() << endl;
     providerFile.close();
 }
 
+/**
+ * Shows the providers to the user
+ */
 void Headquarter::showProviders() {
-
     if(providers.empty()){
         cout << "It does not exist any truck yet" << endl;
         return;
     }
-    cout << "Id\tCapacity\tLoad\tState" << endl;
+    cout << "Id\tName\tUserName\tNumberOfProducts" << endl;
     for(auto it = providers.begin(); it != providers.end(); it++){
-        cout << (*it)->getId();
+        //cout << *(*it);
+        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t" << (*it)->getProducts().size() << endl;
     }
 
 }
