@@ -1,35 +1,36 @@
-//
-// Created by eunic on 24/04/2021.
-//
-
 #ifndef SRC_CLIENT_H
 #define SRC_CLIENT_H
 
-#include <string>
 #include "../Utils/Graph.h"
 #include "../Utils/Date.h"
-
+#include "../Position/Position.h"
 
 class Client {
 private:
-    unsigned int id;
+    unsigned int id{};
+    static unsigned int id_aux;
     std::string name;
-    std::string user_name;
-    Date birthday_date;
-    //Vertex<T>* address;
+    std::string user_name;  //TODO IN HEADQUARTER UNIQUE
+    Date birthday_date{};
+    Position* address;
     unsigned int capital;
 public:
-    //Client(std::string name, std::string user_name, Date date, Vertex<T>* address, unsigned int capital);
-    //Client(std::string name, std::string user_name, Date date, Vertex<T>* address);
-    void setName(std::string name);
+    Client(const std::string& name, const std::string& user_name, Date date, Position *address, unsigned int capital);
+    Client(const std::string& name, const std::string& user_name, Date date, Position *address);
+    unsigned int getId() const;
+    void setId(unsigned int id);
+    void setName(const std::string& name);
     std::string getName() const;
-    void setUserName(std::string user_name);
+    void setUserName(const std::string& user_name);
     std::string getUserName() const;
     void setDate(Date date);
     Date getDate() const;
     void setCapital(int capital);
     unsigned int getCapital() const;
+    void setAddress(Position *position);
+    Position* getAddress() const;
+    friend std::ostream& operator<<(std::ostream& os, const Client& client);
+    friend std::istream& operator>>(std::istream& is, Client& client);
 };
-
 
 #endif //SRC_CLIENT_H

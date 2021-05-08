@@ -1,10 +1,3 @@
-//
-// Created by eunic on 24/04/2021.
-//
-
-#include <fstream>
-#include <sstream>
-#include <Utils.h>
 #include "Headquarter.h"
 
 using namespace std;
@@ -18,11 +11,47 @@ Headquarter::Headquarter(unsigned int capital) {
 }
 
 /**
+ * Gets the Graph of the map that is being used
+ *
+ * @return the graph of the map
+ */
+Graph<Position> Headquarter::getGraph() const {
+    return graph;
+}
+
+/**
+ * Adds a client to the headquarters database
+ *
+ * @param client to be added
+ */
+void Headquarter::addClient(Client* client) {
+    clients.push_back(client);
+}
+
+/**
+ * Adds a provider to the headquarters database
+ *
+ * @param provider to be added
+ */
+void Headquarter::addProvider(Provider *provider) {
+    providers.push_back(provider);
+}
+
+/**
+ * Adds a truck to the headquarters database
+ *
+ * @param truck to be added
+ */
+void Headquarter::addTruck(Truck *truck) {
+    trucks.push_back(truck);
+}
+
+/**
  * Imports map into graph from file
  * @param nodes_path the path to the file where graph nodes are stored
  * @param edges_path the path to the file where graph edges are stored
  */
-void Headquarter::loadMap(std::string nodes_path, std::string edges_path) {
+void Headquarter::loadMap(const std::string& nodes_path, const std::string& edges_path) {
     ifstream nodesFile(nodes_path);
     ifstream edgesFile(edges_path);
 
@@ -104,53 +133,112 @@ void Headquarter::loadMap(std::string nodes_path, std::string edges_path) {
     else cout << "Unable to open edges file";
 }
 
-Graph<Position> Headquarter::getGraph() const {
-    return graph;
-}
-
+/**
+ * Gets the position in graph with the id specified
+ *
+ * @param id the id of the position to look for
+ * @return the position wanted
+ */
 Position Headquarter::getPositionById(double id) {
     return graph.findVertex(Position(id, 0, 0))->getInfo();
 }
 
-/*id estadoTruck capacidade load
-END TRUCK*/
+/**
+ * Loads all company data into the program
+ *
+ * @param clients_path path to the clients file
+ * @param providers_path path to the providers file
+ * @param trucks_path path to the trucks file
+ */
+void Headquarter::loadData(const string &clients_path, const string &providers_path, const string &trucks_path) {
+    //clients
+    ifstream clientFile(clients_path);
 
-void Headquarter::loadTrucks(std::string truck_path) {
-    ifstream trucksFile(truck_path);
+    Client *client;
 
-    string line;
-    unsigned int id;
-    int capacity, load;
-    string state;
-
-    //reading nodes file
-    if (trucksFile.is_open()) {
-        while(getline(trucksFile,line)){
-            //splitting each line into it's corresponding values
-            stringstream ss(line);
-            ss  >> id >> state >> capacity >> load;
-
-            state_t newState;
-
-            if(state == "assign") newState = assigned;
-            else if(state == "delivering") newState = delivering;
-            else if(state == "completed") newState = completed;
-
-            Truck* newTruck = new Truck(id, newState, capacity, load);
-            trucks.push_back(newTruck);
+    if(clientFile.is_open()){
+        while(!clientFile.eof()){
+            clientFile >> *client;
+            addClient(client);
         }
-        trucksFile.close();
     }
-    else cout << "Unable to open trucks file";
+    else cout << "Unable to open clients file" << endl;
+    clientFile.close();
 
+    //providers
+    ifstream providerFile(providers_path);
 
+    Provider* provider;
+
+    if(providerFile.is_open()){
+        while(!providerFile.eof()){
+            providerFile >> *provider;
+            addProvider(provider);
+        }
+    }
+    else cout << "Unable to open providers file" << endl;
+    providerFile.close();
+
+    //trucks
+    ifstream truckFile(trucks_path);
+
+    Truck* truck;
+
+    if(truckFile.is_open()){
+        while(!truckFile.eof()){
+            truckFile >> *truck;
+            addTruck(truck);
+        }
+    }
+    else cout << "Unable to open trucks file" << endl;
+    truckFile.close();
+}
+
+/**
+ * Saves all company data into the program
+ *
+ * @param clients_path path to the clients file
+ * @param providers_path path to the providers file
+ * @param trucks_path path to the trucks file
+ */
+void Headquarter::saveData(const string &clients_path, const string &providers_path, const string &trucks_path) {
+    //clients
+    ofstream clientFile(clients_path);
+
+    if(clientFile.is_open()){
+        for(auto it = clients.begin(); it != clients.end(); it++) {
+            clientFile << (*it);
+        }
+    }
+    else cout << "Unable to open clients file" << endl;
+    clientFile.close();
+
+    //providers
+    ofstream providerFile(providers_path);
+
+    if(providerFile.is_open()){
+        for(auto it = providers.begin(); it != providers.end(); it++) {
+            providerFile << (*it);
+        }
+    }
+    else cout << "Unable to open providers file" << endl;
+    providerFile.close();
+
+    //trucks
+    ofstream truckFile(trucks_path);
+
+    if(truckFile.is_open()){
+        for(auto it = trucks.begin(); it != trucks.end(); it++) {
+            truckFile << (*it);
+        }
+    }
+    else cout << "Unable to open trucks file" << endl;
+    truckFile.close()
 }
 
 void Headquarter::showTrucks() {
-
     for(int i = 0; i < trucks.size(); i++)
     {
         cout << "ID: " << trucks[i]->getId() << " state: " <<  trucks[i]->returnStateString(trucks[i]->getState()) << " capacity: " << trucks[i]->getCapacity() << " load: "<< trucks[i]->getLoad() << endl;
     }
-
 }

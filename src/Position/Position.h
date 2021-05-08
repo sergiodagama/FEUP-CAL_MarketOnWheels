@@ -1,9 +1,10 @@
-//
-// Created by sergi on 05/05/2021.
-//
-
 #ifndef MARKETONWHEELS_POSITION_H
 #define MARKETONWHEELS_POSITION_H
+
+#include <iostream>
+#include <string>
+
+#define DELIMITER " "
 
 class Position {
 private:
@@ -15,7 +16,9 @@ public:
     double getId() const;
     long double getLatitude() const;
     long double getLongitude() const;
-    bool operator==(Position p);
+    bool operator==(Position position);
+    friend std::ostream& operator<<(std::ostream& os, const Position& position);
+    friend std::istream& operator>>(std::istream& is, Position& position);
 };
 
 #endif //MARKETONWHEELS_POSITION_H
