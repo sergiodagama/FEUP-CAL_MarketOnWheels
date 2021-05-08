@@ -9,7 +9,7 @@ int main() {
 
     //--------------------primitive tests to importMap function-------------------------
 
-    headquarter.importMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
 
     std::cout << "Size: " << headquarter.getGraph().getVertexSet().size() << std::endl;
 

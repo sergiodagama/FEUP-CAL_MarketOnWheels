@@ -1,57 +1,86 @@
-//
-// Created by eunic on 24/04/2021.
-//
-
 #include "Provider.h"
 
+using namespace std;
+
+/**
+ * Id auxiliar to unique provider id
+ */
 unsigned int Provider::id_aux = 0;
 
-Provider::Provider() {
+ /**
+  * Provider constructor
+  *
+  * @param name the name of the distributor (company)
+  * @param user_name the user name of the provider (user to use than name)
+  * @param products the stock of the provider products
+  */
+ Provider::Provider(string name, string user_name, map<Product *, unsigned int> products) : ProductsWrapper(products) {
     this->id = id_aux;
     id_aux++;
-
+    this->name = name;
+    this->user_name = user_name;
 }
 
-Provider::Provider(std::map<Product *, unsigned > products) {
-    this->id = id_aux;
-    id_aux++;
-    this->products = products;
-
+/**
+ * Gets provider id
+ *
+ * @return the provider id
+ */
+unsigned int Provider::getId() const {
+    return id;
 }
 
-bool Provider::removeProduct(Product* product, unsigned number) {
-    //Product does not exist
-    /*if(products.at(product) == NULL) return false;
-    else
-    {
-        products.erase(product);
-        return true;
-    }*/
-    return false;
+/**
+ * Sets the provider name
+ *
+ * @param name the provider name
+ */
+void Provider::setName(const string& name) {
+    this->name = name;
 }
 
-bool Provider::addProduct(Product *product, unsigned number) {
-    //Product does not exist
-   /* if(products.at(product) == NULL)
-    {
-        products[product] = number;
+/**
+ * Gets the name of the provider
+ *
+ * @return the provider's name
+ */
+std::string Provider::getName() const {
+    return name;
+}
+
+/**
+ * Sets the provider user name
+ *
+ * @param user_name the user name of the provider
+ */
+void Provider::setUserName(const string& user_name) {
+    this->user_name = user_name;
+}
+
+/**
+ * Gets the provider user name
+ *
+ * @return the user name of the provider
+ */
+std::string Provider::getUserName() const {
+    return user_name;
+}
+
+/**
+ * Overload to << operator of Provider
+ *
+ * @param os the output stream to be outputted
+ * @param provider the provider object
+ * @return the output stream
+ */
+std::ostream &operator<<(ostream &os, const Provider &provider) {
+    os << provider.id << DELIMITER << provider.name << DELIMITER;
+    os << provider.user_name << endl;
+
+    map<Product*, unsigned int> prods = provider.getProducts();
+
+    for(auto it = prods.begin(); it != prods.end(); it++){
+        os << it->first << DELIMITER << it->second << endl;
     }
-    else
-    {
-        products.at(product) += number;
-        return true;
-    }*/
-    return false;
-}
-
-int Provider::getNumProduct(Product *product) {
-    return products[product];
-}
-
-std::map<Product *, unsigned> Provider::getProducts() {
-    return products;
-}
-
-int Provider::getSizeProducts() {
-    return products.size();
+    return os;
 }

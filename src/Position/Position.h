@@ -1,7 +1,3 @@
-//
-// Created by sergi on 05/05/2021.
-//
-
 #ifndef MARKETONWHEELS_POSITION_H
 #define MARKETONWHEELS_POSITION_H
 
@@ -15,7 +11,7 @@ public:
     double getId() const;
     long double getLatitude() const;
     long double getLongitude() const;
-    bool operator==(Position p);
+    bool operator==(Position position);
 };
 
 #endif //MARKETONWHEELS_POSITION_H

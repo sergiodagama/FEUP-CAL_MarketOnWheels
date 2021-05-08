@@ -15,8 +15,8 @@ Menu::Menu(std::string title, std::vector<std::string> option_names){
     this->option_names  = option_names;
 }
 
-void changeTitle(std::string new_title){
-  //  this->title = new_title;
+void Menu::changeTitle(std::string new_title){
+  this->title = new_title;
 }
 
 void Menu::addOption(std::string option_name){
@@ -27,13 +27,6 @@ void Menu::changeStyle(unsigned int style_id){
     this->style_id = style_id;
 }
 
-void Menu::setExit(unsigned int option_number){
-    this->exit_option = option_number;
-}
-
-unsigned int Menu::getExit() const{
-    return this->exit_option;
-}
 
 unsigned int Menu::getInput(){
     unsigned int user_input;

@@ -12,8 +12,7 @@
 class Menu {
 private:
     unsigned int style_id = 0;  //controls the style being showed, default 0
-    unsigned int exit_option = 0;  //menu exit option, default 0
-    std::string title;  //the menu title
+    std::string title;
     std::vector<std::string> option_names;
 
 public:

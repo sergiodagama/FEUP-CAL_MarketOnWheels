@@ -1,17 +1,13 @@
-//
-// Created by eunic on 24/04/2021.
-//
-
 #ifndef SRC_HEADQUARTER_H
 #define SRC_HEADQUARTER_H
 
 #include <vector>
-#include "../Order/Order.h"
-#include "../Product/Product.h"
-#include "../Provider/Provider.h"
-#include "../Client/Client.h"
-#include "../Truck/Truck.h"
-#include "../Position/Position.h"
+#include <fstream>
+#include <sstream>
+#include <Provider.h>
+#include <Client.h>
+#include <Truck.h>
+#include <Utils.h>
 
 class Headquarter {
 private:
@@ -19,15 +15,15 @@ private:
     std::vector<Provider*> providers;
     std::vector<Truck*> trucks;
     unsigned int capital;
-    //Vertex<T>* address;
+    Position* address;
     Graph<Position> graph;
 public:
     Headquarter(unsigned int capital);
-    void importMap(std::string nodes_path, std::string edges_path);  //imports the designated map in files into graph
     Graph<Position> getGraph() const;
-
+    void loadMap(const std::string& nodes_path,const std::string& edges_path);  //imports the designated map in files into graph  //TODO change to exceptions
+    void loadData(const std::string& clients_path, const std::string& providers_path, const std::string& trucks_path);
+    void saveData(const std::string& clients_path, const std::string& providers_path, const std::string& trucks_path);  //TODO change to exeptions
     Position getPositionById(double id);
 };
-
 
 #endif //SRC_HEADQUARTER_H

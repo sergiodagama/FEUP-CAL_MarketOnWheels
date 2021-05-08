@@ -1,58 +1,71 @@
-//
-// Created by eunic on 24/04/2021.
-//
-
 #include "Order.h"
 
 using namespace std;
 
-Order::Order(std::map<Product*, unsigned int> products) {
-    this->products = products;
+/**
+ * Id auxiliar to unique order id
+ */
+unsigned int Order::id_aux = 0;
+
+/**
+ * Order constructor
+ *
+ * @param products the map with the products and it's respective quantities to be ordered
+ */
+Order::Order(std::map<Product *, unsigned int> products) : ProductsWrapper(products) {
+    id_aux++;
+    this->id = id_aux;
 }
 
-unsigned int Order::getSize() {
-    int size;
-    for (auto it = products.begin(); it != products.end(); it++) {
-        size += (it->second * it->first->getSize());
+/**
+ * Gets the order id
+ *
+ * @return the order id
+ */
+unsigned int Order::getId() const {
+    return id;
+}
+
+/**
+ * Gets the total size of the order (sum of the the size of all products)
+ *
+ * @return the size of the order, 0 in case there is none
+ */
+unsigned int Order::getSize() const {
+    unsigned int size = 0;
+    for (auto & product : products) {
+        size += product.second * product.first->getSize();
     }
     return size;
 }
 
-float Order::getPrice() {
-    float price;
-    for(auto it = products.begin(); it != products.end(); it++){
-        price += (it->second * it->first->getPrice());
+/**
+ * Gets the total price of an order (sum of all products prices)
+ *
+ * @return the order price, if none returns 0
+ */
+float Order::getPrice() const {
+    float price = 0;
+    for(auto & product : products){
+        price += (product.second * product.first->getPrice());
     }
     return price;
 }
 
-unsigned int Order::getNumOfProducts() {
-    int num;
-    for(auto it = products.begin(); it != products.end(); it++){
-        num += it->second;
+/**
+ * Overload to the << operator of Order
+ *
+ * @param os the output stream to be outputted
+ * @param order the order object
+ * @return the output stream
+ */
+std::ostream &operator<<(ostream &os, const Order &order) {
+    os << order.id << endl;
+
+    map<Product*, unsigned int> prods = order.getProducts();
+
+    for(auto it = prods.begin(); it != prods.end(); it++){
+        os << it->first << DELIMITER << it->second << endl;
     }
-    return num;
+    return os;
 }
-
-unsigned int Order::getNumOfDifProducts() {
-    return products.size();
-}
-
-void Order::addProduct(Product *product, unsigned int quantity) {
-    products.insert(pair<Product*, unsigned int>(product, 40));
-}
-
-void Order::removeQuantityOfProduct(Product *product, unsigned int quantity) {
-    int old_quantity = products.at(product);
-
-    int new_quantity = old_quantity - quantity;
-
-    products.erase(product);
-
-    if (new_quantity > 0) products.insert(pair<Product *, unsigned int>(product, new_quantity));
-}
-
-void Order::removeProduct(Product *product) {
-    products.erase(product);
-}
-

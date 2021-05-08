@@ -1,10 +1,3 @@
-//
-// Created by eunic on 24/04/2021.
-//
-
-#include <fstream>
-#include <sstream>
-#include <Utils.h>
 #include "Headquarter.h"
 
 using namespace std;
@@ -18,11 +11,20 @@ Headquarter::Headquarter(unsigned int capital) {
 }
 
 /**
+ * Gets the Graph of the map that is being used
+ *
+ * @return the graph of the map
+ */
+Graph<Position> Headquarter::getGraph() const {
+    return graph;
+}
+
+/**
  * Imports map into graph from file
  * @param nodes_path the path to the file where graph nodes are stored
  * @param edges_path the path to the file where graph edges are stored
  */
-void Headquarter::importMap(std::string nodes_path, std::string edges_path) {
+void Headquarter::loadMap(const std::string& nodes_path, const std::string& edges_path) {
     ifstream nodesFile(nodes_path);
     ifstream edgesFile(edges_path);
 
@@ -104,10 +106,65 @@ void Headquarter::importMap(std::string nodes_path, std::string edges_path) {
     else cout << "Unable to open edges file";
 }
 
-Graph<Position> Headquarter::getGraph() const {
-    return graph;
-}
-
+/**
+ * Gets the position in graph with the id specified
+ *
+ * @param id the id of the position to look for
+ * @return the position wanted
+ */
 Position Headquarter::getPositionById(double id) {
     return graph.findVertex(Position(id, 0, 0))->getInfo();
+}
+
+/**
+ * Loads all company data into the program
+ *
+ * @param clients_path path to the clients file
+ * @param providers_path path to the providers file
+ * @param trucks_path path to the trucks file
+ */
+void Headquarter::loadData(const string &clients_path, const string &providers_path, const string &trucks_path) {
+//TODO
+}
+
+/**
+ * Saves all company data into the program
+ *
+ * @param clients_path path to the clients file
+ * @param providers_path path to the providers file
+ * @param trucks_path path to the trucks file
+ */
+void Headquarter::saveData(const string &clients_path, const string &providers_path, const string &trucks_path) {
+    //clients
+    ofstream clientFile(clients_path);
+
+    if(clientFile.is_open()){
+        for(auto it = clients.begin(); it != clients.end(); it++) {
+            clientFile << (*it);
+        }
+    }
+    else cout << "Unable to open clients file" << endl;
+    clientFile.close();
+
+    //providers
+    ofstream providerFile(providers_path);
+
+    if(providerFile.is_open()){
+        for(auto it = providers.begin(); it != providers.end(); it++) {
+            providerFile << (*it);
+        }
+    }
+    else cout << "Unable to open providers file" << endl;
+    providerFile.close();
+
+    //trucks
+    ofstream truckFile(trucks_path);
+
+    if(truckFile.is_open()){
+        for(auto it = trucks.begin(); it != trucks.end(); it++) {
+            truckFile << (*it);
+        }
+    }
+    else cout << "Unable to open trucks file" << endl;
+    truckFile.close();
 }

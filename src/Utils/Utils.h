@@ -1,7 +1,3 @@
-//
-// Created by sergi on 05/05/2021.
-//
-
 #ifndef MARKETONWHEELS_UTILS_H
 #define MARKETONWHEELS_UTILS_H
 

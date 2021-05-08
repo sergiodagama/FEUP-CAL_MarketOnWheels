@@ -1,26 +1,20 @@
-//
-// Created by eunic on 24/04/2021.
-//
-
 #ifndef SRC_ORDER_H
 #define SRC_ORDER_H
 
 #include <map>
-#include "../Product/Product.h"
+#include "../ProductsWrapper/ProductsWrapper.h"
 
-class Order {
+class Order : public ProductsWrapper {
 private:
+    unsigned int id;
+    static unsigned int id_aux;
     std::map<Product*, unsigned int> products;
 public:
-    Order(std::map<Product*, unsigned int> products);
-    void addProduct(Product* product, unsigned int quantity);
-    void removeProduct(Product *product);
-    void removeQuantityOfProduct(Product *product, unsigned int quantity);
-    unsigned int getNumOfProducts();
-    unsigned int getNumOfDifProducts();
-    unsigned int getSize();
-    float getPrice();
+    Order(std::map<Product *, unsigned int> products);
+    unsigned int getId() const;
+    unsigned int getSize() const;
+    float getPrice() const;
+    friend std::ostream& operator<<(std::ostream& os, const Order& order);
 };
-
 
 #endif //SRC_ORDER_H

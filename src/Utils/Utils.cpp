@@ -1,8 +1,4 @@
-//
-// Created by sergi on 05/05/2021.
-//
-
-#include "Utils.h"
+#include <Utils.h>
 
 /**
  * Util function that converts angle in degrees to radians
