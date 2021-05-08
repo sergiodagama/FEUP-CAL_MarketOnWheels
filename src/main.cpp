@@ -42,70 +42,72 @@ int main() {
     register_menu.addOption("Client");
     register_menu.addOption("Provider");
 
-    main_menu.show();
-    unsigned int user_category = main_menu.getInput();
-
-    switch(user_category) {
-        //error on input
-        case 0:{
-            std::cout << "Error on input" << std::endl;
-            break;
-        }
-        //client area
-        case 1:{
-            unsigned int client_id;
-            std::cout << "Enter your client id: " << std::endl;
-            do {
-                std::cout << "->";
-                std::cin >> client_id;
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            } while(std::cin.fail() || headquarter.getClientById(client_id) == nullptr);
-            break;
-        }
-        //provider area
-        case 2:{
-            unsigned int provider_id;
-            std::cout << "Enter your provider id: " << std::endl;
-            do {
-                std::cout << "->";
-                std::cin >> provider_id;
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            } while(std::cin.fail() || headquarter.getProviderById(provider_id) == nullptr);
-            break;
-        }
-        //admin area
-        case 3:{
-            std::string admin_pass;
-            std::cout << "Enter the admin password: " << std::endl;
-            do {
-                std::cout << "->";
-                std::cin >> admin_pass;
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            } while(std::cin.fail() || headquarter.getAdminPassword() == admin_pass);
-            break;
-        }
-        //registering area
-        case 4:{
-            register_menu.show();
-            int option;
-            do {
-                std::cout << "->";
-                std::cin >> option;
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            } while(std::cin.fail());
-            if(option == 1){
-                std::cout << "Hello Client\n";
+    bool exit = false;
+    while(!exit) {
+        main_menu.show();
+        unsigned int user_category = main_menu.getInput();
+        switch (user_category) {
+            //error on input
+            case 0: {
+                std::cout << "Goodbye" << std::endl;
+                exit = true;
+                break;
             }
-            else{
-                std::cout << "Hello Provider\n";
+                //client area
+            case 1: {
+                unsigned int client_id;
+                std::cout << "Enter your client id: " << std::endl;
+                do {
+                    std::cout << "->";
+                    std::cin >> client_id;
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                } while (std::cin.fail() || headquarter.getClientById(client_id) == nullptr);
+                break;
             }
-            break;
+                //provider area
+            case 2: {
+                unsigned int provider_id;
+                std::cout << "Enter your provider id: " << std::endl;
+                do {
+                    std::cout << "->";
+                    std::cin >> provider_id;
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                } while (std::cin.fail() || headquarter.getProviderById(provider_id) == nullptr);
+                break;
+            }
+                //admin area
+            case 3: {
+                std::string admin_pass;
+                std::cout << "Enter the admin password: " << std::endl;
+                do {
+                    std::cout << "->";
+                    std::cin >> admin_pass;
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                } while (std::cin.fail() || headquarter.getAdminPassword() == admin_pass);
+                break;
+            }
+            //registering area
+            case 4: {
+                register_menu.show();
+                int option;
+                do {
+                    std::cout << "->";
+                    std::cin >> option;
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                } while (std::cin.fail());
+                if (option == 1) {
+                    std::cout << "Hello Client\n";
+                } else {
+                    std::cout << "Hello Provider\n";
+                    break;
+                }
+                break;
+            }
         }
     }
-
     return 0;
 }
