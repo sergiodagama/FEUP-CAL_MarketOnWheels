@@ -315,9 +315,12 @@ void Headquarter::loadProvider(const string &providers_path) {
 
     Provider* provider = new Provider();
 
+    int acc = 5;
+
     if(providerFile.is_open()){
-        while(!providerFile.eof()){
-            providerFile >> *provider;
+
+        //while(!providerFile.eof()){
+        while (providerFile >> *provider){
             addProvider(provider);
         }
     }
@@ -331,7 +334,7 @@ void Headquarter::loadProvider(const string &providers_path) {
  */
 void Headquarter::showProviders() {
     if(providers.empty()){
-        cout << "It does not exist any truck yet" << endl;
+        cout << "It does not exist any provider yet" << endl;
         return;
     }
     cout << "Id\tName\tUserName\tNumberOfProducts" << endl;

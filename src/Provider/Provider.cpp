@@ -45,7 +45,7 @@ void Provider::setName(const string& name) {
  * @return the provider's name
  */
 std::string Provider::getName() const {
-    return name;
+    return this->name;
 }
 
 /**
@@ -83,7 +83,7 @@ std::ostream &operator<<(ostream &os, const Provider &provider) {
     for(auto it = prods.begin(); it != prods.end(); it++){
         os << *it->first << DELIMITER << it->second << endl;
     }
-    os << "END" << endl;
+    os << "_" << endl;
     return os;
 }
 
@@ -96,13 +96,20 @@ std::ostream &operator<<(ostream &os, const Provider &provider) {
 std::istream &operator>>(istream &is, Provider &provider) {
     is >> provider.id >> provider.name >> provider.user_name;
 
-    Product product;
     unsigned int quantity;
+    int acc = 5;
+    Product product;
+   // ) {
+    /*while(is.peek() != '_' ) {
+        cout << (is.peek() == '_') << endl;
+        provider.addProduct(product, quantity);
+        is >> * product >> quantity;
+        acc--;
+    }*/
 
-    while(reinterpret_cast<const char *>(is.get()) == "END") {
-        is >> product >> quantity;
-        provider.addProduct(&product, quantity);
-    }
+    is >> product >> quantity;
+    cout << product.getId() << endl;
+
     return is;
 }
 
