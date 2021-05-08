@@ -111,9 +111,10 @@ int main() {
                     std::cin >> userName;
 
                     std::cout << "What's your address id?\n";
-                    std::string address;
+                    double address;
                     std::cin >> address;
 
+                    headquarter.addClient(name, userName, address);
                 } else {
                     std::cout << "Hello Provider\n";
                     break;
@@ -122,5 +123,6 @@ int main() {
             }
         }
     }
+    //headquarter.saveData("./src/Resources/clients.txt", "./src/Resources/1.txt", "./src/Resources/1.txt");
     return 0;
 }

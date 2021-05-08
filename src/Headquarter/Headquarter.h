@@ -26,6 +26,7 @@ public:
     void addProvider(Provider* provider);
     void addTruck(Truck* truck);
     void addOrder(Order* order);
+    void addClient(std::string name, std::string userName, double id);
     void loadMap(const std::string& nodes_path,const std::string& edges_path);  //imports the designated map in files into graph  //TODO change to exceptions
     void loadData(const std::string& clients_path, const std::string& providers_path, const std::string& trucks_path);
     void saveData(const std::string& clients_path, const std::string& providers_path, const std::string& trucks_path);  //TODO change to exeptions
@@ -34,6 +35,10 @@ public:
     std::string getAdminPassword() const;
     Provider* getProviderById(unsigned int id);
     Client* getClientById(unsigned int id);
+    bool isClientRegistered(std::string userName);
+
+
+
 };
 
 #endif //SRC_HEADQUARTER_H

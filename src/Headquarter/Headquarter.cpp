@@ -149,7 +149,10 @@ void Headquarter::loadMap(const std::string& nodes_path, const std::string& edge
  * @return the position wanted
  */
 Position Headquarter::getPositionById(double id) {
-    return graph.findVertex(Position(id, 0, 0))->getInfo();
+    Vertex<Position> * position = graph.findVertex(Position(id, 0, 0));
+    if(position == NULL)
+        return Position(-1, -1, -1);
+    return position->getInfo();
 }
 
 /**
@@ -292,4 +295,29 @@ Client* Headquarter::getClientById(unsigned int id) {
         if((*it)->getId() == id) return (*it);
     }
     return nullptr;
+}
+
+void Headquarter::addClient(std::string name, std::string userName, double id) {
+    Position position =getPositionById(id);
+    if(position == Position(-1, -1, -1)){
+        std::cout << "You aren't in our map\n";
+        return;
+    }
+
+    if(isClientRegistered(userName)){
+        std::cout << "You are already registered!\n";
+        return;
+    }
+
+    Client* client = new Client(name, userName, &position);
+    addClient(client);
+}
+
+bool Headquarter::isClientRegistered(std::string userName) {
+    for(auto i = clients.begin(); i != clients.end(); i++){
+        if((*i)->getUserName() == userName){
+            return true;
+        }
+    }
+    return false;
 }
