@@ -1,5 +1,7 @@
 #include "Position.h"
 
+using namespace std;
+
 /**
  * Position constructor
  *
@@ -48,3 +50,29 @@ long double Position::getLongitude() const {
 bool Position::operator==(Position position) {
     return id == position.getId();
 }
+
+/**
+ * Operator << overload
+ *
+ * @param os the output stream to be outputted
+ * @param position the position object
+ * @return the output stream
+ */
+ostream &operator<<(ostream &os, const Position &position) {
+    os << to_string(position.id) << DELIMITER << position.latitude;
+    os << DELIMITER << position.longitude;
+    return os;
+}
+
+/**
+ * Operator >> overload
+ *
+ * @param is the input stream to be outputted
+ * @param position the position object
+ * @return the input stream
+ */
+std::istream &operator>>(istream &is, Position &position) {
+    is >> position.id >> position.latitude >> position.longitude;
+    return is;
+}
+

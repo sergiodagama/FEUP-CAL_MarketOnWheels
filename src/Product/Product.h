@@ -22,8 +22,10 @@ public:
     unsigned int getSize() const;
     void setSize(unsigned int size);
     unsigned int getId() const;
+    void setId(unsigned int id);
     bool operator==(Product product);
     friend std::ostream& operator<<(std::ostream& os, const Product& product);
+    friend std::istream& operator>>(std::istream& os, Product& product);
 };
 
 #endif //SRC_PRODUCT_H

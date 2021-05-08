@@ -28,6 +28,7 @@ public:
     void addPositionToPath(Position* position);
     void removePositionFromPath();
     friend std::ostream& operator<<(std::ostream& os, const Truck& truck);
+    friend std::istream& operator>>(std::istream& is, Truck& truck);
 };
 
 #endif //SRC_TRUCK_H

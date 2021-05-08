@@ -20,6 +20,33 @@ Graph<Position> Headquarter::getGraph() const {
 }
 
 /**
+ * Adds a client to the headquarters database
+ *
+ * @param client to be added
+ */
+void Headquarter::addClient(Client* client) {
+    clients.push_back(client);
+}
+
+/**
+ * Adds a provider to the headquarters database
+ *
+ * @param provider to be added
+ */
+void Headquarter::addProvider(Provider *provider) {
+    providers.push_back(provider);
+}
+
+/**
+ * Adds a truck to the headquarters database
+ *
+ * @param truck to be added
+ */
+void Headquarter::addTruck(Truck *truck) {
+    trucks.push_back(truck);
+}
+
+/**
  * Imports map into graph from file
  * @param nodes_path the path to the file where graph nodes are stored
  * @param edges_path the path to the file where graph edges are stored
@@ -124,7 +151,47 @@ Position Headquarter::getPositionById(double id) {
  * @param trucks_path path to the trucks file
  */
 void Headquarter::loadData(const string &clients_path, const string &providers_path, const string &trucks_path) {
-//TODO
+    //clients
+    ifstream clientFile(clients_path);
+
+    Client *client;
+
+    if(clientFile.is_open()){
+        while(!clientFile.eof()){
+            clientFile >> *client;
+            addClient(client);
+        }
+    }
+    else cout << "Unable to open clients file" << endl;
+    clientFile.close();
+
+    //providers
+    ifstream providerFile(providers_path);
+
+    Provider* provider;
+
+    if(providerFile.is_open()){
+        while(!providerFile.eof()){
+            providerFile >> *provider;
+            addProvider(provider);
+        }
+    }
+    else cout << "Unable to open providers file" << endl;
+    providerFile.close();
+
+    //trucks
+    ifstream truckFile(trucks_path);
+
+    Truck* truck;
+
+    if(truckFile.is_open()){
+        while(!truckFile.eof()){
+            truckFile >> *truck;
+            addTruck(truck);
+        }
+    }
+    else cout << "Unable to open trucks file" << endl;
+    truckFile.close();
 }
 
 /**

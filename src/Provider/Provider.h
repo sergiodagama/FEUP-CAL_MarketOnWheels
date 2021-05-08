@@ -18,6 +18,7 @@ public:
     void setUserName(const std::string& user_name);
     std::string getUserName() const;
     friend std::ostream& operator<<(std::ostream& os, const Provider& provider);
+    friend std::istream& operator>>(std::istream& is, Provider& provider);
 };
 
 #endif //SRC_PROVIDER_H

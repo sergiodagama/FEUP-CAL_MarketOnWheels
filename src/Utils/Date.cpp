@@ -66,3 +66,15 @@ ostream &operator<<(ostream &os, const Date &date) {
     os << date.day << '/' << date.month << '/' << date.year;
     return os;
 }
+
+/**
+ * Overload of >> operator
+ *
+ * @param is the input stream to be outputted
+ * @param date the date object
+ * @return the input stream
+ */
+std::istream &operator>>(istream &is, Date &date) {
+    is >> date.day >> date.month >> date.year;
+    return is;
+}

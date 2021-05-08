@@ -84,3 +84,22 @@ std::ostream &operator<<(ostream &os, const Provider &provider) {
     }
     return os;
 }
+
+/**
+ * Overload to operator >> of Provider
+ * @param is the input stream to be outputted
+ * @param provider the provider object
+ * @return the input stream
+ */
+std::istream &operator>>(istream &is, Provider &provider) {
+    is >> provider.id >>provider.name >> provider.user_name;
+
+    Product* product;
+    unsigned int quantity;
+
+    while(!is.eof()) {
+        is >> *product >> quantity;
+        provider.addProduct(product, quantity);
+    }
+    return is;
+}

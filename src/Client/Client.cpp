@@ -51,6 +51,13 @@ unsigned int Client::getId() const {
 }
 
 /**
+ * Sets id of client
+ */
+void Client::setId(unsigned int id) {
+    this->id = id;
+}
+
+/**
  * Sets the client name
  *
  * @param name the client name
@@ -146,10 +153,10 @@ Position *Client::getAddress() const {
  * @param client the client object
  * @return the output stream
  */
-std::ostream &operator<<(ostream &os, const Client &client) {
+ostream &operator<<(ostream &os, const Client &client) {
     os << client.id << DELIMITER << client.name << DELIMITER;
     os << client.user_name << DELIMITER << client.birthday_date << DELIMITER;
-    os << client.address << DELIMITER << client.capital << endl;
+    os << *client.address << DELIMITER << client.capital << endl;
     return os;
 }
 
@@ -160,7 +167,7 @@ std::ostream &operator<<(ostream &os, const Client &client) {
  * @param client the client object
  * @return the output stream
  */
-std::istream &operator>>(istream &os, const Client &client) {
-
-    return os;
+istream &operator>>(istream &is, Client &client) {
+    is >> client.id >> client.name >> client.user_name >> client.birthday_date >> *client.address >> client.capital;
+    return is;
 }

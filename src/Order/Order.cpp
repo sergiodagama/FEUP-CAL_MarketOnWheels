@@ -69,3 +69,23 @@ std::ostream &operator<<(ostream &os, const Order &order) {
     }
     return os;
 }
+
+/**
+ * Overload of >> operator
+ *
+ * @param is the input stream to be outputted
+ * @param order the order object
+ * @return the input stream
+ */
+std::istream &operator>>(istream &is, Order &order) {
+    is >> order.id;
+
+    Product* product;
+    unsigned int quantity;
+
+    while(!is.eof()) {
+        is >> *product >> quantity;
+        order.addProduct(product, quantity);
+    }
+    return is;
+}

@@ -15,6 +15,7 @@ public:
     unsigned int getSize() const;
     float getPrice() const;
     friend std::ostream& operator<<(std::ostream& os, const Order& order);
+    friend std::istream& operator>>(std::istream& is, Order& order);
 };
 
 #endif //SRC_ORDER_H

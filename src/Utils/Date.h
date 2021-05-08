@@ -15,6 +15,7 @@ public:
     unsigned int getMonth() const;
     unsigned int getYear() const;
     friend std::ostream& operator<<(std::ostream& os, const Date& date);
+    friend std::istream& operator>>(std::istream& is, Date& date);
 };
 
 #endif //SRC_DATE_H

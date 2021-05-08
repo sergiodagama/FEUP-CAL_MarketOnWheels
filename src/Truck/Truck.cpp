@@ -140,3 +140,22 @@ ostream &operator<<(ostream &os, const Truck &truck) {
     }
     return os;
 }
+
+/**
+ * Overload to >> operator
+ *
+ * @param is the input stream to be outputted
+ * @param truck the truck object
+ * @return the input stream
+ */
+std::istream &operator>>(istream &is, Truck &truck) {
+    is >> truck.id >> truck.capacity >> truck.load;
+
+    Order* order;
+
+    while(!is.eof()) {
+        is >> *order;
+        truck.addOrder(order);
+    }
+    return is;
+}

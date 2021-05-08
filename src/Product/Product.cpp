@@ -88,6 +88,13 @@ unsigned int Product::getId() const {
 }
 
 /**
+ * Sets the product id
+ */
+void Product::setId(unsigned int id) {
+    this->id = id;
+}
+
+/**
  * Overload of the == operator
  * @param product the product to be compared with
  * @return true if product ids are equal, false otherwise
@@ -97,7 +104,7 @@ bool Product::operator==(Product product) {
 }
 
 /**
- * Overload of the << operator for Product
+ * Overload of the << operator
  *
  * @param os the output stream to be outputted
  * @param product the product object
@@ -107,4 +114,16 @@ std::ostream &operator<<(ostream &os, const Product &product) {
     os << product.id << DELIMITER << product.name << DELIMITER;
     os << product.price << DELIMITER << product.size << endl;
     return os;
+}
+
+/**
+ * Overload of the >> operator
+ *
+ * @param is the input stream to be outputted
+ * @param product the product object
+ * @return the input stream
+ */
+std::istream &operator>>(istream &is, Product &product) {
+    is >> product.id >> product.name >> product.price >> product.size;
+    return is;
 }

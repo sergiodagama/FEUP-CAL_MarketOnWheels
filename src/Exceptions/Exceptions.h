@@ -33,7 +33,9 @@ class ProductAlreadyExists : std::exception{};
 
 class InvalidQuantity : std::exception{};
 
-class UserNameAlreadyExists : std::exception{};
+class NameAlreadyExists : std::exception{};
+
+class NameDosNotExist : std::exception{};
 
 class NotAvailableSpace : std::exception{};
 
