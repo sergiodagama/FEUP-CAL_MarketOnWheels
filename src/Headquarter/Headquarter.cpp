@@ -233,5 +233,12 @@ void Headquarter::saveData(const string &clients_path, const string &providers_p
         }
     }
     else cout << "Unable to open trucks file" << endl;
-    truckFile.close();
+    truckFile.close()
+}
+
+void Headquarter::showTrucks() {
+    for(int i = 0; i < trucks.size(); i++)
+    {
+        cout << "ID: " << trucks[i]->getId() << " state: " <<  trucks[i]->returnStateString(trucks[i]->getState()) << " capacity: " << trucks[i]->getCapacity() << " load: "<< trucks[i]->getLoad() << endl;
+    }
 }

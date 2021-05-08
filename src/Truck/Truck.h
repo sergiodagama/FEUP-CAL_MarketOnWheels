@@ -6,10 +6,13 @@
 #include <Order.h>
 #include "../Position/Position.h"
 
+typedef enum {created, assigned, delivering, completed} state_t;
+
 class Truck {
 private:
     unsigned int id;
     static unsigned int id_aux;
+    state_t state; //TODO created
     unsigned int capacity;
     unsigned int load;
     std::queue<Order*> orders;
@@ -29,6 +32,8 @@ public:
     void removePositionFromPath();
     friend std::ostream& operator<<(std::ostream& os, const Truck& truck);
     friend std::istream& operator>>(std::istream& is, Truck& truck);
+    state_t getState();
+    std::string returnStateString(int state);
 };
 
 #endif //SRC_TRUCK_H

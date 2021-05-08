@@ -114,11 +114,23 @@ void Truck::addPositionToPath(Position* position) {
     path.push(position);
 }
 
-/**
- * Removes a position from path
- */
-void Truck::removePositionFromPath() {
-    path.pop();
+
+state_t Truck::getState() {
+    return this->state;
+}
+
+
+std::string Truck::returnStateString(int state) {
+    switch(state) {
+        case 0:
+            return "assign";
+        case 1:
+            return "delivering";
+        case 2:
+            return "completed";
+        default:
+            return " ";
+    } 
 }
 
 /**
@@ -129,8 +141,7 @@ void Truck::removePositionFromPath() {
  * @return the output stream
  */
 ostream &operator<<(ostream &os, const Truck &truck) {
-    os << truck.id << DELIMITER << truck.capacity << DELIMITER;
-    os << truck.load << endl;
+    os << truck.id << DELIMITER << truck.capacity << DELIMITER << endl;
 
     queue<Order*> buffer = truck.orders;
 
@@ -149,7 +160,7 @@ ostream &operator<<(ostream &os, const Truck &truck) {
  * @return the input stream
  */
 std::istream &operator>>(istream &is, Truck &truck) {
-    is >> truck.id >> truck.capacity >> truck.load;
+    is >> truck.id >> truck.capacity;
 
     Order* order;
 
