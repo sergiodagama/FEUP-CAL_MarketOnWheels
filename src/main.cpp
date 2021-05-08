@@ -97,6 +97,12 @@ int main() {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             } while(std::cin.fail());
+            if(option == 1){
+                std::cout << "Hello Client\n";
+            }
+            else{
+                std::cout << "Hello Provider\n";
+            }
             break;
         }
     }
