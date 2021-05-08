@@ -15,8 +15,8 @@ unsigned int Provider::id_aux = 0;
   * @param products the stock of the provider products
   */
  Provider::Provider(string name, string user_name, map<Product *, unsigned int> products) : ProductsWrapper(products) {
-    this->id = id_aux;
-    id_aux++;
+     id_aux++;
+     this->id = id_aux;
     this->name = name;
     this->user_name = user_name;
 }
@@ -78,6 +78,7 @@ std::ostream &operator<<(ostream &os, const Provider &provider) {
     os << provider.user_name << endl;
 
     map<Product*, unsigned int> prods = provider.getProducts();
+    cout << provider.getProducts().size() << endl;
 
     for(auto it = prods.begin(); it != prods.end(); it++){
         os << it->first << DELIMITER << it->second << endl;
@@ -95,12 +96,12 @@ std::ostream &operator<<(ostream &os, const Provider &provider) {
 std::istream &operator>>(istream &is, Provider &provider) {
     is >> provider.id >> provider.name >> provider.user_name;
 
-    Product* product;
+    Product product;
     unsigned int quantity;
 
     while(reinterpret_cast<const char *>(is.get()) == "END") {
-        is >> *product >> quantity;
-        provider.addProduct(product, quantity);
+        is >> product >> quantity;
+        provider.addProduct(&product, quantity);
     }
     return is;
 }

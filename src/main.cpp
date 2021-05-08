@@ -5,11 +5,17 @@ int main() {
     Headquarter headquarter(1000000);
 
     //headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
-    /*std::map<Product *, unsigned int> products;
+    std::map<Product *, unsigned int> products;
+
+    Product * product = new Product("batata", 1.2, 3);
+    products.insert(std::pair<Product * ,unsigned int>(product,100));
+
     Provider * provider = new Provider("FEUP", "FEUP", products);
-    headquarter.addProvider(provider);*/
-    //headquarter.saveProvider("../src/Resources/providers.txt");
-    headquarter.loadProvider("../src/Resources/providers.txt");
+
+    headquarter.addProvider(provider);
+
+    headquarter.saveProvider("../src/Resources/providers.txt");
+    //headquarter.loadProvider("../src/Resources/providers.txt");
     headquarter.showProviders();
 
     std::cout << "|||||||| Market On Wheels ||||||||" << std::endl << std::endl;

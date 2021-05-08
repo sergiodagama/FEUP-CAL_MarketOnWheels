@@ -297,17 +297,13 @@ Client* Headquarter::getClientById(unsigned int id) {
 void Headquarter::saveProvider(const string &providers_path) {
 
     //providers
-    ifstream providerFile(providers_path);
-
-    Provider* provider;
+    ofstream providerFile(providers_path);
 
     if(providerFile.is_open()){
-        while(!providerFile.eof()){
-            providerFile >> *provider;
-            addProvider(provider);
+        for(auto it = providers.begin(); it != providers.end(); it++) {
+            providerFile << *(*it);
         }
     }
-
     else cout << "Unable to open providers file" << endl;
     providerFile.close();
 
@@ -341,7 +337,8 @@ void Headquarter::showProviders() {
     cout << "Id\tName\tUserName\tNumberOfProducts" << endl;
     for(auto it = providers.begin(); it != providers.end(); it++){
         //cout << *(*it);
-        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t" << (*it)->getProducts().size() << endl;
+        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t";
+
     }
 
 }

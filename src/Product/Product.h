@@ -14,6 +14,7 @@ private:
     float price;
     unsigned int size;
 public:
+    Product(){};
     Product(const std::string& name, float price, unsigned int size);
     std::string getName() const;
     void setName(const std::string& name);
