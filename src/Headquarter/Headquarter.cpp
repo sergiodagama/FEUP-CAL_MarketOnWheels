@@ -311,6 +311,9 @@ void Headquarter::addClient(std::string name, std::string userName, double id) {
 
     Client* client = new Client(name, userName, &position);
     addClient(client);
+
+    std::ofstream clientFile("../src/Resources/clients.txt");
+    clientFile << *client;
 }
 
 bool Headquarter::isClientRegistered(std::string userName) {

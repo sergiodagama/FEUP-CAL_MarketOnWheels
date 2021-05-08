@@ -115,6 +115,7 @@ int main() {
                     std::cin >> address;
 
                     headquarter.addClient(name, userName, address);
+
                 } else {
                     std::cout << "Hello Provider\n";
                     break;
@@ -123,6 +124,5 @@ int main() {
             }
         }
     }
-    //headquarter.saveData("./src/Resources/clients.txt", "./src/Resources/1.txt", "./src/Resources/1.txt");
     return 0;
 }
