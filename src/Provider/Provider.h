@@ -11,6 +11,7 @@ private:
     std::string name;
     std::string user_name; // TODO IN HEADQUARTER UNIQUE
 public:
+    Provider();
     Provider(std::string name, std::string user_name, std::map<Product *, unsigned int> products);
     unsigned int getId() const;
     void setName(const std::string& name);

@@ -15,8 +15,8 @@ unsigned int Provider::id_aux = 0;
   * @param products the stock of the provider products
   */
  Provider::Provider(string name, string user_name, map<Product *, unsigned int> products) : ProductsWrapper(products) {
-    this->id = id_aux;
-    id_aux++;
+     id_aux++;
+     this->id = id_aux;
     this->name = name;
     this->user_name = user_name;
 }
@@ -45,7 +45,7 @@ void Provider::setName(const string& name) {
  * @return the provider's name
  */
 std::string Provider::getName() const {
-    return name;
+    return this->name;
 }
 
 /**
@@ -78,10 +78,12 @@ std::ostream &operator<<(ostream &os, const Provider &provider) {
     os << provider.user_name << endl;
 
     map<Product*, unsigned int> prods = provider.getProducts();
+    cout << provider.getProducts().size() << endl;
 
     for(auto it = prods.begin(); it != prods.end(); it++){
-        os << it->first << DELIMITER << it->second << endl;
+        os << *it->first << DELIMITER << it->second << endl;
     }
+    os << "_" << endl;
     return os;
 }
 
@@ -92,14 +94,27 @@ std::ostream &operator<<(ostream &os, const Provider &provider) {
  * @return the input stream
  */
 std::istream &operator>>(istream &is, Provider &provider) {
-    is >> provider.id >>provider.name >> provider.user_name;
+    is >> provider.id >> provider.name >> provider.user_name;
 
-    Product* product;
     unsigned int quantity;
-
-    while(!is.eof()) {
-        is >> *product >> quantity;
+    int acc = 5;
+    Product product;
+   // ) {
+    /*while(is.peek() != '_' ) {
+        cout << (is.peek() == '_') << endl;
         provider.addProduct(product, quantity);
-    }
+        is >> * product >> quantity;
+        acc--;
+    }*/
+
+    is >> product >> quantity;
+    cout << product.getId() << endl;
+
     return is;
 }
+
+Provider::Provider() : ProductsWrapper(){
+
+}
+
+

@@ -112,7 +112,7 @@ bool Product::operator==(Product product) {
  */
 std::ostream &operator<<(ostream &os, const Product &product) {
     os << product.id << DELIMITER << product.name << DELIMITER;
-    os << product.price << DELIMITER << product.size << endl;
+    os << product.price << DELIMITER << product.size;
     return os;
 }
 

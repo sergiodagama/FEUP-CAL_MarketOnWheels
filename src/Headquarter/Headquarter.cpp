@@ -322,3 +322,56 @@ bool Headquarter::isClientRegistered(std::string userName) {
     }
     return false;
 }
+
+void Headquarter::saveProvider(const string &providers_path) {
+
+    //providers
+    ofstream providerFile(providers_path);
+
+    if(providerFile.is_open()){
+        for(auto it = providers.begin(); it != providers.end(); it++) {
+            providerFile << *(*it);
+        }
+    }
+    else cout << "Unable to open providers file" << endl;
+    providerFile.close();
+
+}
+
+void Headquarter::loadProvider(const string &providers_path) {
+    //providers
+    ifstream providerFile(providers_path);
+
+    Provider* provider = new Provider();
+
+    int acc = 5;
+
+    if(providerFile.is_open()){
+
+        //while(!providerFile.eof()){
+        while (providerFile >> *provider){
+            addProvider(provider);
+        }
+    }
+
+    else cout << "Unable to open providers file" << endl;
+    providerFile.close();
+}
+
+/**
+ * Shows the providers to the user
+ */
+void Headquarter::showProviders() {
+    if(providers.empty()){
+        cout << "It does not exist any provider yet" << endl;
+        return;
+    }
+    cout << "Id\tName\tUserName\tNumberOfProducts" << endl;
+    for(auto it = providers.begin(); it != providers.end(); it++){
+        //cout << *(*it);
+        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t" << endl;
+
+    }
+
+}
+

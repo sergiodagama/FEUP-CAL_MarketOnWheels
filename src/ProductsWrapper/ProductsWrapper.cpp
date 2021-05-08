@@ -17,7 +17,7 @@ ProductsWrapper::ProductsWrapper(std::map<Product*, unsigned int> products) {
  * @return the products map
  */
 std::map<Product *, unsigned int> ProductsWrapper::getProducts() const {
-    return std::map<Product *, unsigned int>();
+    return this->products;
 }
 
 /**

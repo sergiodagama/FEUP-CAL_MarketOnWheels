@@ -5,6 +5,22 @@ int main() {
     Headquarter headquarter(1000000);
 
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    //std::map<Product *, unsigned int> products;
+
+    //Product * product = new Product("batata", 1.2, 3);
+    //Product * product2 = new Product("batata", 1.3, 3);
+    //products.insert(std::pair<Product * ,unsigned int>(product,100));
+    //products.insert(std::pair<Product * ,unsigned int>(product2,150));
+
+    //Provider * provider = new Provider("FEUP", "frtrgtye", products);
+    //Provider * provider2 = new Provider("FMUP", "gtghtr", products);
+
+    /*headquarter.addProvider(provider);
+    headquarter.addProvider(provider2);*/
+
+    //headquarter.saveProvider("../src/Resources/providers.txt");
+  /*  headquarter.loadProvider("../src/Resources/providers.txt");
+    headquarter.showProviders();*/
 
     std::cout << "|||||||| Market On Wheels ||||||||" << std::endl << std::endl;
 
@@ -127,5 +143,6 @@ int main() {
     headquarter.saveData("../src/Resources/clients.txt", "", "");
     /*std::ofstream clientFile("../src/Resources/clients.txt");
     clientFile << *client;*/
+
     return 0;
 }
