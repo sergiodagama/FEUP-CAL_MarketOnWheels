@@ -159,7 +159,7 @@ Position Headquarter::getPositionById(double id) {
  * @param providers_path path to the providers file
  * @param trucks_path path to the trucks file
  */
-void Headquarter::loadData(const string &clients_path, const string &providers_path, const string &trucks_path) {
+void Headquarter::loadData(const string &clients_path, const string &providers_path, const string &trucks_path, const std::string& orders_path) {
     //clients
     ifstream clientFile(clients_path);
 
@@ -201,6 +201,20 @@ void Headquarter::loadData(const string &clients_path, const string &providers_p
     }
     else cout << "Unable to open trucks file" << endl;
     truckFile.close();
+
+    //orders
+    ifstream orderFile(orders_path);
+
+    Order* order;
+
+    if(orderFile.is_open()){
+        while(!orderFile.eof()){
+            orderFile >> *order;
+            addOrder(order);
+        }
+    }
+    else cout << "Unable to open orders file" << endl;
+    orderFile.close();
 }
 
 /**
@@ -210,7 +224,7 @@ void Headquarter::loadData(const string &clients_path, const string &providers_p
  * @param providers_path path to the providers file
  * @param trucks_path path to the trucks file
  */
-void Headquarter::saveData(const string &clients_path, const string &providers_path, const string &trucks_path) {
+void Headquarter::saveData(const string &clients_path, const string &providers_path, const string &trucks_path, const std::string& orders_path) {
     //clients
     ofstream clientFile(clients_path);
 
@@ -243,6 +257,17 @@ void Headquarter::saveData(const string &clients_path, const string &providers_p
     }
     else cout << "Unable to open trucks file" << endl;
     truckFile.close();
+
+    //orders
+    ofstream orderFile(orders_path);
+
+    if(orderFile.is_open()){
+        for(auto it = orders.begin(); it != orders.end(); it++) {
+            orderFile << (*it);
+        }
+    }
+    else cout << "Unable to open orders file" << endl;
+    orderFile.close();
 }
 
 /**
@@ -292,4 +317,7 @@ Client* Headquarter::getClientById(unsigned int id) {
         if((*it)->getId() == id) return (*it);
     }
     return nullptr;
+}
+
+void Headquarter::showClients() {
 }

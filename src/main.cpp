@@ -37,6 +37,8 @@ int main() {
     providers_menu.addOption("Remove Quantity to product");
     providers_menu.addOption("Show info");
 
+    //------------------------ DISPLAYING MENUS AND MANIPULATING HEADQUARTER ------------------------
+
     main_menu.show();
     unsigned int user_category = main_menu.getInput();
 
@@ -56,6 +58,21 @@ int main() {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             } while(std::cin.fail() || headquarter.getClientById(client_id) == nullptr);
+
+            client_menu.show();
+            unsigned int client_option = client_menu.getInput();
+
+            switch (client_option) {
+                case 1:{
+                    break;
+                }
+                case 2:{
+                    break;
+                }
+                case 3:{
+                    break;
+                }
+            }
             break;
         }
         //provider area
@@ -68,6 +85,47 @@ int main() {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             } while(std::cin.fail() || headquarter.getProviderById(provider_id) == nullptr);
+
+            providers_menu.show();
+
+            unsigned int providers_option = providers_menu.getInput();
+
+            switch(providers_option){
+                //Import data
+                case 1:{
+                    std::cout << "Importing data into program structures..." << std::endl;
+                    headquarter.loadData("src/Resources/clients.txt", "src/Resources/providers.txt", "src/Resources/trucks.txt", "src/Resources/orders.txt");
+                    break;
+                }
+                //Save data
+                case 2:{
+                    std::cout << "Saving data into files.." << std::endl;
+                    headquarter.saveData("src/Resources/clients.txt", "src/Resources/providers.txt", "src/Resources/trucks.txt", "src/Resources/orders.txt");
+                    break;
+                }
+                //Calculate optimized paths
+                case 3:{
+                    break;
+                }
+                //Deliver
+                case 4:{
+                    break;
+                }
+                //Show Trucks
+                case 5:{
+                    headquarter.showTrucks();
+                    break;
+                }
+                //Show Clients
+                case 6:{
+                    //headquarter.showClients();
+                    break;
+                }
+                //Show Providers
+                case 7:{
+                    break;
+                }
+            }
             break;
         }
         //admin area
@@ -79,7 +137,7 @@ int main() {
                 std::cin >> admin_pass;
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            } while(std::cin.fail() || headquarter.getAdminPassword() == admin_pass);
+            } while(std::cin.fail() || headquarter.getAdminPassword() != admin_pass);
             break;
         }
         //registering area
