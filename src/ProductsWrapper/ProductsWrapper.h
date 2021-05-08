@@ -9,6 +9,7 @@ private:
     std::map<Product*, unsigned int> products; //[product | quantity]
 public:
     ProductsWrapper(std::map<Product*, unsigned int> products);
+    ProductsWrapper() {};
     std::map<Product*, unsigned int> getProducts() const;
     unsigned int getNumOfProducts();
     unsigned int getNumOfDifProducts();

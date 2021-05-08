@@ -28,8 +28,12 @@ public:
     void addOrder(Order* order);
     void loadMap(const std::string& nodes_path,const std::string& edges_path);  //imports the designated map in files into graph  //TODO change to exceptions
     void loadData(const std::string& clients_path, const std::string& providers_path, const std::string& trucks_path);
+    void loadProvider(const std::string& providers_path);
+
+    void saveProvider(const std::string& providers_path);
     void saveData(const std::string& clients_path, const std::string& providers_path, const std::string& trucks_path);  //TODO change to exeptions
     void showTrucks();
+    void showProviders();
     Position getPositionById(double id);
     std::string getAdminPassword() const;
     Provider* getProviderById(unsigned int id);

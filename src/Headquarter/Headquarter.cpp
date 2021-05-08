@@ -293,3 +293,54 @@ Client* Headquarter::getClientById(unsigned int id) {
     }
     return nullptr;
 }
+
+void Headquarter::saveProvider(const string &providers_path) {
+
+    //providers
+    ifstream providerFile(providers_path);
+
+    Provider* provider;
+
+    if(providerFile.is_open()){
+        while(!providerFile.eof()){
+            providerFile >> *provider;
+            addProvider(provider);
+        }
+    }
+
+    else cout << "Unable to open providers file" << endl;
+    providerFile.close();
+
+}
+
+void Headquarter::loadProvider(const string &providers_path) {
+    //providers
+    ifstream providerFile(providers_path);
+
+    Provider provider;
+
+    if(providerFile.is_open()){
+        while(!providerFile.eof()){
+            providerFile >> provider;
+            addProvider(&provider);
+        }
+    }
+
+    else cout << "Unable to open providers file" << endl;
+    cout << "SIZE: " << providers.size() << endl;
+    providerFile.close();
+}
+
+void Headquarter::showProviders() {
+
+    if(providers.empty()){
+        cout << "It does not exist any truck yet" << endl;
+        return;
+    }
+    cout << "Id\tCapacity\tLoad\tState" << endl;
+    for(auto it = providers.begin(); it != providers.end(); it++){
+        cout << (*it)->getId();
+    }
+
+}
+

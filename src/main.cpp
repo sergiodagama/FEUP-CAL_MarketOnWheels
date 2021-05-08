@@ -4,13 +4,19 @@
 int main() {
     Headquarter headquarter(1000000);
 
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    //headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    /*std::map<Product *, unsigned int> products;
+    Provider * provider = new Provider("FEUP", "FEUP", products);
+    headquarter.addProvider(provider);*/
+    //headquarter.saveProvider("../src/Resources/providers.txt");
+    headquarter.loadProvider("../src/Resources/providers.txt");
+    headquarter.showProviders();
 
     std::cout << "|||||||| Market On Wheels ||||||||" << std::endl << std::endl;
 
     //------------------------ CREATING MENUS ------------------------
 
-    Menu main_menu = Menu("Choose your user category");
+    /*Menu main_menu = Menu("Choose your user category");
     main_menu.addOption("Client");
     main_menu.addOption("Provider");
     main_menu.addOption("Admin");
@@ -105,7 +111,7 @@ int main() {
             }
             break;
         }
-    }
+    }*/
 
     return 0;
 }
