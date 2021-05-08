@@ -47,6 +47,15 @@ void Headquarter::addTruck(Truck *truck) {
 }
 
 /**
+ * Adds an order to the orders made to the company
+ *
+ * @param order the order to be added
+ */
+void Headquarter::addOrder(Order *order) {
+    orders.push_back(order);
+}
+
+/**
  * Imports map into graph from file
  * @param nodes_path the path to the file where graph nodes are stored
  * @param edges_path the path to the file where graph edges are stored
@@ -233,12 +242,54 @@ void Headquarter::saveData(const string &clients_path, const string &providers_p
         }
     }
     else cout << "Unable to open trucks file" << endl;
-    truckFile.close()
+    truckFile.close();
 }
 
+/**
+ * Displays trucks to user
+ */
 void Headquarter::showTrucks() {
-    for(int i = 0; i < trucks.size(); i++)
-    {
-        cout << "ID: " << trucks[i]->getId() << " state: " <<  trucks[i]->returnStateString(trucks[i]->getState()) << " capacity: " << trucks[i]->getCapacity() << " load: "<< trucks[i]->getLoad() << endl;
+    if(trucks.empty()){
+        cout << "It does not exist any truck yet" << endl;
+        return;
     }
+    cout << "Id\tCapacity\tLoad\tState" << endl;
+    for(auto it = trucks.begin(); it != trucks.end(); it++){
+        cout << (*it)->getId() << DELIMITER << (*it)->getCapacity() << DELIMITER << (*it)->getLoad() << DELIMITER << (*it)->getState() << endl;
+    }
+}
+
+/**
+ * Gets the headquarters admin password
+ *
+ * @return the admin password
+ */
+string Headquarter::getAdminPassword() const {
+    return admin_password;
+}
+
+/**
+ * Gets a specific provider
+ *
+ * @param id the id of the provider
+ * @return the provider wanted if exists, else nullptr
+ */
+Provider* Headquarter::getProviderById(unsigned int id) {
+    for(auto it = providers.begin(); it != providers.end(); it++){
+        if((*it)->getId() == id) return (*it);
+    }
+    return nullptr;
+}
+
+/**
+ * Gets a specific client
+ *
+ * @param id the id of the client
+ * @return the client wanted if exists, else nullptr
+ */
+Client* Headquarter::getClientById(unsigned int id) {
+    for(auto it = clients.begin(); it != clients.end(); it++){
+        if((*it)->getId() == id) return (*it);
+    }
+    return nullptr;
 }

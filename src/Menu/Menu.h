@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <limits>
 #include <Exceptions.h>
 
 class Menu {

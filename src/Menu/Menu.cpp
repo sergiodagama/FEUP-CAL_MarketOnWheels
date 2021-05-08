@@ -62,10 +62,11 @@ void Menu::deleteOption(std::string option_name) {
  * Prints the menu to user
  */
 void Menu::show() {
-    cout << "--> " << title << " <--" << endl;
+    cout << "### " << title << " ###" << endl;
     unsigned int n = 1;
     for(auto it = option_names.begin(); it != option_names.end(); it++){
         cout << n << ": " << *it << endl;
+        n++;
     }
 }
 
@@ -76,6 +77,11 @@ void Menu::show() {
  */
 unsigned int Menu::getInput() {
     unsigned int input = 0;
-    cin >> input;
+    do {
+        cout << "->";
+        cin >> input;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    } while(cin.fail() || input > option_names.size());
     return input;
 }

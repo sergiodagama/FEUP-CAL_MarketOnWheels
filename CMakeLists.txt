@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(src/Client)
 include_directories(src/Exceptions)
 include_directories(src/Headquarter)
-include_directories(src/Interface)
+include_directories(src/Menu)
 include_directories(src/Map)
 include_directories(src/Order)
 include_directories(src/Product)
@@ -21,8 +21,8 @@ add_executable(MarketOnWheels
         src/Exceptions/Exceptions.h
         src/Headquarter/Headquarter.cpp
         src/Headquarter/Headquarter.h
-        src/Interface/Menu.cpp
-        src/Interface/Menu.h
+        src/Menu/Menu.cpp
+        src/Menu/Menu.h
         src/Order/Order.cpp
         src/Order/Order.h
         src/Product/Product.cpp
