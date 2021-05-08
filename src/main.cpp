@@ -37,6 +37,11 @@ int main() {
     providers_menu.addOption("Remove Quantity to product");
     providers_menu.addOption("Show info");
 
+
+    Menu register_menu = Menu("Register");
+    register_menu.addOption("Client");
+    register_menu.addOption("Provider");
+
     main_menu.show();
     unsigned int user_category = main_menu.getInput();
 
@@ -84,6 +89,14 @@ int main() {
         }
         //registering area
         case 4:{
+            register_menu.show();
+            int option;
+            do {
+                std::cout << "->";
+                std::cin >> option;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            } while(std::cin.fail());
             break;
         }
     }
