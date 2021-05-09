@@ -97,7 +97,7 @@ void Headquarter::loadMap(const std::string& nodes_path, const std::string& edge
                     cout << "ERROR" << endl;
                 }
 
-                cout << line << '\n';
+                //cout << line << '\n';
             }
         }
         nodesFile.close();
@@ -134,7 +134,7 @@ void Headquarter::loadMap(const std::string& nodes_path, const std::string& edge
                     cout << "ERROR" << endl;
                 };
 
-                cout << line << '\n';
+                //cout << line << '\n';
             }
         }
         nodesFile.close();
@@ -159,48 +159,11 @@ Position Headquarter::getPositionById(double id) {
  * @param providers_path path to the providers file
  * @param trucks_path path to the trucks file
  */
-void Headquarter::loadData(const string &clients_path, const string &providers_path, const string &trucks_path) {
-    //clients
-    ifstream clientFile(clients_path);
-
-    Client *client;
-
-    if(clientFile.is_open()){
-        while(!clientFile.eof()){
-            clientFile >> *client;
-            addClient(client);
-        }
-    }
-    else cout << "Unable to open clients file" << endl;
-    clientFile.close();
-
-    //providers
-    ifstream providerFile(providers_path);
-
-    Provider* provider;
-
-    if(providerFile.is_open()){
-        while(!providerFile.eof()){
-            providerFile >> *provider;
-            addProvider(provider);
-        }
-    }
-    else cout << "Unable to open providers file" << endl;
-    providerFile.close();
-
-    //trucks
-    ifstream truckFile(trucks_path);
-
-    Truck* truck;
-
-    if(truckFile.is_open()){
-        while(!truckFile.eof()){
-            truckFile >> *truck;
-            addTruck(truck);
-        }
-    }
-    else cout << "Unable to open trucks file" << endl;
-    truckFile.close();
+void Headquarter::loadAllData(const string &clients_path, const string &providers_path, const string &trucks_path, const string& orders_path) {
+/*    loadClientData(clients_path);
+    loadProviderData(providers_path);
+    loadTruckData(trucks_path);
+    loadOrderData(orders_path);*/
 }
 
 /**
@@ -210,39 +173,11 @@ void Headquarter::loadData(const string &clients_path, const string &providers_p
  * @param providers_path path to the providers file
  * @param trucks_path path to the trucks file
  */
-void Headquarter::saveData(const string &clients_path, const string &providers_path, const string &trucks_path) {
-    //clients
-    ofstream clientFile(clients_path);
-
-    if(clientFile.is_open()){
-        for(auto it = clients.begin(); it != clients.end(); it++) {
-            clientFile << (*it);
-        }
-    }
-    else cout << "Unable to open clients file" << endl;
-    clientFile.close();
-
-    //providers
-    ofstream providerFile(providers_path);
-
-    if(providerFile.is_open()){
-        for(auto it = providers.begin(); it != providers.end(); it++) {
-            providerFile << (*it);
-        }
-    }
-    else cout << "Unable to open providers file" << endl;
-    providerFile.close();
-
-    //trucks
-    ofstream truckFile(trucks_path);
-
-    if(truckFile.is_open()){
-        for(auto it = trucks.begin(); it != trucks.end(); it++) {
-            truckFile << (*it);
-        }
-    }
-    else cout << "Unable to open trucks file" << endl;
-    truckFile.close();
+void Headquarter::saveAllData(const string &clients_path, const string &providers_path, const string &trucks_path, const string &orders_path) {
+    saveClientData(clients_path);
+    saveProviderData(providers_path);
+    saveTruckData(trucks_path);
+    saveOrderData(orders_path);
 }
 
 /**
@@ -255,7 +190,21 @@ void Headquarter::showTrucks() {
     }
     cout << "Id\tCapacity\tLoad\tState" << endl;
     for(auto it = trucks.begin(); it != trucks.end(); it++){
-        cout << (*it)->getId() << DELIMITER << (*it)->getCapacity() << DELIMITER << (*it)->getLoad() << DELIMITER << (*it)->getState() << endl;
+        cout << (*it)->getId() << "\t" << (*it)->getCapacity() << "\t" << (*it)->getLoad() << "\t" << (*it)->getState() << endl;
+    }
+}
+
+/**
+ * Displays clients to user
+ */
+void Headquarter::showClients() {
+    if(clients.empty()){
+        cout << "It does not exist any client yet" << endl;
+        return;
+    }
+    cout << "Id\tName\tUsername\tDate\t\tAdressId" << endl;
+    for(auto it = clients.begin(); it != clients.end(); it++){
+        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t" << (*it)->getDate() << "\t" << *(*it)->getAddress() << endl;
     }
 }
 
@@ -294,8 +243,26 @@ Client* Headquarter::getClientById(unsigned int id) {
     return nullptr;
 }
 
-void Headquarter::saveProvider(const string &providers_path) {
+/**
+ * Shows the providers to the user
+ */
+void Headquarter::showProviders() {
+    if(providers.empty()){
+        cout << "It does not exist any provider yet" << endl;
+        return;
+    }
+    cout << "Id\tName\t\tUserName\tNumberOfProducts" << endl;
+    for(auto it = providers.begin(); it != providers.end(); it++){
+        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t" << (*it)->getNumOfDifProducts() << endl;
+    }
 
+}
+
+/**
+ * Saves all providers data in it respective file
+ * @param providers_path the path to the providers path
+ */
+void Headquarter::saveProviderData(const string &providers_path) {
     //providers
     ofstream providerFile(providers_path);
 
@@ -309,19 +276,65 @@ void Headquarter::saveProvider(const string &providers_path) {
 
 }
 
-void Headquarter::loadProvider(const string &providers_path) {
-    //providers
+
+void Headquarter::saveTruckData(const string& trucks_path) {
+    //trucks
+    ofstream truckFile(trucks_path);
+
+    if(truckFile.is_open()){
+        for(auto it = trucks.begin(); it != trucks.end(); it++) {
+            truckFile << *(*it);
+        }
+    }
+    else cout << "Unable to open trucks file" << endl;
+    truckFile.close();
+}
+
+void Headquarter::saveClientData(const string &clients_path) {
+    ofstream clientFile(clients_path);
+
+    if(clientFile.is_open()){
+        for(auto it = clients.begin(); it != clients.end(); it++) {
+            clientFile << *(*it);
+        }
+    }
+    else cout << "Unable to open clients file" << endl;
+    clientFile.close();
+}
+
+void Headquarter::saveOrderData(const string &orders_path) {
+    ofstream orderFile(orders_path);
+
+    if(orderFile.is_open()){
+        for(auto it = orders.begin(); it != orders.end(); it++) {
+            orderFile << *(*it);
+        }
+    }
+    else cout << "Unable to open orders file" << endl;
+    orderFile.close();
+}
+
+
+void Headquarter::loadProviderData(const string &providers_path) {
     ifstream providerFile(providers_path);
 
-    Provider* provider = new Provider();
-
-    int acc = 5;
+    string line;
+    string name, user_name;
+    unsigned int id, size, quantity;
+    double price;
 
     if(providerFile.is_open()){
-
-        //while(!providerFile.eof()){
-        while (providerFile >> *provider){
+        while (getline(providerFile, line)){
+            stringstream ss(line);
+            ss >> id >> name >> user_name;
+            Provider *provider = new Provider(name, user_name);
             addProvider(provider);
+            while(getline(providerFile, line) && line != "_"){
+                stringstream ss(line);
+                ss >> id >> name >> price >> size >> quantity;
+                Product * product = new Product(name, price, size);
+                provider->addProduct(product, quantity);
+            }
         }
     }
 
@@ -329,20 +342,28 @@ void Headquarter::loadProvider(const string &providers_path) {
     providerFile.close();
 }
 
-/**
- * Shows the providers to the user
- */
-void Headquarter::showProviders() {
-    if(providers.empty()){
-        cout << "It does not exist any provider yet" << endl;
-        return;
-    }
-    cout << "Id\tName\tUserName\tNumberOfProducts" << endl;
-    for(auto it = providers.begin(); it != providers.end(); it++){
-        //cout << *(*it);
-        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t" << endl;
 
+void Headquarter::loadClientData(const string &clients_path) {
+    ifstream clientFile(clients_path);
+
+    string line;
+    string name, user_name;
+    unsigned int id;
+    double pos_id;
+    Date date;
+
+    if(clientFile.is_open()){
+        while (getline(clientFile, line)){
+            stringstream ss(line);
+            ss >> id >> name >> user_name >> date >> pos_id;
+            Position position = getPositionById(pos_id);
+            Client *client = new Client(name, user_name, date, &position);
+            addClient(client);
+        }
     }
 
+    else cout << "Unable to open clients file" << endl;
+    clientFile.close();
 }
+
 

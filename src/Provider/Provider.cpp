@@ -78,7 +78,6 @@ std::ostream &operator<<(ostream &os, const Provider &provider) {
     os << provider.user_name << endl;
 
     map<Product*, unsigned int> prods = provider.getProducts();
-    cout << provider.getProducts().size() << endl;
 
     for(auto it = prods.begin(); it != prods.end(); it++){
         os << *it->first << DELIMITER << it->second << endl;
@@ -95,26 +94,20 @@ std::ostream &operator<<(ostream &os, const Provider &provider) {
  */
 std::istream &operator>>(istream &is, Provider &provider) {
     is >> provider.id >> provider.name >> provider.user_name;
-
-    unsigned int quantity;
-    int acc = 5;
-    Product product;
-   // ) {
-    /*while(is.peek() != '_' ) {
-        cout << (is.peek() == '_') << endl;
-        provider.addProduct(product, quantity);
-        is >> * product >> quantity;
-        acc--;
-    }*/
-
-    is >> product >> quantity;
-    cout << product.getId() << endl;
-
     return is;
 }
 
 Provider::Provider() : ProductsWrapper(){
+    id_aux++;
+    this->id = id_aux;
 
+}
+
+Provider::Provider(std::string name, std::string user_name) {
+    id_aux++;
+    this->id = id_aux;
+    this->name = name;
+    this->user_name = user_name;
 }
 
 

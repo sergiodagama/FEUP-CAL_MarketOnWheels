@@ -17,6 +17,11 @@ Order::Order(std::map<Product *, unsigned int> products) : ProductsWrapper(produ
     this->id = id_aux;
 }
 
+Order::Order() : ProductsWrapper(){
+    id_aux++;
+    this->id = id_aux;
+}
+
 /**
  * Gets the order id
  *
@@ -31,22 +36,25 @@ unsigned int Order::getId() const {
  *
  * @return the size of the order, 0 in case there is none
  */
+
 unsigned int Order::getSize() const {
     unsigned int size = 0;
-    for (auto & product : products) {
+    for (auto & product : getProducts()) {
         size += product.second * product.first->getSize();
     }
     return size;
 }
+
 
 /**
  * Gets the total price of an order (sum of all products prices)
  *
  * @return the order price, if none returns 0
  */
+
 float Order::getPrice() const {
     float price = 0;
-    for(auto & product : products){
+    for(auto & product : getProducts()){
         price += (product.second * product.first->getPrice());
     }
     return price;

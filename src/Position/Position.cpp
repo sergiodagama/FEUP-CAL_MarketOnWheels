@@ -59,8 +59,7 @@ bool Position::operator==(Position position) {
  * @return the output stream
  */
 ostream &operator<<(ostream &os, const Position &position) {
-    os << to_string(position.id) << DELIMITER << position.latitude;
-    os << DELIMITER << position.longitude;
+    os << to_string(position.id);
     return os;
 }
 

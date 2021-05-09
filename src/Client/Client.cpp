@@ -35,6 +35,8 @@ Client::Client(const std::string& name, const std::string& user_name, Date date,
  * @param address the address of the client (graph vertex)
  */
 Client::Client(const std::string& name, const std::string& user_name, Date date, Position *address){
+    id_aux++;
+    this->id = id_aux;
     this->name = name;
     this->user_name = user_name;
     this->birthday_date = date;
@@ -156,7 +158,7 @@ Position *Client::getAddress() const {
 ostream &operator<<(ostream &os, const Client &client) {
     os << client.id << DELIMITER << client.name << DELIMITER;
     os << client.user_name << DELIMITER << client.birthday_date << DELIMITER;
-    os << *client.address << DELIMITER << client.capital << endl;
+    os << *client.address << endl;
     return os;
 }
 

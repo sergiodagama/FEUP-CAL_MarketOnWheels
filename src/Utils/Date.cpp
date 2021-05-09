@@ -75,6 +75,7 @@ ostream &operator<<(ostream &os, const Date &date) {
  * @return the input stream
  */
 std::istream &operator>>(istream &is, Date &date) {
-    is >> date.day >> date.month >> date.year;
+    char delim;
+    is >> date.day >> delim >> date.month >> delim >> date.year;
     return is;
 }

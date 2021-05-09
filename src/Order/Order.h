@@ -8,10 +8,11 @@ class Order : public ProductsWrapper {
 private:
     unsigned int id;
     static unsigned int id_aux;
-    std::map<Product*, unsigned int> products;
 public:
     Order(std::map<Product *, unsigned int> products);
+    Order();
     unsigned int getId() const;
+
     unsigned int getSize() const;
     float getPrice() const;
     friend std::ostream& operator<<(std::ostream& os, const Order& order);
