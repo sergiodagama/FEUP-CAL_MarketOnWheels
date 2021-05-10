@@ -159,11 +159,12 @@ Position Headquarter::getPositionById(double id) {
  * @param providers_path path to the providers file
  * @param trucks_path path to the trucks file
  */
-void Headquarter::loadAllData(const string &clients_path, const string &providers_path, const string &trucks_path, const string& orders_path) {
-/*    loadClientData(clients_path);
+void Headquarter::loadAllData(const string &clients_path, const string &providers_path, const string &trucks_path, const string& orders_path, const std::string& products_path) {
+ loadProductData(products_path);
+ loadClientData(clients_path);
     loadProviderData(providers_path);
+    loadOrderData(orders_path);
     loadTruckData(trucks_path);
-    loadOrderData(orders_path);*/
 }
 
 /**
@@ -173,11 +174,12 @@ void Headquarter::loadAllData(const string &clients_path, const string &provider
  * @param providers_path path to the providers file
  * @param trucks_path path to the trucks file
  */
-void Headquarter::saveAllData(const string &clients_path, const string &providers_path, const string &trucks_path, const string &orders_path) {
+void Headquarter::saveAllData(const string &clients_path, const string &providers_path, const string &trucks_path, const string &orders_path, const std::string& products_path) {
     saveClientData(clients_path);
     saveProviderData(providers_path);
     saveTruckData(trucks_path);
     saveOrderData(orders_path);
+    saveProductData(products_path);
 }
 
 /**
@@ -195,6 +197,21 @@ void Headquarter::showTrucks() {
 }
 
 /**
+ * Displays orders to user
+ */
+void Headquarter::showOrders() {
+    if(orders.empty()){
+        cout << "It does not exist any order yet" << endl;
+        return;
+    }
+    cout << "Id\t" << endl;
+    for(auto it = orders.begin(); it != orders.end(); it++){
+        cout << (*it)->getId() << endl;
+    }
+}
+
+
+/**
  * Displays clients to user
  */
 void Headquarter::showClients() {
@@ -204,7 +221,7 @@ void Headquarter::showClients() {
     }
     cout << "Id\tName\tUsername\tDate\t\tAdressId" << endl;
     for(auto it = clients.begin(); it != clients.end(); it++){
-        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t" << (*it)->getDate() << "\t" << *(*it)->getAddress() << endl;
+        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t" << (*it)->getDate() << "\t" << (*it)->getAddress() << endl;
     }
 }
 
@@ -320,7 +337,7 @@ void Headquarter::loadProviderData(const string &providers_path) {
 
     string line;
     string name, user_name;
-    unsigned int id, size, quantity;
+    unsigned int id, prod_id, size, quantity;
     double price;
 
     if(providerFile.is_open()){
@@ -331,9 +348,8 @@ void Headquarter::loadProviderData(const string &providers_path) {
             addProvider(provider);
             while(getline(providerFile, line) && line != "_"){
                 stringstream ss(line);
-                ss >> id >> name >> price >> size >> quantity;
-                Product * product = new Product(name, price, size);
-                provider->addProduct(product, quantity);
+                ss >> prod_id >> quantity;
+                provider->addProduct(getProductById(prod_id), quantity);
             }
         }
     }
@@ -356,8 +372,7 @@ void Headquarter::loadClientData(const string &clients_path) {
         while (getline(clientFile, line)){
             stringstream ss(line);
             ss >> id >> name >> user_name >> date >> pos_id;
-            Position position = getPositionById(pos_id);
-            Client *client = new Client(name, user_name, date, &position);
+            Client *client = new Client(name, user_name, date, pos_id);
             addClient(client);
         }
     }
@@ -366,4 +381,116 @@ void Headquarter::loadClientData(const string &clients_path) {
     clientFile.close();
 }
 
+
+
+void Headquarter::loadOrderData(const string &orders_path) {
+    ifstream orderFile(orders_path);
+
+    string line;
+    unsigned int id, client_id, prod_id, quantity;
+
+    if(orderFile.is_open()){
+        while (getline(orderFile, line)){
+            stringstream ss(line);
+            ss >> id >> client_id;
+            Order *order = new Order(client_id);
+            addOrder(order);
+            while(getline(orderFile, line) && line != "_"){
+                stringstream ss(line);
+                ss >> prod_id >> quantity;
+                order->addProduct(getProductById(prod_id), quantity);
+            }
+
+        }
+    }
+
+    else cout << "Unable to open orders file" << endl;
+    orderFile.close();
+}
+
+Order *Headquarter::getOrderById(unsigned int id) {
+    for(auto it = orders.begin(); it != orders.end(); it++){
+        if((*it)->getId() == id) return (*it);
+    }
+    return nullptr;
+}
+
+
+
+void Headquarter::loadTruckData(const string &trucks_path) {
+    ifstream truckFile(trucks_path);
+
+    string line;
+    unsigned int cap, truck_id, order_id, load, state;
+    double price;
+
+    if(truckFile.is_open()){
+        while (getline(truckFile, line)){
+            stringstream ss(line);
+            ss >> truck_id >> cap >> load >> state;
+            Truck *truck = new Truck(cap);
+            //truck->setState(truck->returnStateString(state));
+            addTruck(truck);
+            while(getline(truckFile, line) && line != "_"){
+                stringstream ss(line);
+                ss >> order_id;
+                truck->addOrder(getOrderById(order_id));
+            }
+        }
+    }
+
+    else cout << "Unable to open trucks file" << endl;
+    truckFile.close();
+}
+
+void Headquarter::addProduct(Product *product) {
+    products.push_back(product);
+}
+
+Product *Headquarter::getProductById(unsigned int id) {
+    for(auto it = products.begin(); it != products.end(); it++){
+        if((*it)->getId() == id) return (*it);
+    }
+    throw ProductNotFound();
+}
+
+
+void Headquarter::saveProductData(const string &products_path) {
+    ofstream productFile(products_path);
+
+    if(productFile.is_open()){
+        for(auto it = products.begin(); it != products.end(); it++) {
+            productFile << *(*it);
+        }
+    }
+    else cout << "Unable to open products file" << endl;
+    productFile.close();
+}
+
+void Headquarter::loadProductData(const string &products_path) {
+    ifstream productFile(products_path);
+
+    string line;
+    string name;
+    unsigned int id, prod_id, quantity, size;
+    double price;
+
+    if (productFile.is_open()) {
+        while (getline(productFile, line) && line != "_") {
+            stringstream ss(line);
+            ss >> prod_id >> name >> price >> size;
+            Product *product = new Product(name, price, size);
+            addProduct(product);
+        }
+    }
+    else cout << "Unable to open products file" << endl;
+    productFile.close();
+}
+
+void Headquarter::showProducts() {
+    cout << "Products" << endl;
+    for(auto it = products.begin(); it != products.end(); it++){
+        cout << *(*it);
+    }
+}
 

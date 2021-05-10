@@ -16,13 +16,13 @@ unsigned int Client::id_aux = 0;
  * @param address the address of the client (graph vertex)
  * @param capital the capital of the client
  */
-Client::Client(const std::string& name, const std::string& user_name, Date date, Position *address, unsigned int capital) {
+Client::Client(const std::string& name, const std::string& user_name, Date date, unsigned int address, unsigned int capital) {
     id_aux++;
     this->id = id_aux;
     this->name = name;
     this->user_name = user_name;
     this->birthday_date = date;
-    this->address = address;
+    this->position_id = address;
     this->capital = capital;
 }
 
@@ -34,13 +34,13 @@ Client::Client(const std::string& name, const std::string& user_name, Date date,
  * @param date the birthday date of the client
  * @param address the address of the client (graph vertex)
  */
-Client::Client(const std::string& name, const std::string& user_name, Date date, Position *address){
+Client::Client(const std::string& name, const std::string& user_name, Date date, unsigned int address){
     id_aux++;
     this->id = id_aux;
     this->name = name;
     this->user_name = user_name;
     this->birthday_date = date;
-    this->address = address;
+    this->position_id = address;
 }
 
 /**
@@ -135,8 +135,8 @@ unsigned int Client::getCapital() const {
  *
  * @param position the address of the client
  */
-void Client::setAddress(Position *position) {
-    this->address = position;
+void Client::setAddress(unsigned int position) {
+    this->position_id = position;
 }
 
 /**
@@ -144,8 +144,8 @@ void Client::setAddress(Position *position) {
  *
  * @return the address of the client
  */
-Position *Client::getAddress() const {
-    return address;
+unsigned int Client::getAddress() const {
+    return position_id;
 }
 
 /**
@@ -158,7 +158,7 @@ Position *Client::getAddress() const {
 ostream &operator<<(ostream &os, const Client &client) {
     os << client.id << DELIMITER << client.name << DELIMITER;
     os << client.user_name << DELIMITER << client.birthday_date << DELIMITER;
-    os << *client.address << endl;
+    os << client.position_id << endl;
     return os;
 }
 
@@ -170,6 +170,6 @@ ostream &operator<<(ostream &os, const Client &client) {
  * @return the output stream
  */
 istream &operator>>(istream &is, Client &client) {
-    is >> client.id >> client.name >> client.user_name >> client.birthday_date >> *client.address >> client.capital;
+    is >> client.id >> client.name >> client.user_name >> client.birthday_date >> client.position_id;
     return is;
 }

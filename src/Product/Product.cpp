@@ -112,7 +112,7 @@ bool Product::operator==(Product product) {
  */
 std::ostream &operator<<(ostream &os, const Product &product) {
     os << product.id << DELIMITER << product.name << DELIMITER;
-    os << product.price << DELIMITER << product.size;
+    os << product.price << DELIMITER << product.size << endl;
     return os;
 }
 
@@ -125,6 +125,5 @@ std::ostream &operator<<(ostream &os, const Product &product) {
  */
 std::istream &operator>>(istream &is, Product &product) {
     is >> product.id >> product.name >> product.price >> product.size;
-   // is.ignore(1024, '\n'); // after reading the loanAmount, skip the trailing '\n'
     return is;
 }

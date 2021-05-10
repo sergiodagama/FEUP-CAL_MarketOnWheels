@@ -60,7 +60,8 @@ unsigned int ProductsWrapper::getQuantityOfProduct(Product* product) {
  * @param quantity the quantity of product to be added
  */
 void ProductsWrapper::addProduct(Product* product, unsigned int quantity) {
-    if(products.find(product) != products.end()) throw ProductAlreadyExists();
+    if(products.find(product) != products.end()){ throw ProductAlreadyExists();
+    }
     else {
         products.insert(pair<Product*, unsigned int>(product, quantity));
     }
@@ -112,4 +113,35 @@ void ProductsWrapper::addQuantityOfProduct(Product *product, unsigned int quanti
     products.erase(product);
 
     products.insert(pair<Product *, unsigned int>(product, new_quantity));
+}
+
+/**
+ * Gets the total size of the order (sum of the the size of all products)
+ *
+ * @return the size of the order, 0 in case there is none
+ */
+
+unsigned int ProductsWrapper::getSize() const {
+    unsigned int size = 0;
+
+    for (auto it = products.begin(); it != products.end(); it++) {
+        cout << "HERE2" << endl;
+        size += (*it).second * (*it).first->getSize();
+    }
+    return size;
+}
+
+
+/**
+ * Gets the total price of an order (sum of all products prices)
+ *
+ * @return the order price, if none returns 0
+ */
+
+float ProductsWrapper::getPrice() const {
+    float price = 0;
+    for(auto &product : products){
+        price += (product.second * product.first->getPrice());
+    }
+    return price;
 }

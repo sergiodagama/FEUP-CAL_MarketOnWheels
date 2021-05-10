@@ -80,7 +80,7 @@ std::ostream &operator<<(ostream &os, const Provider &provider) {
     map<Product*, unsigned int> prods = provider.getProducts();
 
     for(auto it = prods.begin(); it != prods.end(); it++){
-        os << *it->first << DELIMITER << it->second << endl;
+        os << it->first->getId() << DELIMITER << it->second << endl;
     }
     os << "_" << endl;
     return os;

@@ -23,6 +23,7 @@ public:
     unsigned int getId() const;
     unsigned int getCapacity() const;
     unsigned int getLoad() const;
+    void setLoad(unsigned int load);
     void addOrder(Order* order);
     void popOrder();
     void removeOrder(Order* order);
@@ -33,6 +34,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Truck& truck);
     friend std::istream& operator>>(std::istream& is, Truck& truck);
     state_t getState();
+    void setState(state_t state);
     std::string returnStateString(int state);
 };
 

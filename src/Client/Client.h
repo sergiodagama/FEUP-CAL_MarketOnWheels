@@ -12,11 +12,11 @@ private:
     std::string name;
     std::string user_name;  //TODO IN HEADQUARTER UNIQUE
     Date birthday_date{};
-    Position* address;
+    unsigned int position_id;
     unsigned int capital;
 public:
-    Client(const std::string& name, const std::string& user_name, Date date, Position *address, unsigned int capital);
-    Client(const std::string& name, const std::string& user_name, Date date, Position *address);
+    Client(const std::string& name, const std::string& user_name, Date date, unsigned int address, unsigned int capital);
+    Client(const std::string& name, const std::string& user_name, Date date, unsigned int address);
     unsigned int getId() const;
     void setId(unsigned int id);
     void setName(const std::string& name);
@@ -27,8 +27,8 @@ public:
     Date getDate() const;
     void setCapital(int capital);
     unsigned int getCapital() const;
-    void setAddress(Position *position);
-    Position* getAddress() const;
+    void setAddress(unsigned int position_id);
+    unsigned int getAddress() const;
     friend std::ostream& operator<<(std::ostream& os, const Client& client);
     friend std::istream& operator>>(std::istream& is, Client& client);
 };

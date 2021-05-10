@@ -16,6 +16,7 @@ Truck::Truck(unsigned int capacity){
     id_aux++;
     this->id = id_aux;
     this->capacity = capacity;
+    load = 0;
 }
 
 /**
@@ -28,6 +29,7 @@ Truck::Truck(unsigned int capacity, std::queue<Order*> orders) {
     id_aux++;
     this->id = id_aux;
     this->orders = move(orders);
+    load = 0;
 }
 
 /**
@@ -71,7 +73,7 @@ void Truck::popOrder() {
  * @param order the order to be added to the queue
  */
 void Truck::addOrder(Order *order) {
-    if(order->getSize() + load > capacity){
+    if(order->getSize() + load <= capacity){
         load += order->getSize();
         this->orders.push(order);
     }
@@ -141,15 +143,18 @@ std::string Truck::returnStateString(int state) {
  * @return the output stream
  */
 ostream &operator<<(ostream &os, const Truck &truck) {
-    os << truck.id << DELIMITER << truck.capacity << DELIMITER << endl;
+    os << truck.id << DELIMITER << truck.capacity << DELIMITER  << truck.load << DELIMITER << truck.state << endl;
 
     queue<Order*> buffer = truck.orders;
 
     while(!buffer.empty()){
-        os << buffer.front() << endl;
+        Order *order = buffer.front();
+        os << order->getId() << endl;
         buffer.pop();
     }
+    os << "_" << endl;
     return os;
+
 }
 
 /**
@@ -161,12 +166,14 @@ ostream &operator<<(ostream &os, const Truck &truck) {
  */
 std::istream &operator>>(istream &is, Truck &truck) {
     is >> truck.id >> truck.capacity;
-
-    Order* order;
-
-    while(!is.eof()) {
-        is >> *order;
-        truck.addOrder(order);
-    }
     return is;
+}
+
+void Truck::setLoad(unsigned int load) {
+    this->load = load;
+
+}
+
+void Truck::setState(state_t state) {
+    this->state = state;
 }

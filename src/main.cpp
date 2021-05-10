@@ -7,9 +7,9 @@ int main() {
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
 
     /**
-     * Test to saveProviderData and ProductsWrapper Functions
+     * Test to saveProductData, load and show
      */
-
+/*
     Product* potato = new Product("potato", 1.2, 2);
     Product* rice = new Product("rice", 1, 5);
     Product* pasta = new Product("pasta", 2.1, 3);
@@ -18,6 +18,28 @@ int main() {
     Product* water = new Product("water", 1.1, 2);
     Product* wine = new Product("wine", 4.5, 4);
     Product* chips = new Product("chips", 2.3, 3);
+
+    headquarter.addProduct(potato);
+    headquarter.addProduct(rice);
+    headquarter.addProduct(pasta);
+    headquarter.addProduct(tomato);
+    headquarter.addProduct(bread);
+    headquarter.addProduct(water);
+    headquarter.addProduct(wine);
+    headquarter.addProduct(chips);
+
+/*
+    headquarter.saveProductData("../src/Resources/products.txt");*/
+
+
+    //headquarter.loadProductData("../src/Resources/products.txt");
+
+    //headquarter.showProducts();
+
+    /**
+     * Test to saveProviderData and ProductsWrapper Functions
+     */
+
 /*
     Provider* continente = new Provider("continente", "cont");
     Provider* pingodoce = new Provider("pingodoce", "ping");
@@ -41,40 +63,37 @@ int main() {
     headquarter.addProvider(pingodoce);
 
     headquarter.saveProviderData("../src/Resources/providers.txt");
-    */
+*/
 
     /**
      * Test to loadProviderData
      */
-     /*
+/*
     headquarter.loadProviderData("../src/Resources/providers.txt");
     headquarter.showProviders();
 
     std::map<Product*, unsigned int> prods = headquarter.getProviderById(1)->getProducts();
 
     for(auto it = prods.begin(); it != prods.end(); it++){
-        std::cout << *(*it).first << std::endl;
+        std::cout << *(*it).first << " " << (*it).second << std::endl;
     }
 
     std::map<Product*, unsigned int> prods2 = headquarter.getProviderById(2)->getProducts();
 
     for(auto it = prods2.begin(); it != prods2.end(); it++){
-        std::cout << *(*it).first << std::endl;
+        std::cout << *(*it).first << " " << (*it).second << std::endl;
     }
-      */
+*/
 
      /**
       * Test to saveClientData
       */
       /*
-      Position position = headquarter.getPositionById(4);
-      Client* client = new Client("Jon", "jony", Date(2, 10 ,2000), &position);
-      Position position2 = headquarter.getPositionById(10);
-      Client* client2 = new Client("Tom", "tomy", Date(25, 4 ,1996), &position2);
-      Position position3 = headquarter.getPositionById(21);
-      Client* client3 = new Client("Dan", "dan", Date(3, 6 ,1987), &position3);
-      Position position4 = headquarter.getPositionById(5);
-      Client* client4 = new Client("Mary", "mary", Date(17, 9 ,2005), &position4);
+
+      Client* client = new Client("Jon", "jony", Date(2, 10 ,2000), 4);
+      Client* client2 = new Client("Tom", "tomy", Date(25, 4 ,1996), 10);
+      Client* client3 = new Client("Dan", "dan", Date(3, 6 ,1987), 21);
+      Client* client4 = new Client("Mary", "mary", Date(17, 9 ,2005), 5);
 
       headquarter.addClient(client);
       headquarter.addClient(client2);
@@ -83,43 +102,96 @@ int main() {
       headquarter.showClients();
 
       headquarter.saveClientData("../src/Resources/clients.txt");
-       */
+
 
       /**
        * Test to loadClientData
        */
 /*
-      headquarter.loadClientData("../src/Resources/clients.txt");  //TODO position loads all same for now
+      headquarter.loadClientData("../src/Resources/clients.txt");
 
       headquarter.showClients();
-      */
+*/
 
-      /**
-       * Test to saveTruckData
-       */
+
+
+/**
+ * Test to saveOrderData
+ */
+/*
+    Order* order1 = new Order(3);
+    Order* order2 = new Order(1);
+
+    order1->addProduct(tomato, 50);
+    order1->addProduct(pasta, 20);
+    order1->addProduct(rice, 10);
+    order2->addProduct(water, 30);
+    order2->addProduct(bread, 10);
+    order2->addProduct(wine, 20);
+
+    headquarter.addOrder(order1);
+    headquarter.addOrder(order2);
+
+    headquarter.saveOrderData("../src/Resources/orders.txt");
+
+    headquarter.showOrders();
+*/
+/**
+ * Test to loadOrdersData
+ *
+ */
+/*
+    headquarter.loadOrderData("../src/Resources/orders.txt");
+    headquarter.showOrders();
+
+    std::map<Product*, unsigned int> prods = headquarter.getOrderById(2)->getProducts();
+
+    for(auto it = prods.begin(); it != prods.end(); it++){
+        std::cout << *(*it).first << std::endl;
+    }
+*/
+
+    /**
+     * Test to saveTruckData
+     */
 /*
       Truck *truck = new Truck(700);
+    Truck *truck2 = new Truck(700);
 
-      Order* order1;
-      Order* order2;
-
-    truck->addOrder(order1);
-    truck->addOrder(order2);
+      Order* order1 = new Order();
+      Order* order2 = new Order();
 
       order1->addProduct(tomato, 50);
       order1->addProduct(pasta, 20);
       order1->addProduct(rice, 10);
-
       order2->addProduct(water, 30);
       order2->addProduct(bread, 10);
-      order2->addProduct(wine, 23);
+      order2->addProduct(wine, 20);
 
+        truck->addOrder(order1);
+        truck->addOrder(order2);
+
+        truck2->addOrder(order1);
 
 
       headquarter.addTruck(truck);
+      headquarter.addTruck(truck2);
 
-      headquarter.showTrucks();*/
+      headquarter.saveTruckData("../src/Resources/trucks.txt");
 
+      headquarter.showTrucks();
+*/
+/**
+ * Test to loadTruckData
+ */
+ /*
+    headquarter.loadProductData("../src/Resources/products.txt");
+    headquarter.loadOrderData("../src/Resources/orders.txt");
+    headquarter.loadTruckData("../src/Resources/trucks.txt");
+
+    headquarter.showTrucks();
+
+*/
     //std::cout << "|||||||| Market On Wheels ||||||||" << std::endl << std::endl;
 
     //------------------------ CREATING MENUS ------------------------

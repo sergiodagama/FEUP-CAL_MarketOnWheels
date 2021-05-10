@@ -12,14 +12,16 @@ unsigned int Order::id_aux = 0;
  *
  * @param products the map with the products and it's respective quantities to be ordered
  */
-Order::Order(std::map<Product *, unsigned int> products) : ProductsWrapper(products) {
+Order::Order(std::map<Product *, unsigned int> products, unsigned int client_id) : ProductsWrapper(products) {
     id_aux++;
     this->id = id_aux;
+    this->client_id = client_id;
 }
 
 Order::Order() : ProductsWrapper(){
     id_aux++;
     this->id = id_aux;
+    this->client_id = 0;
 }
 
 /**
@@ -31,34 +33,7 @@ unsigned int Order::getId() const {
     return id;
 }
 
-/**
- * Gets the total size of the order (sum of the the size of all products)
- *
- * @return the size of the order, 0 in case there is none
- */
 
-unsigned int Order::getSize() const {
-    unsigned int size = 0;
-    for (auto & product : getProducts()) {
-        size += product.second * product.first->getSize();
-    }
-    return size;
-}
-
-
-/**
- * Gets the total price of an order (sum of all products prices)
- *
- * @return the order price, if none returns 0
- */
-
-float Order::getPrice() const {
-    float price = 0;
-    for(auto & product : getProducts()){
-        price += (product.second * product.first->getPrice());
-    }
-    return price;
-}
 
 /**
  * Overload to the << operator of Order
@@ -68,13 +43,14 @@ float Order::getPrice() const {
  * @return the output stream
  */
 std::ostream &operator<<(ostream &os, const Order &order) {
-    os << order.id << endl;
+    os << order.id << DELIMITER << order.client_id << endl;
 
     map<Product*, unsigned int> prods = order.getProducts();
 
     for(auto it = prods.begin(); it != prods.end(); it++){
-        os << it->first << DELIMITER << it->second << endl;
+        os << (*it).first->getId() << DELIMITER << it->second << endl;
     }
+    os << "_" << endl;
     return os;
 }
 
@@ -86,14 +62,20 @@ std::ostream &operator<<(ostream &os, const Order &order) {
  * @return the input stream
  */
 std::istream &operator>>(istream &is, Order &order) {
-    is >> order.id;
+    is >> order.id >> order.client_id;
+}
 
-    Product* product;
-    unsigned int quantity;
+Order::Order(unsigned int client_id) {
+    id_aux++;
+    this->id = id_aux;
+this->client_id = client_id;
 
-    while(!is.eof()) {
-        is >> *product >> quantity;
-        order.addProduct(product, quantity);
-    }
-    return is;
+}
+
+unsigned int Order::getClientId() const {
+    return client_id;
+}
+
+void Order::setClientId(unsigned int client_id) {
+    this->client_id = client_id;
 }

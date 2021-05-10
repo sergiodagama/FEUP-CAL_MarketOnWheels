@@ -8,13 +8,15 @@ class Order : public ProductsWrapper {
 private:
     unsigned int id;
     static unsigned int id_aux;
+    unsigned int client_id;
 public:
-    Order(std::map<Product *, unsigned int> products);
+    Order(std::map<Product *, unsigned int> products, unsigned int client_id);
     Order();
+    Order(unsigned int client_id);
     unsigned int getId() const;
+    unsigned int getClientId() const;
+    void setClientId(unsigned int client_id);
 
-    unsigned int getSize() const;
-    float getPrice() const;
     friend std::ostream& operator<<(std::ostream& os, const Order& order);
     friend std::istream& operator>>(std::istream& is, Order& order);
 };

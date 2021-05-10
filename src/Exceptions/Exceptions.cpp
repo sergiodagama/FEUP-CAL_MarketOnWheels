@@ -29,3 +29,5 @@ std::ostream &operator<<(ostream &o, const NegativeValue nv) {
     o << "This value can't be negative: " << nv.getParameter() << endl;
     return o;
 }
+
+
