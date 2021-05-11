@@ -3,6 +3,10 @@ project(MarketOnWheels)
 
 set(CMAKE_CXX_STANDARD 14)
 
+add_subdirectory(lib/googletest-master)
+include_directories(lib/googletest-master/googletest/include)
+include_directories(lib/googletest-master/googlemock/include)
+
 include_directories(src/Client)
 include_directories(src/Exceptions)
 include_directories(src/Headquarter)
@@ -35,4 +39,6 @@ add_executable(MarketOnWheels
         src/Utils/Date.h
         src/Utils/Graph.h
         src/main.cpp
-        src/Position/Position.cpp src/Position/Position.h src/Utils/Utils.cpp src/Utils/Utils.h src/ProductsWrapper/ProductsWrapper.cpp src/ProductsWrapper/ProductsWrapper.h)
+        src/Position/Position.cpp src/Position/Position.h src/Utils/Utils.cpp src/Utils/Utils.h src/ProductsWrapper/ProductsWrapper.cpp src/ProductsWrapper/ProductsWrapper.h src/Tests/Tests.cpp)
+
+target_link_libraries(MarketOnWheels gtest gtest_main)

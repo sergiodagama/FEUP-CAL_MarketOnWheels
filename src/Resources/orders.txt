@@ -1,8 +1,10 @@
-id estadoDaEncomenda date clientId providerId truckId finalPrice
-idProduct Quantidade
-END ORDER
-id estadoDaEncomenda clientId
-idProduct Quantidade
-END ORDER
-...
-
+1 3
+2 10
+3 20
+4 50
+_
+2 1
+5 10
+6 30
+7 20
+_

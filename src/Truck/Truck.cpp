@@ -4,16 +4,18 @@ using namespace std;
 
 unsigned int Truck::id_aux = 0;
 
-Truck::Truck(unsigned int capacity){
+Truck::Truck(unsigned int capacity) {
     id_aux++;
     this->id = id_aux;
     this->capacity = capacity;
+    load = 0;
 }
 
-Truck::Truck(unsigned int capacity, std::queue<Order*> orders) {
+Truck::Truck(unsigned int capacity, std::queue<Order *> orders) {
     id_aux++;
     this->id = id_aux;
     this->orders = move(orders);
+    load = 0;
 }
 
 unsigned int Truck::getId() const {
@@ -28,14 +30,40 @@ unsigned int Truck::getLoad() const {
     return load;
 }
 
+void Truck::popOrder() {
+    load -= orders.front()->getSize();  //no need to check < 0,
+    orders.pop();                       //because load will be always < capacity
+}
 
+void Truck::addOrder(Order *order) {
+    if (order->getSize() + load <= capacity) {
+        load += order->getSize();
+        this->orders.push(order);
+    } else throw NotAvailableSpace();
+}
+
+void Truck::removeOrder(Order *order) {
+    //TODO
+}
+
+void Truck::setPath(std::queue<Position *> &path) {
+    this->path = path;
+}
+
+queue<Position *> Truck::getPath() const {
+    return path;
+}
+
+void Truck::addPositionToPath(Position *position) {
+    path.push(position);
+}
 
 state_t Truck::getState() {
     return this->state;
 }
 
 std::string Truck::returnStateString(int state) {
-    switch(state) {
+    switch (state) {
         case 0:
             return "assign";
         case 1:
@@ -47,62 +75,29 @@ std::string Truck::returnStateString(int state) {
     }
 }
 
-
-
-void Truck::addOrder(Order *order) {
-    if(order->getSize() + load > capacity){
-        load += order->getSize();
-        this->orders.push(order);
-    }
-    else throw NotAvailableSpace();
-}
-
-
-void Truck::popOrder() {
-    load -= orders.front()->getSize();  //no need to check < 0,
-    orders.pop();                       //because load will be always < capacity
-}
-
-void Truck::removeOrder(Order *order) {
-    //TODO
-}
-
-
-
-void Truck::setPath(std::queue<Position*>& path) {
-    this->path = path;
-}
-
-queue<Position*> Truck::getPath() const {
-    return path;
-}
-
-void Truck::addPositionToPath(Position* position) {
-    path.push(position);
-}
-
-
-
 ostream &operator<<(ostream &os, const Truck &truck) {
-    os << truck.id << DELIMITER << truck.capacity << DELIMITER << endl;
+    os << truck.id << DELIMITER << truck.capacity << DELIMITER << truck.load << DELIMITER << truck.state << endl;
 
-    queue<Order*> buffer = truck.orders;
+    queue<Order *> buffer = truck.orders;
 
-    while(!buffer.empty()){
-        os << buffer.front() << endl;
+    while (!buffer.empty()) {
+        Order *order = buffer.front();
+        os << order->getId() << endl;
         buffer.pop();
     }
+    os << "_" << endl;
     return os;
 }
 
 std::istream &operator>>(istream &is, Truck &truck) {
     is >> truck.id >> truck.capacity;
-
-    Order* order;
-
-    while(!is.eof()) {
-        is >> *order;
-        truck.addOrder(order);
-    }
     return is;
+}
+
+void Truck::setLoad(unsigned int load) {
+    this->load = load;
+}
+
+void Truck::setState(state_t state) {
+    this->state = state;
 }

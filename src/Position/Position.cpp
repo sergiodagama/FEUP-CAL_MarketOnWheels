@@ -20,14 +20,12 @@ long double Position::getLongitude() const {
     return longitude;
 }
 
-
 bool Position::operator==(Position position) {
     return id == position.getId();
 }
 
 ostream &operator<<(ostream &os, const Position &position) {
-    os << to_string(position.id) << DELIMITER << position.latitude;
-    os << DELIMITER << position.longitude;
+    os << to_string(position.id);
     return os;
 }
 
@@ -35,4 +33,3 @@ std::istream &operator>>(istream &is, Position &position) {
     is >> position.id >> position.latitude >> position.longitude;
     return is;
 }
-

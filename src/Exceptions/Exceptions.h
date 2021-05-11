@@ -7,30 +7,31 @@
 
 class NegativeValue : std::exception {
 public:
+
     /**
-     * Exception constructor
-     *
-     * @param parameter the negative value
-     */
+    * Exception constructor
+    *
+    * @param parameter the negative value
+    */
     NegativeValue(const std::string& parameter);
 
     /**
-     * Gets the negative value passed
-     *
-     * @return the parameter (negative value)
-     */
+    * Gets the negative value passed
+    *
+    * @return the parameter (negative value)
+    */
     std::string getParameter() const;
 private:
     std::string parameter;
 };
 
 /**
- * Overload to the << operator to display the error
- *
- * @param o output stream
- * @param nv the negative value passed
- * @return the output stream with the designated error
- */
+* Overload to the << operator to display the error
+*
+* @param o output stream
+* @param nv the negative value passed
+* @return the output stream with the designated error
+*/
 std::ostream & operator<<(std::ostream &o, NegativeValue nv);
 
 class InvalidDate : std::exception {

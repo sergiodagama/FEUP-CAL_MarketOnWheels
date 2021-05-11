@@ -7,58 +7,70 @@
 class Order : public ProductsWrapper {
 private:
     unsigned int id;
+
     /**
-     * Id auxiliar to unique order id
-     */
+    * Id auxiliar to unique order id
+    */
     static unsigned int id_aux;
-    std::map<Product*, unsigned int> products;
+    unsigned int client_id;
 public:
 
     /**
-     * Order constructor
-     *
-     * @param products the map with the products and it's respective quantities to be ordered
-     */
-    Order(std::map<Product *, unsigned int> products);
+    * Order constructor
+    *
+    * @param products the map with the products and it's respective quantities to be ordered
+    */
+    Order(std::map<Product *, unsigned int> products, unsigned int client_id);
 
     /**
-     * Gets the order id
-     *
-     * @return the order id
+     * Void order constructor
      */
+    Order();
+
+    /**
+     * Simple constructor for order
+     *
+     * @param client_id the client id
+     */
+    Order(unsigned int client_id);
+
+    /**
+    * Gets the order id
+    *
+    * @return the order id
+    */
     unsigned int getId() const;
 
     /**
-     * Gets the total size of the order (sum of the the size of all products)
+     * Gets the client associated with that order
      *
-     * @return the size of the order, 0 in case there is none
+     * @return the client id
      */
-    unsigned int getSize() const;
+    unsigned int getClientId() const;
 
     /**
-     * Gets the total price of an order (sum of all products prices)
+     * Sets the client id
      *
-     * @return the order price, if none returns 0
+     * @param client_id the client id associated
      */
-    float getPrice() const;
-
+    void setClientId(unsigned int client_id);
 
     /**
-     * Overload to the << operator of Order
-     *
-     * @param os the output stream to be outputted
-     * @param order the order object
-     * @return the output stream
-     */
+    * Overload to the << operator of Order
+    *
+    * @param os the output stream to be outputted
+    * @param order the order object
+    * @return the output stream
+    */
     friend std::ostream& operator<<(std::ostream& os, const Order& order);
 
     /**
-     * Overload of >> operator
-     *
-     * @param is the input stream to be outputted
-     * @param order the order object
-     * @return the input stream
-     */
+    * Overload of >> operator
+    *
+    * @param is the input stream to be outputted
+    * @param order the order object
+    * @return the input stream
+    */
     friend std::istream& operator>>(std::istream& is, Order& order);
 };
 

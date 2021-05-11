@@ -7,15 +7,28 @@
 
 class Client {
 private:
+     /**
+     * Unique id auxiliar (autoincrement)
+     */
     unsigned int id{};
-    /**
-    * Unique id auxiliar (autoincrement)
-    */
     static unsigned int id_aux;
     std::string name;
-    std::string user_name;  //TODO IN HEADQUARTER UNIQUE
-    Position* address;
+    std::string user_name;
+    Date birthday_date{};
+    unsigned int position_id;
+    unsigned int capital;
 public:
+    /**
+    * Client constructor with capital
+    *
+    * @param name the name of the client
+    * @param user_name the user name of the client they all have to be unique
+    * @param date the birthday date of the client
+    * @param address the address of the client (graph vertex)
+    * @param capital the capital of the client
+    */
+    Client(const std::string &name, const std::string &user_name, Date date, unsigned int address,
+           unsigned int capital);
 
     /**
     * Client constructor without capital
@@ -25,7 +38,7 @@ public:
     * @param date the birthday date of the client
     * @param address the address of the client (graph vertex)
     */
-    Client(const std::string& name, const std::string& user_name, Position *address);
+    Client(const std::string &name, const std::string &user_name, Date date, unsigned int address);
 
     /**
     * Gets the client unique id
@@ -33,27 +46,6 @@ public:
     * @return the client id
     */
     unsigned int getId() const;
-
-    /**
-     * Gets the client name
-     *
-     * @return the client name
-     */
-    std::string getName() const;
-
-    /**
-     * Gets the client user name
-     *
-     * @return the client user name
-     */
-    std::string getUserName() const;
-
-    /**
-     * Gets the address of the client
-     *
-     * @return the address of the client
-     */
-    Position* getAddress() const;
 
     /**
     * Sets id of client
@@ -65,40 +57,88 @@ public:
     *
     * @param name the client name
     */
-    void setName(const std::string& name);
+    void setName(const std::string &name);
 
     /**
-     * Sets the user_name of the client
-     *
-     * @param user_name the client user name
-     */
-    void setUserName(const std::string& user_name);
+    * Gets the client name
+    *
+    * @return the client name
+    */
+    std::string getName() const;
 
     /**
-     * Sets the address of the client
-     *
-     * @param position the address of the client
-     */
-    void setAddress(Position *position);
-
-
-    /**
-     * Overload to << operator of Client
-     *
-     * @param os the output stream to be outputted
-     * @param client the client object
-     * @return the output stream
-     */
-    friend std::ostream& operator<<(std::ostream& os, const Client& client);
+    * Sets the user_name of the client
+    *
+    * @param user_name the client user name
+    */
+    void setUserName(const std::string &user_name);
 
     /**
-     * Overload to >> operator of Client
-     *
-     * @param os the input stream to be outputted
-     * @param client the client object
-     * @return the output stream
-     */
-    friend std::istream& operator>>(std::istream& is, Client& client);
+    * Gets the client user name
+    *
+    * @return the client user name
+    */
+    std::string getUserName() const;
+
+    /**
+    * Sets the client birthday date
+    *
+    * @param date the birthday date of the client
+    */
+    void setDate(Date date);
+
+    /**
+    * Gets the birthday date of the client
+    *
+    * @return the birthday date of the client
+    */
+    Date getDate() const;
+
+    /**
+    * Sets the capital of the client
+    *
+    * @param capital the capital of the client
+    */
+    void setCapital(int capital);
+
+    /**
+    * Gets the capital of the client
+    *
+    * @return the client capital
+    */
+    unsigned int getCapital() const;
+
+    /**
+    * Sets the address of the client
+    *
+    * @param position the address of the client
+    */
+    void setAddress(unsigned int position_id);
+
+    /**
+    * Gets the address of the client
+    *
+    * @return the address of the client
+    */
+    unsigned int getAddress() const;
+
+    /**
+    * Overload to << operator of Client
+    *
+    * @param os the output stream to be outputted
+    * @param client the client object
+    * @return the output stream
+    */
+    friend std::ostream &operator<<(std::ostream &os, const Client &client);
+
+    /**
+    * Overload to >> operator of Client
+    *
+    * @param os the input stream to be outputted
+    * @param client the client object
+    * @return the output stream
+    */
+    friend std::istream &operator>>(std::istream &is, Client &client);
 };
 
 #endif //SRC_CLIENT_H

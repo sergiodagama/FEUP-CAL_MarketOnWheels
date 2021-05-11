@@ -1,26 +1,23 @@
 #include <Headquarter.h>
 #include <Menu.h>
 
-int main() {
-    Headquarter headquarter("123");
+#include "gtest/gtest.h"
+#include "gmock/gmock.h"
+
+//NOTE: uncomment the google tests to run tests
+// and comment the rest of the code
+
+int main(int argc, char *argv[]) {
+
+    testing::InitGoogleTest(&argc, argv);
+    std::cout << "\n\n----------MARKETONWHEELS TESTS----------" << std::endl;
+    return RUN_ALL_TESTS();
+}
+     /*
+
+    Headquarter headquarter(1000000);
 
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
-    //std::map<Product *, unsigned int> products;
-
-    //Product * product = new Product("batata", 1.2, 3);
-    //Product * product2 = new Product("batata", 1.3, 3);
-    //products.insert(std::pair<Product * ,unsigned int>(product,100));
-    //products.insert(std::pair<Product * ,unsigned int>(product2,150));
-
-    //Provider * provider = new Provider("FEUP", "frtrgtye", products);
-    //Provider * provider2 = new Provider("FMUP", "gtghtr", products);
-
-    /*headquarter.addProvider(provider);
-    headquarter.addProvider(provider2);*/
-
-    //headquarter.saveProvider("../src/Resources/providers.txt");
-    /*headquarter.loadProvider("../src/Resources/providers.txt");
-    headquarter.showProviders();*/
 
     std::cout << "|||||||| Market On Wheels ||||||||" << std::endl << std::endl;
 
@@ -58,7 +55,7 @@ int main() {
     register_menu.addOption("Provider");
 
     bool exit = false;
-    while(!exit) {
+    while (!exit) {
         main_menu.show();
         unsigned int user_category = main_menu.getInput();
         switch (user_category) {
@@ -68,100 +65,118 @@ int main() {
                 exit = true;
                 break;
             }
-            //client area
-            case 1:{
+                //client area
+            case 1: {
                 unsigned int client_id;
                 std::cout << "Enter your client id: " << std::endl;
                 do {
                     std::cout << "->";
                     std::cin >> client_id;
+                    if (client_id == 0) {
+                        exit = true;
+                        break;
+                    }
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                } while(std::cin.fail() || headquarter.getClientById(client_id) == nullptr);
-
-                client_menu.show();
-                unsigned int client_option = client_menu.getInput();
+                } while (std::cin.fail() || headquarter.getClientById(client_id) == nullptr);
+                unsigned int client_option;
+                if (!exit) {
+                    client_menu.show();
+                    client_option = client_menu.getInput();
+                }
 
                 switch (client_option) {
-                    case 1:{
+                    case 1: {
                         break;
                     }
-                    case 2:{
+                    case 2: {
                         break;
                     }
-                    case 3:{
+                    case 3: {
                         break;
                     }
                 }
                 break;
             }
                 //provider area
-            case 2:{
+            case 2: {
                 unsigned int provider_id;
                 std::cout << "Enter your provider id: " << std::endl;
                 do {
                     std::cout << "->";
                     std::cin >> provider_id;
+                    if (provider_id == 0) {
+                        exit = true;
+                        break;
+                    }
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                } while(std::cin.fail() || headquarter.getProviderById(provider_id) == nullptr);
+                } while (std::cin.fail() || headquarter.getProviderById(provider_id) == nullptr);
+                unsigned int providers_option;
+                if (!exit) {
+                    providers_menu.show();
+                    providers_option = providers_menu.getInput();
+                }
 
-                providers_menu.show();
-
-                unsigned int providers_option = providers_menu.getInput();
-
-                switch(providers_option){
+                switch (providers_option) {
                     //Import data
-                    case 1:{
+                    case 1: {
                         std::cout << "Importing data into program structures..." << std::endl;
-                        headquarter.loadData("src/Resources/clients.txt", "src/Resources/providers.txt", "src/Resources/trucks.txt", "src/Resources/orders.txt");
+                        headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
+                                                "../src/Resources/trucks.txt", "src/Resources/orders.txt",
+                                                "../src/Resources/products.txt");
                         break;
                     }
                         //Save data
-                    case 2:{
+                    case 2: {
                         std::cout << "Saving data into files.." << std::endl;
-                        headquarter.saveData("src/Resources/clients.txt", "src/Resources/providers.txt", "src/Resources/trucks.txt", "src/Resources/orders.txt");
+                        headquarter.saveAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
+                                                "../src/Resources/trucks.txt", "../src/Resources/orders.txt",
+                                                "../src/Resources/products.txt");
                         break;
                     }
                         //Calculate optimized paths
-                    case 3:{
+                    case 3: {
                         break;
                     }
                         //Deliver
-                    case 4:{
+                    case 4: {
                         break;
                     }
                         //Show Trucks
-                    case 5:{
+                    case 5: {
                         headquarter.showTrucks();
                         break;
                     }
                         //Show Clients
-                    case 6:{
+                    case 6: {
                         //headquarter.showClients();
                         break;
                     }
                         //Show Providers
-                    case 7:{
+                    case 7: {
                         break;
                     }
                 }
                 break;
             }
                 //admin area
-            case 3:{
+            case 3: {
                 std::string admin_pass;
                 std::cout << "Enter the admin password: " << std::endl;
                 do {
                     std::cout << "->";
                     std::cin >> admin_pass;
+                    if (admin_pass == "0") {
+                        exit = true;
+                        break;
+                    }
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                } while(std::cin.fail() || headquarter.getAdminPassword() != admin_pass);
+                } while (std::cin.fail() || headquarter.getAdminPassword() != admin_pass);
                 break;
             }
-
-            //registering area
+                //registering area
             case 4: {
                 register_menu.show();
                 int option;
@@ -182,11 +197,15 @@ int main() {
                     std::string userName;
                     std::cin >> userName;
 
+                    Date date;
+                    std::cout << "Input your birthdate with format: dd/mm/yyyy" << std::endl;
+                    std::cin >> date;
+
                     std::cout << "What's your address id?\n";
                     double address;
                     std::cin >> address;
 
-                    headquarter.addClient(name, userName, address);
+                    headquarter.addClient(new Client(name, userName, date, address));
                 } else {
                     std::cout << "Hello Provider\n";
                     break;
@@ -195,6 +214,10 @@ int main() {
             }
         }
     }
-    headquarter.saveData("../src/Resources/clients.txt", "", "");
+    //saves all data even if user doesn't want it
+    headquarter.saveAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
+                            "../src/Resources/trucks.txt", "../src/Resources/orders.txt",
+                            "../src/Resources/products.txt");
     return 0;
 }
+*/

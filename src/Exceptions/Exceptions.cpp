@@ -2,7 +2,7 @@
 
 using namespace std;
 
-NegativeValue::NegativeValue(const string& parameter) : parameter(parameter) {}
+NegativeValue::NegativeValue(const string &parameter) : parameter(parameter) {}
 
 string NegativeValue::getParameter() const {
     return parameter;

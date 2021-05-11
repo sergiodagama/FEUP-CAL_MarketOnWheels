@@ -15,7 +15,6 @@ void Menu::changeTitle(std::string new_title){
     this->title = new_title;
 }
 
-
 void Menu::addOption(std::string option_name){
     for(auto it = option_names.begin(); it != option_names.end(); it++){
         if(*it == option_name) throw NameAlreadyExists();
@@ -33,6 +32,15 @@ void Menu::deleteOption(std::string option_name) {
     else option_names.erase(it);
 }
 
+void Menu::show() {
+    cout << "### " << title << " ###" << endl;
+    unsigned int n = 1;
+    for(auto it = option_names.begin(); it != option_names.end(); it++){
+        cout << n << ": " << *it << endl;
+        n++;
+    }
+}
+
 unsigned int Menu::getInput() {
     unsigned int input = 0;
     do {
@@ -42,13 +50,4 @@ unsigned int Menu::getInput() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     } while(cin.fail() || input > option_names.size());
     return input;
-}
-
-void Menu::show() {
-    cout << "### " << title << " ###" << endl;
-    unsigned int n = 1;
-    for(auto it = option_names.begin(); it != option_names.end(); it++){
-        cout << n << ": " << *it << endl;
-        n++;
-    }
 }
