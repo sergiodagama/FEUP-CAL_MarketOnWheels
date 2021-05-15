@@ -6,6 +6,15 @@ Headquarter::Headquarter(string admin_pass) {
     this->admin_password = admin_pass;
 }
 
+bool Headquarter::clientSearcher(std::string userName){
+    for(vector<Client*>::iterator it = clients.begin(); it != clients.end(); it++){
+        if((*it)->getUserName() == userName){
+            return true;
+        }
+    }
+    return false;
+}
+
 Graph<Position> Headquarter::getGraph() const {
     return graph;
 }
@@ -63,6 +72,10 @@ unsigned int Headquarter::getNTrucks() const {
 }
 
 void Headquarter::addClient(Client *client) {
+    if(clientSearcher(client->getUserName())){
+        cout << "You already exist in our company\n";
+        return;
+    }
     clients.push_back(client);
 }
 

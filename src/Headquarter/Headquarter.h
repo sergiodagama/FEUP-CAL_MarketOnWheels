@@ -32,6 +32,14 @@ public:
     //-------------------------GETTERS-------------------------
 
     /**
+     * Check if a client already exists
+     * @param userName Client user name
+     * @return True if it already exists, false otherwise
+     */
+    bool clientSearcher(std::string userName);
+
+
+    /**
     * Gets the Graph of the map that is being used
     *
     * @return the graph of the map
