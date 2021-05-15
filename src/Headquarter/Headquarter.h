@@ -22,6 +22,8 @@ private:
     std::string admin_password = "123";
 public:
 
+    //-----------------------CONSTRUCTOR(S)-----------------------
+
     /**
     * Headquarters constructor
     * @param capital the capital (funds) that the company has
@@ -270,7 +272,44 @@ public:
     */
     void showOrders();
 
-    //------------------------- FUNCTIONS TO MAKE DELIVERS -------------------------
+    //------------------------- FUNCTIONS TO HANDLE DELIVERS ------------------------- //TODO
+
+    /**
+    * A similar implementation of the algorithm that solves the knapsack problem
+    * (don't worry about removing from headquarters orders vector, done later in last deliver function)
+    */
+    void distributeOrdersToTrucks();
+
+    /**
+    * Gets a queue of providers that entirely satisfies a set of orders given
+    */
+    std::queue<Provider *> getProvidersThatSatisfy(std::queue<Order *>);
+
+    /**
+    * Calculates initial path of the trucks to their providers (use the function before to get them) in order to fulfill their orders
+    * Note: based on the floyd warshall algorithm results, obtained before!
+    * @return map with the trucks ids and their respective path until the providers (ids of nodes ordered)
+    */
+    std::map<unsigned int, std::vector<int>> calculateTrucksToProvidersPath();
+
+    /**
+     * Calculates final path of the trucks from providers to clients
+     * Note: based on the floyd warshall algorithm results, obtained before!
+     * IDEA: calculate lowest path from last provider until all clients and see wich path takes more clients in the way (do it until all clients are in path)
+     * @return map with the trucks ids and their respective path until the clients from the last provider given (ids of nodes ordered)
+     */
+    std::map<unsigned int, std::vector<int>>
+    calculateTrucksFromProvidersToClientsPath(unsigned int trucksLastProviderId);
+
+    /**
+    * Calculate trucks paths (just join the last two functions), adding the last path from last client to headquarters
+    */
+    void calculateTrucksPaths();
+
+    /**
+    * Delivering the respective orders to clients (empty all trucks and set respective orders flags to done in headquarters, or delete them)
+    */
+    void deliver();
 };
 
 #endif //SRC_HEADQUARTER_H
