@@ -269,6 +269,8 @@ public:
     * Displays orders to user
     */
     void showOrders();
+
+    //------------------------- FUNCTIONS TO MAKE DELIVERS -------------------------
 };
 
 #endif //SRC_HEADQUARTER_H
