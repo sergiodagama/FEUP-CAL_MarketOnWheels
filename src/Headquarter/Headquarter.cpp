@@ -15,6 +15,12 @@ bool Headquarter::clientSearcher(std::string userName){
     return false;
 }
 
+bool Headquarter::positionSearcher(double idVertex) {
+    Vertex<Position>* pos =  graph.findVertex(Position(idVertex, 0, 0));
+    if(pos==NULL) return false;
+    return true;
+}
+
 Graph<Position> Headquarter::getGraph() const {
     return graph;
 }
@@ -72,10 +78,14 @@ unsigned int Headquarter::getNTrucks() const {
 }
 
 void Headquarter::addClient(Client *client) {
-    if(clientSearcher(client->getUserName())){
+    /*if(clientSearcher(client->getUserName())){
         cout << "You already exist in our company\n";
         return;
     }
+    if(!positionSearcher(client->getAddress())){
+        cout << "We can't deliver into you're address\n";
+        return;
+    }*/
     clients.push_back(client);
 }
 
@@ -405,3 +415,4 @@ void Headquarter::showProviders() {
              << (*it)->getNumOfDifProducts() << endl;
     }
 }
+

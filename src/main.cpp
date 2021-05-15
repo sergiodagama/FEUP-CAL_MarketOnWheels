@@ -79,6 +79,16 @@ int main(int argc, char *argv[]) {
                         double address;
                         cin >> address;
 
+                        if(headquarter.clientSearcher(userName)){
+                            cout << "You already exist in our company\n";
+                            break;
+                        }
+
+                        if(!headquarter.positionSearcher(address)){
+                            cout << "We can't deliver into you're address\n";
+                            break;
+                        }
+
                         headquarter.addClient(new Client(name, userName, date, address));
                         break;
                     }

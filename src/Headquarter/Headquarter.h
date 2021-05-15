@@ -39,6 +39,9 @@ public:
     bool clientSearcher(std::string userName);
 
 
+    bool positionSearcher(double idVertex);
+
+
     /**
     * Gets the Graph of the map that is being used
     *
