@@ -1,21 +1,16 @@
 #include <Headquarter.h>
 #include <Menu.h>
 
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+/*#include "gtest/gtest.h"
+#include "gmock/gmock.h"*/
 
 //NOTE: uncomment the google tests to run tests
 // and comment the rest of the code
+using namespace std;
 
 int main(int argc, char *argv[]) {
-
-    testing::InitGoogleTest(&argc, argv);
-    std::cout << "\n\n----------MARKETONWHEELS TESTS----------" << std::endl;
-    return RUN_ALL_TESTS();
-}
-     /*
-
-    Headquarter headquarter(1000000);
+    //Criação de headquarter
+    Headquarter headquarter("123");
 
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
 
@@ -29,7 +24,42 @@ int main(int argc, char *argv[]) {
     main_menu.addOption("Admin");
     main_menu.addOption("Register");
 
-    Menu admin_menu = Menu("Administration");
+    bool exit = false;
+    while(!exit){
+        main_menu.show();
+        unsigned int user_category = main_menu.getInput();
+        switch (user_category) {
+            //exit option
+            case 0: {
+                cout << "Goodbye! And thanks for your visit!\n" << std::endl;
+                exit = true;
+                break;
+            }
+            //client area
+            case 1: {
+                cout << "Client area\n" << std::endl;
+                break;
+            }
+            //provider area
+            case 2:{
+                cout << "Provider area\n" << std::endl;
+                break;
+            }
+            //admin area
+            case 3: {
+                cout << "Administration area\n" << std::endl;
+                break;
+            }
+            //register area
+            case 4: {
+                cout << "Registration area\n" << std::endl;
+                break;
+            }
+        }
+    }
+}
+
+/*Menu admin_menu = Menu("Administration");
     admin_menu.addOption("Import Data");
     admin_menu.addOption("Save Data");
     admin_menu.addOption("Calculate optimized paths");  //calculate the optimized paths for each truck
@@ -52,22 +82,10 @@ int main(int argc, char *argv[]) {
 
     Menu register_menu = Menu("Register");
     register_menu.addOption("Client");
-    register_menu.addOption("Provider");
+    register_menu.addOption("Provider");*/
 
-    bool exit = false;
-    while (!exit) {
-        main_menu.show();
-        unsigned int user_category = main_menu.getInput();
-        switch (user_category) {
-            //exit option
-            case 0: {
-                std::cout << "Goodbye" << std::endl;
-                exit = true;
-                break;
-            }
-                //client area
-            case 1: {
-                unsigned int client_id;
+    /*       case 1: {*/
+                /*unsigned int client_id;
                 std::cout << "Enter your client id: " << std::endl;
                 do {
                     std::cout << "->";
@@ -79,8 +97,8 @@ int main(int argc, char *argv[]) {
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 } while (std::cin.fail() || headquarter.getClientById(client_id) == nullptr);
-                unsigned int client_option;
-                if (!exit) {
+                unsigned int client_option;*/
+               /* if (!exit) {
                     client_menu.show();
                     client_option = client_menu.getInput();
                 }
@@ -96,11 +114,11 @@ int main(int argc, char *argv[]) {
                         break;
                     }
                 }
-                break;
-            }
-                //provider area
-            case 2: {
-                unsigned int provider_id;
+                break;*/
+//            }
+            //provider area
+         //   case 2: {
+                /*unsigned int provider_id;
                 std::cout << "Enter your provider id: " << std::endl;
                 do {
                     std::cout << "->";
@@ -159,10 +177,10 @@ int main(int argc, char *argv[]) {
                     }
                 }
                 break;
-            }
-                //admin area
-            case 3: {
-                std::string admin_pass;
+            }*/
+            //admin area
+         //   case 3: {
+                /*std::string admin_pass;
                 std::cout << "Enter the admin password: " << std::endl;
                 do {
                     std::cout << "->";
@@ -174,12 +192,12 @@ int main(int argc, char *argv[]) {
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 } while (std::cin.fail() || headquarter.getAdminPassword() != admin_pass);
-                break;
-            }
+                break;*/
+           // }
                 //registering area
-            case 4: {
-                register_menu.show();
-                int option;
+          //  case 4: {
+            //    register_menu.show();
+                /*int option;
                 do {
                     std::cout << "->";
                     std::cin >> option;
@@ -208,16 +226,20 @@ int main(int argc, char *argv[]) {
                     headquarter.addClient(new Client(name, userName, date, address));
                 } else {
                     std::cout << "Hello Provider\n";
-                    break;
-                }
+                    break;*/
+              /*  }
                 break;
             }
         }
-    }
+    }*/
     //saves all data even if user doesn't want it
-    headquarter.saveAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
+   /* headquarter.saveAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
                             "../src/Resources/trucks.txt", "../src/Resources/orders.txt",
                             "../src/Resources/products.txt");
     return 0;
-}
-*/
+}*/
+
+
+/* testing::InitGoogleTest(&argc, argv);
+    std::cout << "\n\n----------MARKETONWHEELS TESTS----------" << std::endl;
+    return RUN_ALL_TESTS();*/

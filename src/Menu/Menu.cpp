@@ -43,11 +43,19 @@ void Menu::show() {
 
 unsigned int Menu::getInput() {
     unsigned int input = 0;
+    bool valid = true;
     do {
         cout << "->";
         cin >> input;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    } while(cin.fail() || input > option_names.size());
+        if(cin.fail() || input > option_names.size()){
+            valid = false;
+            cout << "Invalid input. Please, give me a correct option\n";
+        }
+        else{
+            valid = true;
+        }
+    } while(!valid);
     return input;
 }

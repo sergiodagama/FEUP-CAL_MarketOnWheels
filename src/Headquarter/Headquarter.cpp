@@ -2,8 +2,8 @@
 
 using namespace std;
 
-Headquarter::Headquarter(unsigned int capital) {
-    this->capital = capital;
+Headquarter::Headquarter(string admin_pass) {
+    this->admin_password = admin_pass;
 }
 
 Graph<Position> Headquarter::getGraph() const {
