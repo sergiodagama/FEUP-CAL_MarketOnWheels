@@ -18,11 +18,17 @@ int main(int argc, char *argv[]) {
 
     //------------------------ CREATING MENUS ------------------------
 
+    //Main Menu
     Menu main_menu = Menu("Choose your user category");
     main_menu.addOption("Client");
     main_menu.addOption("Provider");
     main_menu.addOption("Admin");
     main_menu.addOption("Register");
+
+    //Register menu
+    Menu register_menu = Menu("Register");
+    register_menu.addOption("Client");
+    register_menu.addOption("Provider");
 
     bool exit = false;
     while(!exit){
@@ -53,10 +59,43 @@ int main(int argc, char *argv[]) {
             //register area
             case 4: {
                 cout << "Registration area\n" << std::endl;
+                register_menu.show();
+                unsigned int type = register_menu.getInput();
+                switch (type) {
+                    case 1: {
+                        cout << "Client \n";
+                        cout << "Hello Client\n";
+
+                        cout << "What's your name?\n";
+                        string name; cin >> name;
+                        cout << "What's your user name?\n";
+                        string userName; cin >> userName;
+
+                        Date date;
+                        cout << "Input your birthdate with format: dd/mm/yyyy" << std::endl;
+                        cin >> date;
+
+                        cout << "What's your address id?\n";
+                        double address;
+                        cin >> address;
+
+                        headquarter.addClient(new Client(name, userName, date, address));
+                        break;
+                    }
+                    case 2: {
+                        cout << "Provider \n";
+                        break;
+                    }
+                }
+
                 break;
             }
         }
     }
+
+    headquarter.saveAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
+                            "../src/Resources/trucks.txt", "../src/Resources/orders.txt",
+                            "../src/Resources/products.txt");
 }
 
 /*Menu admin_menu = Menu("Administration");
@@ -79,10 +118,7 @@ int main(int argc, char *argv[]) {
     providers_menu.addOption("Add Quantity to product");
     providers_menu.addOption("Remove Quantity to product");
     providers_menu.addOption("Show info");
-
-    Menu register_menu = Menu("Register");
-    register_menu.addOption("Client");
-    register_menu.addOption("Provider");*/
+*/
 
     /*       case 1: {*/
                 /*unsigned int client_id;
@@ -196,15 +232,8 @@ int main(int argc, char *argv[]) {
            // }
                 //registering area
           //  case 4: {
-            //    register_menu.show();
-                /*int option;
-                do {
-                    std::cout << "->";
-                    std::cin >> option;
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                } while (std::cin.fail());
-                if (option == 1) {
+
+               /* if (option == 1) {
                     std::cout << "Hello Client\n";
 
                     std::cout << "What's your name?\n";
@@ -233,9 +262,7 @@ int main(int argc, char *argv[]) {
         }
     }*/
     //saves all data even if user doesn't want it
-   /* headquarter.saveAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
-                            "../src/Resources/trucks.txt", "../src/Resources/orders.txt",
-                            "../src/Resources/products.txt");
+   /*
     return 0;
 }*/
 

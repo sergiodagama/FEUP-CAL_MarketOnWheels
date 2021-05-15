@@ -16,22 +16,9 @@ private:
     std::string user_name;
     Date birthday_date{};
     unsigned int position_id;
-    unsigned int capital;
 public:
     /**
-    * Client constructor with capital
-    *
-    * @param name the name of the client
-    * @param user_name the user name of the client they all have to be unique
-    * @param date the birthday date of the client
-    * @param address the address of the client (graph vertex)
-    * @param capital the capital of the client
-    */
-    Client(const std::string &name, const std::string &user_name, Date date, unsigned int address,
-           unsigned int capital);
-
-    /**
-    * Client constructor without capital
+    * Client constructor
     *
     * @param name the name of the client
     * @param user_name the user name of the client they all have to be unique
@@ -93,20 +80,6 @@ public:
     * @return the birthday date of the client
     */
     Date getDate() const;
-
-    /**
-    * Sets the capital of the client
-    *
-    * @param capital the capital of the client
-    */
-    void setCapital(int capital);
-
-    /**
-    * Gets the capital of the client
-    *
-    * @return the client capital
-    */
-    unsigned int getCapital() const;
 
     /**
     * Sets the address of the client
