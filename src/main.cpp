@@ -34,7 +34,6 @@ int main(int argc, char *argv[]) {
     providers_menu.addOption("Add Quantity to product");
 
     Menu admin_menu = Menu("Administration");
-    //admin_menu.addOption("Import Data");  //TODO discuss if it is correct in here
     admin_menu.addOption("Save Data");
     admin_menu.addOption("Calculate optimized paths");  //calculate the optimized paths for each truck
     admin_menu.addOption("Deliver");  //removes all orders that were in the trucks from system
