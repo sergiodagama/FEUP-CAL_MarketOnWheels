@@ -26,6 +26,13 @@ int main(int argc, char *argv[]) {
     main_menu.addOption("Admin");
     main_menu.addOption("Register");
 
+    Menu client_menu = Menu("Client's Area");
+    client_menu.addOption("Make Order");
+
+    Menu providers_menu = Menu("Provider's Area");
+    providers_menu.addOption("Add product");
+    providers_menu.addOption("Add Quantity to product");
+
     Menu admin_menu = Menu("Administration");
     //admin_menu.addOption("Import Data");  //TODO discuss if it is correct in here
     admin_menu.addOption("Save Data");
@@ -55,11 +62,42 @@ int main(int argc, char *argv[]) {
             //client area
             case 1: {
                 cout << "Client area\n" << std::endl;
+                unsigned int client_id;
+                cout << "Enter your client id: " << std::endl;
+                do {
+                    cout << "->";
+                    cin >> client_id;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                } while (cin.fail() || headquarter.getClientById(client_id) == nullptr);
+
+                client_menu.show();
+                unsigned int client_option = client_menu.getInput();
+                switch (client_option) {
+                    case 1:{
+                        bool end = false;
+                        while (!end){
+                            //TODO Add order
+                            end = true;
+                        }
+                        break;
+                    }
+                }
+
                 break;
             }
+
             //provider area
             case 2:{
                 cout << "Provider area\n" << std::endl;
+                unsigned int provider_id;
+                cout << "Enter your provider id: " << std::endl;
+                do {
+                    cout << "->";
+                    cin >> provider_id;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                } while (cin.fail() || headquarter.getClientById(provider_id) == nullptr);
                 break;
             }
             //admin area
@@ -176,53 +214,6 @@ int main(int argc, char *argv[]) {
     //TODO destrutor para a headquarters
 }
 
-/*
-    Menu client_menu = Menu("Client's Area");
-    client_menu.addOption("Make Order");
-    client_menu.addOption("Cancel Order");
-    client_menu.addOption("Show info");
-
-    Menu providers_menu = Menu("Provider's Area");
-    providers_menu.addOption("Add product");
-    providers_menu.addOption("Remove Product");
-    providers_menu.addOption("Add Quantity to product");
-    providers_menu.addOption("Remove Quantity to product");
-    providers_menu.addOption("Show info");
-*/
-
-    /*       case 1: {*/
-                /*unsigned int client_id;
-                std::cout << "Enter your client id: " << std::endl;
-                do {
-                    std::cout << "->";
-                    std::cin >> client_id;
-                    if (client_id == 0) {
-                        exit = true;
-                        break;
-                    }
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                } while (std::cin.fail() || headquarter.getClientById(client_id) == nullptr);
-                unsigned int client_option;*/
-               /* if (!exit) {
-                    client_menu.show();
-                    client_option = client_menu.getInput();
-                }
-
-                switch (client_option) {
-                    case 1: {
-                        break;
-                    }
-                    case 2: {
-                        break;
-                    }
-                    case 3: {
-                        break;
-                    }
-                }
-                break;*/
-//            }
-            //provider area
 
 /* testing::InitGoogleTest(&argc, argv);
     std::cout << "\n\n----------MARKETONWHEELS TESTS----------" << std::endl;
