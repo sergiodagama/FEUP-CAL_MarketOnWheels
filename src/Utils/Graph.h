@@ -121,6 +121,8 @@ public:
 
     int getNumVertex() const;
 
+    double getWeight(Vertex<T>* vertex1, Vertex<T>* vertex2);
+
     std::vector<Vertex<T> *> getVertexSet() const;
 
     // Fp06 - single source
@@ -324,7 +326,7 @@ std::vector<T> Graph<T>::getPath(const T &origin, const T &dest) const {
 
 /**************** All Pairs Shortest Path  ***************/
 
-template<class T>
+/*template<class T>
 void Graph<T>::floydWarshallShortestPath() {
     //create matrix representation of vertexes and their relative distances to other vertexes
     std::vector<std::vector<double>> vertex_matrix(vertexSet.size(), std::vector<double>(vertexSet.size(), INF));
@@ -342,18 +344,105 @@ void Graph<T>::floydWarshallShortestPath() {
         //again go through all vertexes to check if they have an outgoing edge to current vertex
         for (int j = 0; j < vertexSet.size(); j++) {
             if (i == j) continue; //ignore when the vertexes are the same
-/*
-           for(auto e : current_vertex->adj){
 
-               if(e.dest == current_vertex){
-                   vertex_matrix.at(i).at(j) = e.weight;
-                   break;
+          // for(auto e : current_vertex->adj){
+
+            //   if(e.dest == current_vertex){
+            //       vertex_matrix.at(i).at(j) = e.weight;
+            //       break;
                }
-           }*/
+           }
 
         }
     }
+}*/
+
+template<class T>
+double Graph<T>::getWeight(Vertex<T>* vertex1, Vertex<T>* vertex2)
+{
+
+    std::vector<Edge<T>> adj1 = vertex1->adj;
+
+    for(int i = 0; i < adj1.size(); i++)
+    {
+        if(adj1[i].dest->info == vertex2->info)
+        {
+
+            return adj1[i].weight;
+        }
+
+    }
+
+    return INF;
 }
+
+template<class T>
+void Graph<T>::floydWarshallShortestPath() {
+    //create matrix representation of vertexes and their relative distances to other vertexes
+    //std::vector<std::vector<double>> dist(vertexSet.size(), std::vector<double>(vertexSet.size(), INF));
+
+    std::cout << vertexSet.size() << std::endl;
+    std::vector<std::vector<double>> distMin(vertexSet.size(), std::vector<double>(vertexSet.size(), 0));
+    std::vector<std::vector<Vertex<T>*>> path(vertexSet.size(), std::vector<Vertex<T>*>(vertexSet.size(), 0));
+
+
+    for (int i = 0; i < distMin.size(); i++) {
+        for (int j = 0; j < distMin[i].size(); j++) {
+
+            if (i == j) distMin[i][j] = 0;
+                /*else if (( edge = thereIsEdge(vertexSet[i], vertexSet[j])) != 0)
+                {
+                    distMin[i][j] = edge->weight;
+                    cout << "WEIGHT DENTRO " << edge->weight << endl;
+                }
+
+                else
+                    distMin[i][j] = INF;*/
+            else
+            {
+                distMin[i][j] = getWeight(vertexSet[i], vertexSet[j]);
+            }
+        }
+    }
+
+    std::cout << "INF=" << INF << std::endl;
+
+    std::cout << "After initialization" << std::endl;
+    for(int i = 0; i < distMin.size(); i++)
+    {
+        for(int j = 0; j < distMin[i].size(); j++)
+        {
+            if(distMin[i][j] == INF) std::cout << "INF" << " ";
+            else std::cout << distMin[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    for (int k = 0; k < vertexSet.size(); k++) {
+        for (int i = 0; i < vertexSet.size(); i++){
+            for (int j = 0; j < vertexSet.size(); j++)
+            {
+                if(distMin[i][j] > distMin[i][k] + distMin[k][j])
+                {
+                    distMin[i][j] = distMin[i][k] + distMin[k][j];
+                    path[i][j] = vertexSet[k];
+                }
+            }
+        }
+    }
+
+    std::cout << "After Floyd" << std::endl;
+    for(int i = 0; i < distMin.size(); i++)
+    {
+        for(int j = 0; j < distMin[i].size(); j++)
+        {
+            if(distMin[i][j] == INF) std::cout << "INF" << " ";
+            else std::cout << distMin[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
 
 template<class T>
 std::vector<T> Graph<T>::getfloydWarshallPath(const T &orig, const T &dest) const {

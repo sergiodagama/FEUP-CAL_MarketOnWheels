@@ -9,9 +9,22 @@
 
 int main(int argc, char *argv[]) {
 
-    testing::InitGoogleTest(&argc, argv);
+    /*testing::InitGoogleTest(&argc, argv);
     std::cout << "\n\n----------MARKETONWHEELS TESTS----------" << std::endl;
-    return RUN_ALL_TESTS();
+    return RUN_ALL_TESTS();*/
+
+    Headquarter headquarter(1000000);
+    headquarter.loadProductData("../src/Resources/products.txt");
+    headquarter.loadOrderData("../src/Resources/orders.txt");
+    Truck* truck1 = new Truck(500);
+    //Truck truck1(10);
+    //Truck truck1(10);
+
+    headquarter.addTruck(truck1);
+    headquarter.distributeOrdersToTrucks();
+
+    headquarter.showTrucks();
+    return 0;
 }
      /*
 
