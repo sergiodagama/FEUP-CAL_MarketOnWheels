@@ -295,7 +295,7 @@ public:
      * @param ord current order being tested
      * @return true if has stock, false otherwise
      */
-    bool stockChecker(std::vector<Order *> ords, std::vector<int> usedOrders, int M, int ord);
+    bool stockChecker(std::vector<Order *> ords, std::vector<int> usedOrders, int ord);
 
     /**
     * A similar implementation of the algorithm that solves the knapsack problem

@@ -233,15 +233,34 @@ TEST(test, loadTrucksData){
     headquarter.showTrucks();
 }
 
-TEST(test, distributeOrdersToTrucks)
-{
+TEST(test, distributeOrdersToTrucks){
     Headquarter headquarter("1000000");
-    headquarter.loadOrderData("../src/Resources/orders.txt");
-    Truck truck1(1000);
-    /*Truck truck1(10);
-    Truck truck1(10);*/
+
+    headquarter.loadClientData("../src/Resources/clients.txt");
+    headquarter.loadProductData("../src/Resources/products.txt");
+
+    Truck* truck = new Truck(100);
+
+    Order* order1 = new Order(1);
+    Order* order2 = new Order(2);
+    Order* order3 = new Order(3);
+    Order* order4 = new Order(4);
+
+    order1->addProduct(headquarter.getProductById(2), 5);
+    order2->addProduct(headquarter.getProductById(2), 10);
+    order3->addProduct(headquarter.getProductById(2), 5);
+    order4->addProduct(headquarter.getProductById(2), 5);
+
+    headquarter.addOrder(order1);
+    headquarter.addOrder(order2);
+    headquarter.addOrder(order3);
+    headquarter.addOrder(order4);
+
+    headquarter.addTruck(truck);
 
     headquarter.distributeOrdersToTrucks();
 
     headquarter.showTrucks();
+
+    //capacity greater than order size
 }

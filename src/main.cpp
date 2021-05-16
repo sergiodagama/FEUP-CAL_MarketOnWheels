@@ -1,27 +1,14 @@
 #include <Headquarter.h>
 #include <Menu.h>
 
-/*#include "gtest/gtest.h"
-#include "gmock/gmock.h"*/
+#include "gtest/gtest.h"
+#include "gmock/gmock.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    Headquarter headquarter("123");
+    /*Headquarter headquarter("123");
 
-
-  /*  Headquarter headquarter(1000000);
-    headquarter.loadProductData("../src/Resources/products.txt");
-    headquarter.loadOrderData("../src/Resources/orders.txt");
-    Truck* truck1 = new Truck(500);
-    //Truck truck1(10);
-    //Truck truck1(10);
-
-    headquarter.addTruck(truck1);
-    headquarter.distributeOrdersToTrucks();
-
-    headquarter.showTrucks();
-    return 0;*/
 
 
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
@@ -200,7 +187,7 @@ int main(int argc, char *argv[]) {
                     case 2: {
                         cout << "Provider \n";
 
-                        /*cout << "What's your name?\n";
+                        cout << "What's your name?\n"; //TODO ADD COMMENT
                         string name; cin >> name;
                         cout << "What's your user name?\n";
                         string userName; cin >> userName;
@@ -210,7 +197,7 @@ int main(int argc, char *argv[]) {
                         }
                         else{
                             cout << "You're already registered!\n";
-                        }*/
+                        } //TODO ADD COMMENT
                         break;
                     }
                 }
@@ -227,10 +214,12 @@ int main(int argc, char *argv[]) {
     //TODO destrutor para a headquarters
 }
 
+*/
 
-/* testing::InitGoogleTest(&argc, argv);
+ testing::InitGoogleTest(&argc, argv);
     std::cout << "\n\n----------MARKETONWHEELS TESTS----------" << std::endl;
-    return RUN_ALL_TESTS();*/
+    return RUN_ALL_TESTS();
+}
 
 /*
  *  std::cout << "Importing data into program structures..." << std::endl;
