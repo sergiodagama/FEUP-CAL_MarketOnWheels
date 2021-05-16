@@ -9,6 +9,7 @@
 #include <Truck.h>
 #include <Utils.h>
 
+using namespace std;
 class Headquarter {
 private:
     std::vector<Client *> clients;
@@ -59,13 +60,14 @@ public:
     * @return the provider wanted if exists, else nullptr
     */
     Provider *getProviderById(unsigned int id);
+    bool myFunc(vector<Order *> ords, vector<int>used, vector<int> best, int ord, int k);
 
-    /**
-    * Gets a specific client
-    *
-    * @param id the id of the client
-    * @return the client wanted if exists, else nullptr
-    */
+        /**
+        * Gets a specific client
+        *
+        * @param id the id of the client
+        * @return the client wanted if exists, else nullptr
+        */
     Client *getClientById(unsigned int id);
 
     /**
