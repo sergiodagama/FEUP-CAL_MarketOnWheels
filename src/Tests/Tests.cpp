@@ -239,7 +239,7 @@ TEST(test, distributeOrdersToTrucks){
     headquarter.loadClientData("../src/Resources/clients.txt");
     headquarter.loadProductData("../src/Resources/products.txt");
 
-    Truck* truck = new Truck(100);
+    Truck* truck = new Truck(110);
 
     Order* order1 = new Order(1);
     Order* order2 = new Order(2);

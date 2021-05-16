@@ -420,8 +420,10 @@ void Headquarter::showProviders() {
 
 void Headquarter::distributeOrdersToTrucks() {
     for(int t = 0; t < trucks.size(); t++){
-        vector<double> cost(trucks[t]->getCapacity() + 1, 0);
-        vector<int> best(trucks[t]->getCapacity() + 1, 0);
+        //vector<double> cost(trucks[t]->getCapacity() + 1, 0);
+        vector<vector<double>> cost(orders.size(), vector<double> (trucks[t]->getCapacity() + 1, 0));
+        //vector<int> best(trucks[t]->getCapacity() + 1, 0);
+        vector<vector<int>> best(orders.size(), vector<int> (trucks[t]->getCapacity() + 1, 0));
 
         std::vector<std::vector<int>> ordersUsed(trucks[t]->getCapacity() + 1, std::vector<int>(orders.size(), 0));
 
@@ -442,18 +444,16 @@ void Headquarter::distributeOrdersToTrucks() {
         for(int i = 0; i < ords.size(); i++){
 
             //as orders are considered to be all unique, the quantity of each order is 1
-            for(int k = ords[i]->getSize(); k <= trucks[t]->getCapacity(); k++){
-
-                if(ords[i]->getPrice() + cost[k-ords[i]->getSize()] > cost[k] && stockChecker(ords, ordersUsed[k-ords[i]->getSize()], i)){
-                    cost[k] = ords[i]->getPrice() + cost[k - ords[i]->getSize()];
-                    best[k] = i;
-                   // ordersUsed[k] = ordersUsed[k-ords[i]->getSize()];
-                    //ordersUsed[k][i]++;
+            for(int k = 0; k <= trucks[t]->getCapacity(); k++){
+                if(ords[i]->getPrice() + cost[i][k-ords[i]->getSize()] > cost[i][k]){//&& stockChecker(ords, ordersUsed[k-ords[i]->getSize()], i)){
+                    cost[i][k] = ords[i]->getPrice() + cost[i][k - ords[i]->getSize()];
+                    best[i][k] = i;
+                    ordersUsed[k] = ordersUsed[k-ords[i]->getSize()];
+                    ordersUsed[k][i]++;
                 }
-
             }
         }
-        cout << "RESULT: " << cost[trucks[t]->getCapacity()] << endl;
+        cout << "RESULT: " << cost[orders.size()-1][trucks[t]->getCapacity()] << endl;
         cout << "----USED----" << endl;
 
         int m = trucks[t]->getCapacity();
@@ -469,6 +469,11 @@ void Headquarter::distributeOrdersToTrucks() {
 
 bool Headquarter::stockChecker(vector<Order *> ords, vector<int> usedOrders, int ord) {
     vector<int> stock(ords.size(), 1);
+
+    for(int i = 0; i < ords.size(); i++){
+        cout << usedOrders[i] << "\t";
+    }
+    cout << endl;
 
     for(int i = 0; i < ords.size(); i++){
         if(usedOrders[i] + (i == ord) > 1) return false;
