@@ -87,14 +87,6 @@ unsigned int Headquarter::getNTrucks() const {
 }
 
 void Headquarter::addClient(Client *client) {
-    /*if(clientSearcher(client->getUserName())){
-        cout << "You already exist in our company\n";
-        return;
-    }
-    if(!positionSearcher(client->getAddress())){
-        cout << "We can't deliver into you're address\n";
-        return;
-    }*/
     clients.push_back(client);
 }
 
@@ -401,7 +393,7 @@ void Headquarter::showOrders() {
     }
 }
 
-void Headquarter::showClients() {
+void Headquarter::showClients() { //TODO investigate format
     if (clients.empty()) {
         cout << "It does not exist any client yet" << endl;
         return;
