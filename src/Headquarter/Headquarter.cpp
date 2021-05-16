@@ -476,6 +476,10 @@ void Headquarter::distributeOrdersToTrucks() {
                     cost[k] = cost[k];
                     best[k] = best[k];
                 }
+                //Might be useless
+                willAdd = myFunc(ords, lastStockUsed[i], best, i, k);
+                ordersUsed[i][k]=!willAdd;
+
 
             }
         }
