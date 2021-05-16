@@ -68,7 +68,6 @@ int main(int argc, char *argv[]) {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 } while (cin.fail() || headquarter.getClientById(client_id) == nullptr);
-
                 client_menu.show();
                 unsigned int client_option = client_menu.getInput();
                 switch (client_option) {
@@ -81,7 +80,6 @@ int main(int argc, char *argv[]) {
                         break;
                     }
                 }
-
                 break;
             }
 
