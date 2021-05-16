@@ -82,3 +82,10 @@ float ProductsWrapper::getPrice() const {
     }
     return price;
 }
+
+bool ProductsWrapper::searchProduct(std::string productName) const {
+    for(auto it = products.begin(); it!=products.end(); it++){
+        if((*it).first->getName() == productName) return true;
+    }
+    return false;
+}

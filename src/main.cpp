@@ -96,6 +96,81 @@ int main(int argc, char *argv[]) {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 } while (cin.fail() || headquarter.getClientById(provider_id) == nullptr);
+                Provider* provider = headquarter.getProviderById(provider_id);
+                cout << provider->getName()<< endl;
+                providers_menu.show();
+                unsigned int option = providers_menu.getInput();
+                switch (option) {
+                    //Add a new product
+                    case 1: {
+                        cout << "What's the product name?\n";
+                        string name; cin >> name;
+
+                        cout << "What's the price of the product?\n";
+                        float price; cin >> price;
+                        if(price < 0){
+                            cout << "Invalid price\n";
+                            break;
+                        }
+
+                        cout << "What's the size of the product?\n";
+                        int size; cin >> size;
+                        if(size < 0){
+                            cout << "Invalid size\n";
+                            break;
+                        }
+
+                        cout << "What's the quantity of the product?\n";
+                        int quantity; cin >> quantity;
+                        if(quantity < 0){
+                            cout << "Invalid quantity\n";
+                            break;
+                        }
+                        if(provider->searchProduct(name)) {
+                            cout << "Product already exists\n";
+                            break;
+                        }
+
+                        Product* newProduct = headquarter.productSearcher(name);
+                        if(newProduct == NULL){
+                            newProduct = new Product(name, price, size);
+                            headquarter.addProduct(newProduct);
+                        }
+                        else{
+                            cout << "We already sell this product, so it will be our price and characteristics\n";
+                        }
+
+                        provider->addProduct(newProduct, quantity);
+                        break;
+                    }
+                    //Add quantity to an existing product
+                    case 2: {
+                        cout << "What's the product name?\n";
+                        string name; cin >> name;
+
+                        Product* product = headquarter.productSearcher(name);
+                        if(product == NULL){
+                            cout << "We don't sell this product\n";
+                            break;
+                        }
+
+                        cout << "What's the quantity of the product?\n";
+                        int quantity; cin >> quantity;
+                        if(quantity < 0){
+                            cout << "Invalid quantity\n";
+                            break;
+                        }
+
+                        try{
+                            provider->addQuantityOfProduct(product, quantity);
+                        }
+                        catch (ProductNotFound) {
+                            cout << "You don't sell this product\n";
+                            break;
+                        }
+                        break;
+                    }
+                }
                 break;
             }
             //admin area

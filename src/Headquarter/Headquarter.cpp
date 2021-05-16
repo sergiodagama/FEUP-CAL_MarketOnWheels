@@ -30,6 +30,15 @@ bool Headquarter::providerSearcher(std::string userName) {
     return false;
 }
 
+Product* Headquarter::productSearcher(std::string name){
+    for(vector<Product*>::iterator it = products.begin(); it != products.end(); it++){
+        if((*it)->getName() == name){
+            return *it;
+        }
+    }
+    return NULL;
+}
+
 Graph<Position> Headquarter::getGraph() const {
     return graph;
 }

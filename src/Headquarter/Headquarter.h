@@ -44,6 +44,8 @@ public:
 
     bool providerSearcher(std::string userName);
 
+    Product* productSearcher(std::string name);
+
 
     /**
     * Gets the Graph of the map that is being used
