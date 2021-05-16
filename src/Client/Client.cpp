@@ -4,17 +4,6 @@ using namespace std;
 
 unsigned int Client::id_aux = 0;
 
-Client::Client(const std::string &name, const std::string &user_name, Date date, unsigned int address,
-               unsigned int capital) {
-    id_aux++;
-    this->id = id_aux;
-    this->name = name;
-    this->user_name = user_name;
-    this->birthday_date = date;
-    this->position_id = address;
-    this->capital = capital;
-}
-
 Client::Client(const std::string &name, const std::string &user_name, Date date, unsigned int address) {
     id_aux++;
     this->id = id_aux;
@@ -53,14 +42,6 @@ void Client::setDate(Date date) {
 
 Date Client::getDate() const {
     return birthday_date;
-}
-
-void Client::setCapital(int capital) {
-    this->capital = capital;
-}
-
-unsigned int Client::getCapital() const {
-    return capital;
 }
 
 void Client::setAddress(unsigned int position) {
