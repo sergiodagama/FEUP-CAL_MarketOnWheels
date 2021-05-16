@@ -4,8 +4,6 @@
 /*#include "gtest/gtest.h"
 #include "gmock/gmock.h"*/
 
-//NOTE: uncomment the google tests to run tests
-// and comment the rest of the code
 using namespace std;
 
 int main(int argc, char *argv[]) {
@@ -97,6 +95,18 @@ int main(int argc, char *argv[]) {
                     }
                     case 2: {
                         cout << "Provider \n";
+
+                        cout << "What's your name?\n";
+                        string name; cin >> name;
+                        cout << "What's your user name?\n";
+                        string userName; cin >> userName;
+                        //TODO ver a questão da morada
+                        if(!headquarter.providerSearcher(userName)){
+                            headquarter.addProvider(new Provider(name, userName));
+                        }
+                        else{
+                            cout << "You're already registered!\n";
+                        }
                         break;
                     }
                 }
@@ -109,6 +119,8 @@ int main(int argc, char *argv[]) {
     headquarter.saveAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
                             "../src/Resources/trucks.txt", "../src/Resources/orders.txt",
                             "../src/Resources/products.txt");
+
+    //TODO destrutor para a headquarters
 }
 
 /*Menu admin_menu = Menu("Administration");

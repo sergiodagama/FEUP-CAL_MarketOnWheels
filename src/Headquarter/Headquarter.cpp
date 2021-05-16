@@ -21,6 +21,15 @@ bool Headquarter::positionSearcher(double idVertex) {
     return true;
 }
 
+bool Headquarter::providerSearcher(std::string userName) {
+    for(vector<Provider*>::iterator it = providers.begin(); it != providers.end(); it++){
+        if((*it)->getUserName() == userName){
+            return true;
+        }
+    }
+    return false;
+}
+
 Graph<Position> Headquarter::getGraph() const {
     return graph;
 }

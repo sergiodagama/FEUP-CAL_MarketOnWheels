@@ -42,6 +42,9 @@ public:
     bool positionSearcher(double idVertex);
 
 
+    bool providerSearcher(std::string userName);
+
+
     /**
     * Gets the Graph of the map that is being used
     *

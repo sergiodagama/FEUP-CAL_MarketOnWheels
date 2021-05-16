@@ -14,6 +14,7 @@ private:
     static unsigned int id_aux;
     std::string name;
     std::string user_name;
+    //unsigned int position_id;
 public:
     /**
      * Void constructor for provider
