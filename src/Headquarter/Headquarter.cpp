@@ -2,8 +2,32 @@
 
 using namespace std;
 
-Headquarter::Headquarter(unsigned int capital) {
-    this->capital = capital;
+Headquarter::Headquarter(string admin_pass) {
+    this->admin_password = admin_pass;
+}
+
+bool Headquarter::clientSearcher(std::string userName){
+    for(vector<Client*>::iterator it = clients.begin(); it != clients.end(); it++){
+        if((*it)->getUserName() == userName){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Headquarter::positionSearcher(double idVertex) {
+    Vertex<Position>* pos =  graph.findVertex(Position(idVertex, 0, 0));
+    if(pos==NULL) return false;
+    return true;
+}
+
+bool Headquarter::providerSearcher(std::string userName) {
+    for(vector<Provider*>::iterator it = providers.begin(); it != providers.end(); it++){
+        if((*it)->getUserName() == userName){
+            return true;
+        }
+    }
+    return false;
 }
 
 Graph<Position> Headquarter::getGraph() const {
@@ -167,11 +191,11 @@ void Headquarter::loadAllData(const string &clients_path, const string &provider
 
 void Headquarter::saveAllData(const string &clients_path, const string &providers_path, const string &trucks_path,
                               const string &orders_path, const std::string &products_path) {
+    saveProductData(products_path);
     saveClientData(clients_path);
     saveProviderData(providers_path);
     saveTruckData(trucks_path);
     saveOrderData(orders_path);
-    saveProductData(products_path);
 }
 
 void Headquarter::saveProviderData(const string &providers_path) {
@@ -369,7 +393,7 @@ void Headquarter::showOrders() {
     }
 }
 
-void Headquarter::showClients() {
+void Headquarter::showClients() { //TODO investigate format
     if (clients.empty()) {
         cout << "It does not exist any client yet" << endl;
         return;

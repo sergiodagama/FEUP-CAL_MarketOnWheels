@@ -8,7 +8,7 @@
 using testing::Eq;
 
 TEST(test, saveProductData) {
-    Headquarter headquarter(1000000);
+    Headquarter headquarter("1000000");
 
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
 
@@ -37,7 +37,7 @@ TEST(test, saveProductData) {
 
 //run after saving test
 TEST(test, loadProductData) {
-    Headquarter headquarter(1000000);
+    Headquarter headquarter("1000000");
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
 
     headquarter.loadProductData("../src/Resources/products.txt");
@@ -46,7 +46,7 @@ TEST(test, loadProductData) {
 }
 
 TEST(test, saveProviderData) {
-    Headquarter headquarter(1000000);
+    Headquarter headquarter("1000000");
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
 
     Product* potato = new Product("potato", 1.2, 2);
@@ -87,7 +87,7 @@ TEST(test, saveProviderData) {
 
 //run after save providers test
 TEST(test, loadProviderData){
-    Headquarter headquarter(1000000);
+    Headquarter headquarter("1000000");
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
     headquarter.loadProductData("../src/Resources/products.txt");
 
@@ -110,7 +110,7 @@ TEST(test, loadProviderData){
 }
 
 TEST(test, saveClientData){
-    Headquarter headquarter(1000000);
+    Headquarter headquarter("1000000");
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
 
     Client* client = new Client("Jon", "jony", Date(2, 10 ,2000), 4);
@@ -130,7 +130,7 @@ TEST(test, saveClientData){
 
 //run after the save clients data test
 TEST(test, loadClientsData){
-    Headquarter headquarter(1000000);
+    Headquarter headquarter("1000000");
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
 
     headquarter.loadClientData("../src/Resources/clients.txt");
@@ -139,7 +139,7 @@ TEST(test, loadClientsData){
 }
 
 TEST(test, saveOrdersData){
-    Headquarter headquarter(1000000);
+    Headquarter headquarter("1000000");
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
 
     Product* potato = new Product("potato", 1.2, 2);
@@ -180,7 +180,7 @@ TEST(test, saveOrdersData){
 
 //run after save orders test
 TEST(test, loadOrderData){
-    Headquarter headquarter(1000000);
+    Headquarter headquarter("1000000");
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
     headquarter.loadProductData("../src/Resources/products.txt");
     headquarter.loadOrderData("../src/Resources/orders.txt");
@@ -196,7 +196,7 @@ TEST(test, loadOrderData){
 }
 
 TEST(test, saveTrucksData){
-    Headquarter headquarter(1000000);
+    Headquarter headquarter("1000000");
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
     headquarter.loadProductData("../src/Resources/products.txt");
     headquarter.loadOrderData("../src/Resources/orders.txt");
@@ -221,7 +221,7 @@ TEST(test, saveTrucksData){
 
 //run after the save trucks data test
 TEST(test, loadTrucksData){
-    Headquarter headquarter(1000000);
+    Headquarter headquarter("1000000");
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
 
     headquarter.loadProductData("../src/Resources/products.txt");
@@ -235,7 +235,7 @@ TEST(test, loadTrucksData){
 
 TEST(test, distributeOrdersToTrucks)
 {
-    Headquarter headquarter(1000000);
+    Headquarter headquarter("1000000");
     headquarter.loadOrderData("../src/Resources/orders.txt");
     Truck truck1(1000);
     /*Truck truck1(10);

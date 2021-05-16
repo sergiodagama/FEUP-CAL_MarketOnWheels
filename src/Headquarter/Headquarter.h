@@ -16,7 +16,6 @@ private:
     std::vector<Truck *> trucks;
     std::vector<Order *> orders;
     std::vector<Product *> products;
-    unsigned int capital;
     Position *address;
     Graph<Position> graph;
     std::string admin_password = "123";
@@ -26,11 +25,25 @@ public:
 
     /**
     * Headquarters constructor
-    * @param capital the capital (funds) that the company has
+    * @param password to the administration
     */
-    Headquarter(unsigned int capital);
+    Headquarter(std::string admin_pass);
 
     //-------------------------GETTERS-------------------------
+
+    /**
+     * Check if a client already exists
+     * @param userName Client user name
+     * @return True if it already exists, false otherwise
+     */
+    bool clientSearcher(std::string userName);
+
+
+    bool positionSearcher(double idVertex);
+
+
+    bool providerSearcher(std::string userName);
+
 
     /**
     * Gets the Graph of the map that is being used
