@@ -9,21 +9,6 @@ using namespace std;
 int main(int argc, char *argv[]) {
     Headquarter headquarter("123");
 
-
-  /*  Headquarter headquarter(1000000);
-    headquarter.loadProductData("../src/Resources/products.txt");
-    headquarter.loadOrderData("../src/Resources/orders.txt");
-    Truck* truck1 = new Truck(500);
-    //Truck truck1(10);
-    //Truck truck1(10);
-
-    headquarter.addTruck(truck1);
-    headquarter.distributeOrdersToTrucks();
-
-    headquarter.showTrucks();
-    return 0;*/
-
-
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
     headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
                             "../src/Resources/trucks.txt", "../src/Resources/orders.txt",
@@ -200,17 +185,25 @@ int main(int argc, char *argv[]) {
                     case 2: {
                         cout << "Provider \n";
 
-                        /*cout << "What's your name?\n";
+                        cout << "What's your name?\n";
                         string name; cin >> name;
                         cout << "What's your user name?\n";
                         string userName; cin >> userName;
-                        //TODO ver a questão da morada
-                        if(!headquarter.providerSearcher(userName)){
-                            headquarter.addProvider(new Provider(name, userName));
+
+                        cout << "What's your address id?\n";
+                        double address;
+                        cin >> address;
+
+                        if(headquarter.providerSearcher(userName)){
+                            cout << "You already exist in our company\n";
+                            break;
                         }
-                        else{
-                            cout << "You're already registered!\n";
-                        }*/
+
+                        if(!headquarter.positionSearcher(address)){
+                            cout << "We can't deliver into you're address\n";
+                            break;
+                        }
+                        headquarter.addProvider(new Provider(name, userName, address));
                         break;
                     }
                 }
