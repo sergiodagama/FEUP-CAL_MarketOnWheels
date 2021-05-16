@@ -13,6 +13,9 @@ int main(int argc, char *argv[]) {
     Headquarter headquarter("123");
 
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
+                            "../src/Resources/trucks.txt", "../src/Resources/orders.txt",
+                            "../src/Resources/products.txt");
 
     std::cout << "|||||||| Market On Wheels ||||||||" << std::endl << std::endl;
 
