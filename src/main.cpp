@@ -8,6 +8,22 @@
 // and comment the rest of the code
 
 int main(int argc, char *argv[]) {
+/*
+    Headquarter headquarter(1000000);
+    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+
+    headquarter.loadProductData("../src/Resources/products.txt");
+    headquarter.loadOrderData("../src/Resources/orders.txt");
+
+    Truck *truck = new Truck(100);
+
+    headquarter.addTruck(truck);
+
+    headquarter.distributeOrdersToTrucks();
+
+    return 0;
+}*/
+
 
     /*testing::InitGoogleTest(&argc, argv);
     std::cout << "\n\n----------MARKETONWHEELS TESTS----------" << std::endl;

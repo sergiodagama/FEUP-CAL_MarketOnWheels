@@ -58,8 +58,8 @@ TEST(test, saveProviderData) {
     Product* wine = new Product("wine", 4.5, 4);
     Product* chips = new Product("chips", 2.3, 3);
 
-    Provider* continente = new Provider("continente", "cont");
-    Provider* pingodoce = new Provider("pingodoce", "ping");
+    Provider* continente = new Provider("continente", "cont", 30);
+    Provider* pingodoce = new Provider("pingodoce", "ping", 31);
 
     continente->addProduct(potato, 200);
     continente->addProduct(rice, 300);
@@ -191,6 +191,7 @@ TEST(test, loadOrderData){
         std::cout << *(*it).first << std::endl;
     }
     headquarter.showOrders();
+
     EXPECT_EQ(headquarter.getNOrders(), 2);
 }
 
