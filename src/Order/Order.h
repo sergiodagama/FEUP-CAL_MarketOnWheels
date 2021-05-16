@@ -72,6 +72,14 @@ public:
     * @return the input stream
     */
     friend std::istream& operator>>(std::istream& is, Order& order);
+
+    /**
+     * Overload of < operator for sorting
+     * @param order1 the first order to compare
+     * @param order2 the second order to compare with
+     * @return true if smaller, false otherwise
+     */
+    friend bool operator<(const Order& order1, const Order& order2);
 };
 
 #endif //SRC_ORDER_H

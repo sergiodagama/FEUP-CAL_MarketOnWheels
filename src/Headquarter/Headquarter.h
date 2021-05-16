@@ -295,7 +295,7 @@ public:
     /**
      * Calculates final path of the trucks from providers to clients
      * Note: based on the floyd warshall algorithm results, obtained before!
-     * IDEA: calculate lowest path from last provider until all clients and see wich path takes more clients in the way (do it until all clients are in path)
+     * IDEA: calculate lowest path from last provider until all clients and see which path takes more clients in the way (do it until all clients are in path)
      * @return map with the trucks ids and their respective path until the clients from the last provider given (ids of nodes ordered)
      */
     std::map<unsigned int, std::vector<int>>

@@ -224,14 +224,14 @@ void Headquarter::loadProviderData(const string &providers_path) {
 
     string line;
     string name, user_name;
-    unsigned int id, prod_id, size, quantity;
+    unsigned int id, prod_id, size, quantity, pos_id;
     double price;
 
     if (providerFile.is_open()) {
         while (getline(providerFile, line)) {
             stringstream ss(line);
-            ss >> id >> name >> user_name;
-            Provider *provider = new Provider(name, user_name);
+            ss >> id >> name >> user_name >> pos_id;
+            Provider *provider = new Provider(name, user_name, pos_id);
             addProvider(provider);
             while (getline(providerFile, line) && line != "_") {
                 stringstream ss(line);
@@ -386,9 +386,44 @@ void Headquarter::showProviders() {
         cout << "It does not exist any provider yet" << endl;
         return;
     }
-    cout << "Id\tName\t\tUserName\tNumberOfProducts" << endl;
+    cout << "Id\tName\t\tUserName\tnProducts\tAddressId" << endl;
     for (auto it = providers.begin(); it != providers.end(); it++) {
         cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t"
-             << (*it)->getNumOfDifProducts() << endl;
+             << (*it)->getNumOfDifProducts() << "\t\t\t" << (*it)->getAddress() << endl;
+    }
+}
+
+void Headquarter::distributeOrdersToTrucks() {
+    for(int t = 0; t < trucks.size(); t++){
+        vector<double> cost(trucks[t]->getCapacity() + 1, 0);
+        vector<int> best(trucks[t]->getCapacity() + 1, 0);
+
+        vector<Order*> ords = orders;
+
+        ords.push_back(new Order());
+
+        sort(ords.begin(), ords.end(), [] (Order const *const order1, Order const *const order2){return order1->getSize() < order2->getSize();});
+
+        cout << "----ORDERS----" << endl;
+        for(auto it = ords.begin(); it != ords.end(); it++){
+            cout << "SIZE: " << (*it)->getSize() << endl;
+            cout << "PRICE: " << (*it)->getPrice() << endl;
+        }
+        cout << "--------------" << endl;
+
+        for(int i = 1; i < ords.size(); i++){
+            for(int k = ords[i]->getSize(); k <= trucks[t]->getCapacity(); k++){
+                if(ords[i]->getPrice() + cost[k-ords[i]->getSize()] > cost[k])
+                cost[k] = ords[i]->getPrice() + cost[k-ords[i]->getSize()];
+                best[k] = i;
+            }
+        }
+        cout << "RESULT: " << cost[trucks[t]->getCapacity()] << endl;
+        cout << "----BEST----" << endl;
+        /*
+        for (int c = trucks[t]->getCapacity(); c > 0; c -= ords[best[c]]->getSize()) {
+            cout << best[c] << endl;
+        }
+         */
     }
 }

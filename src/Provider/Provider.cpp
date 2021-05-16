@@ -4,11 +4,12 @@ using namespace std;
 
 unsigned int Provider::id_aux = 0;
 
-Provider::Provider(string name, string user_name, map<Product *, unsigned int> products) : ProductsWrapper(products) {
+Provider::Provider(string name, string user_name, map<Product *, unsigned int> products, unsigned int position_id) : ProductsWrapper(products) {
     id_aux++;
     this->id = id_aux;
     this->name = name;
     this->user_name = user_name;
+    this->position_id = position_id;
 }
 
 unsigned int Provider::getId() const {
@@ -33,7 +34,7 @@ std::string Provider::getUserName() const {
 
 std::ostream &operator<<(ostream &os, const Provider &provider) {
     os << provider.id << DELIMITER << provider.name << DELIMITER;
-    os << provider.user_name << endl;
+    os << provider.user_name << DELIMITER << provider.position_id << endl;
 
     map<Product *, unsigned int> prods = provider.getProducts();
 
@@ -45,7 +46,7 @@ std::ostream &operator<<(ostream &os, const Provider &provider) {
 }
 
 std::istream &operator>>(istream &is, Provider &provider) {
-    is >> provider.id >> provider.name >> provider.user_name;
+    is >> provider.id >> provider.name >> provider.user_name >> provider.position_id;
     return is;
 }
 
@@ -55,9 +56,18 @@ Provider::Provider() : ProductsWrapper() {
 
 }
 
-Provider::Provider(std::string name, std::string user_name) {
+Provider::Provider(std::string name, std::string user_name, unsigned int position_id) {
     id_aux++;
     this->id = id_aux;
     this->name = name;
     this->user_name = user_name;
+    this->position_id = position_id;
+}
+
+void Provider::setAddress(unsigned int position_id) {
+    this->position_id = position_id;
+}
+
+unsigned int Provider::getAddress() const {
+    return position_id;
 }

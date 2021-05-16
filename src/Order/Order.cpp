@@ -50,3 +50,7 @@ unsigned int Order::getClientId() const {
 void Order::setClientId(unsigned int client_id) {
     this->client_id = client_id;
 }
+
+bool operator<(const Order &order1, const Order &order2) {
+    return order1.getSize() < order2.getSize();
+}

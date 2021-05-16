@@ -14,6 +14,7 @@ private:
     static unsigned int id_aux;
     std::string name;
     std::string user_name;
+    unsigned int position_id;
 public:
     /**
      * Void constructor for provider
@@ -25,8 +26,9 @@ public:
      *
      * @param name the providers name
      * @param user_name the user name for provider
+     * @param position_id address of provider
      */
-    Provider(std::string name, std::string user_name);
+    Provider(std::string name, std::string user_name, unsigned int position_id);
 
     /**
     * Provider constructor
@@ -34,8 +36,9 @@ public:
     * @param name the name of the distributor (company)
     * @param user_name the user name of the provider (user to use than name)
     * @param products the stock of the provider products
+    * @param position_id the address of the provider
     */
-    Provider(std::string name, std::string user_name, std::map<Product *, unsigned int> products);
+    Provider(std::string name, std::string user_name, std::map<Product *, unsigned int> products, unsigned int position_id);
 
     /**
     * Gets provider id
@@ -71,6 +74,18 @@ public:
     * @return the user name of the provider
     */
     std::string getUserName() const;
+
+    /**
+     * Sets the position_id (address) or provider
+     * @param position_id the address to be set
+     */
+    void setAddress(unsigned int position_id);
+
+    /**
+     * Gets the position_id of provider (address)
+     * @return the position_id of provider
+     */
+    unsigned int getAddress() const;
 
     /**
     * Overload to << operator of Provider
