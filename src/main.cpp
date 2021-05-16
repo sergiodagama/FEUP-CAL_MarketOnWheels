@@ -9,6 +9,21 @@ using namespace std;
 int main(int argc, char *argv[]) {
     Headquarter headquarter("123");
 
+
+  /*  Headquarter headquarter(1000000);
+    headquarter.loadProductData("../src/Resources/products.txt");
+    headquarter.loadOrderData("../src/Resources/orders.txt");
+    Truck* truck1 = new Truck(500);
+    //Truck truck1(10);
+    //Truck truck1(10);
+
+    headquarter.addTruck(truck1);
+    headquarter.distributeOrdersToTrucks();
+
+    headquarter.showTrucks();
+    return 0;*/
+
+
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
     headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
                             "../src/Resources/trucks.txt", "../src/Resources/orders.txt",

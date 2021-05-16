@@ -418,37 +418,48 @@ void Headquarter::showProviders() {
 }
 
 void Headquarter::distributeOrdersToTrucks() {
-    for(int t = 0; t < trucks.size(); t++){
-        vector<double> cost(trucks[t]->getCapacity() + 1, 0);
-        vector<int> best(trucks[t]->getCapacity() + 1, 0);
+    cout << "Inside distributeOrdersToTrucks" << endl;
+    showOrders();
 
-        vector<Order*> ords = orders;
+    for(int truck = 0; truck < trucks.size(); truck++)
+    {
+        cout << "Truck: " << truck << endl;
+        cout << "PRICE: " << orders[0]->getPrice() << endl;
+        cout << "PRICE: " << orders[1]->getPrice() << endl;
+        vector<double> cost(trucks[truck]->getCapacity() + 1, 0);
+        vector<int> best(trucks[truck]->getCapacity() + 1, 0);
+        cout << orders.size() << endl;
 
-        ords.push_back(new Order());
-
-        sort(ords.begin(), ords.end(), [] (Order const *const order1, Order const *const order2){return order1->getSize() < order2->getSize();});
-
-        cout << "----ORDERS----" << endl;
-        for(auto it = ords.begin(); it != ords.end(); it++){
-            cout << "SIZE: " << (*it)->getSize() << endl;
-            cout << "PRICE: " << (*it)->getPrice() << endl;
-        }
-        cout << "--------------" << endl;
-
-        for(int i = 1; i < ords.size(); i++){
-            for(int k = ords[i]->getSize(); k <= trucks[t]->getCapacity(); k++){
-                if(ords[i]->getPrice() + cost[k-ords[i]->getSize()] > cost[k])
-                cost[k] = ords[i]->getPrice() + cost[k-ords[i]->getSize()];
-                best[k] = i;
+        for(int order = 0; order < orders.size(); order++)
+        {
+            cout << "Order: " << order << endl;
+            for(int volume = orders[order]->getSize() ; volume <= trucks[truck]->getCapacity(); volume++)
+            {
+                //117 + custo[160-160]  = 117 > cost[160] TRUE
+                //117 + custo[161-160]  = 117 > cost[161] TRUE
+                //117 +youtub
+                cout << orders[order]->getSize() << " " << orders[order]->getPrice() << " " << cost[volume - orders[order]->getSize()] << " " <<  endl;
+                if( orders[order]->getPrice() + cost[volume - orders[order]->getSize()] > cost[volume])
+                {
+                    cost[volume] = orders[order]->getPrice() + cost[volume - orders[order]->getSize()];
+                    best[volume] = order;
+                }
             }
+
         }
-        cout << "RESULT: " << cost[trucks[t]->getCapacity()] << endl;
-        cout << "----BEST----" << endl;
-        /*
-        for (int c = trucks[t]->getCapacity(); c > 0; c -= ords[best[c]]->getSize()) {
-            cout << best[c] << endl;
-        }
-         */
+
+        int k = trucks[truck]->getCapacity();
+
+
+        /*while(k > 0)
+        {
+            cout << k << endl;
+            cout << *getOrderById(best[k]);
+            //trucks[truck]->addOrder(getOrderById(best[k]));
+            k -= orders[best[k]]->getSize();
+            //k--;
+        }*/
+        cout << cost[trucks[truck]->getCapacity()] << endl;
     }
 }
 

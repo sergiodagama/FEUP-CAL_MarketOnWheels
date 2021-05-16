@@ -69,6 +69,7 @@ unsigned int ProductsWrapper::getSize() const {
     unsigned int size = 0;
 
     for (auto it = products.begin(); it != products.end(); it++) {
+
         size += (*it).second * (*it).first->getSize();
     }
     return size;

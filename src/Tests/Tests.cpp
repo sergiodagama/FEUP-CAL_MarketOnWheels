@@ -232,3 +232,18 @@ TEST(test, loadTrucksData){
 
     headquarter.showTrucks();
 }
+
+TEST(test, distributeOrdersToTrucks)
+{
+    Headquarter headquarter("1000000");
+    headquarter.loadOrderData("../src/Resources/orders.txt");
+    Truck truck1(1000);
+    /*Truck truck1(10);
+    Truck truck1(10);*/
+
+    headquarter.distributeOrdersToTrucks();
+
+    headquarter.showTrucks();
+
+
+}
