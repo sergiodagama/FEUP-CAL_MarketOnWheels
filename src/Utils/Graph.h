@@ -111,6 +111,8 @@ Edge<T>::Edge(Vertex<T> *d, double w): dest(d), weight(w) {}
 template<class T>
 class Graph {
     std::vector<Vertex<T> *> vertexSet;    // vertex set
+    std::vector<std::vector<double>> distMin;
+    std::vector<std::vector<Vertex<T>*>> path;
 
 public:
     Vertex<T> *findVertex(const T &in) const;
@@ -376,46 +378,29 @@ double Graph<T>::getWeight(Vertex<T>* vertex1, Vertex<T>* vertex2)
     return INF;
 }
 
+
 template<class T>
 void Graph<T>::floydWarshallShortestPath() {
-    //create matrix representation of vertexes and their relative distances to other vertexes
-    //std::vector<std::vector<double>> dist(vertexSet.size(), std::vector<double>(vertexSet.size(), INF));
 
-    std::cout << vertexSet.size() << std::endl;
-    std::vector<std::vector<double>> distMin(vertexSet.size(), std::vector<double>(vertexSet.size(), 0));
-    std::vector<std::vector<Vertex<T>*>> path(vertexSet.size(), std::vector<Vertex<T>*>(vertexSet.size(), 0));
+    distMin.resize(vertexSet.size());
+    for (int i = 0; i < vertexSet.size(); i++)
+        distMin[i].resize(vertexSet.size());
+    path.resize(vertexSet.size());
+    for (int i = 0; i < vertexSet.size(); i++)
+        path[i].resize(vertexSet.size());
 
 
     for (int i = 0; i < distMin.size(); i++) {
+
         for (int j = 0; j < distMin[i].size(); j++) {
 
-            if (i == j) distMin[i][j] = 0;
-                /*else if (( edge = thereIsEdge(vertexSet[i], vertexSet[j])) != 0)
-                {
-                    distMin[i][j] = edge->weight;
-                    cout << "WEIGHT DENTRO " << edge->weight << endl;
-                }
+            if (i == j) distMin[i][j];
 
-                else
-                    distMin[i][j] = INF;*/
             else
             {
                 distMin[i][j] = getWeight(vertexSet[i], vertexSet[j]);
             }
         }
-    }
-
-    std::cout << "INF=" << INF << std::endl;
-
-    std::cout << "After initialization" << std::endl;
-    for(int i = 0; i < distMin.size(); i++)
-    {
-        for(int j = 0; j < distMin[i].size(); j++)
-        {
-            if(distMin[i][j] == INF) std::cout << "INF" << " ";
-            else std::cout << distMin[i][j] << " ";
-        }
-        std::cout << std::endl;
     }
 
     for (int k = 0; k < vertexSet.size(); k++) {
@@ -426,28 +411,42 @@ void Graph<T>::floydWarshallShortestPath() {
                 {
                     distMin[i][j] = distMin[i][k] + distMin[k][j];
                     path[i][j] = vertexSet[k];
+
                 }
             }
         }
     }
 
-    std::cout << "After Floyd" << std::endl;
-    for(int i = 0; i < distMin.size(); i++)
-    {
-        for(int j = 0; j < distMin[i].size(); j++)
-        {
-            if(distMin[i][j] == INF) std::cout << "INF" << " ";
-            else std::cout << distMin[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
 }
 
 
 template<class T>
-std::vector<T> Graph<T>::getfloydWarshallPath(const T &orig, const T &dest) const {
+std::vector<T> Graph<T>::getfloydWarshallPath(const T &orig, const T &dest) const{
+
+
+    std::vector<T> inverted;
     std::vector<T> res;
-    // TODO implement this
+
+    if(path[orig - 1][dest - 1] == NULL) return inverted;
+
+    T currentDest = dest;
+    T currentOrig = orig;
+
+
+    while(currentDest != orig)
+    {
+        inverted.push_back(currentDest);
+        if(path[currentOrig - 1][currentDest - 1] == NULL) break;
+        currentDest = path[currentOrig - 1][currentDest - 1]->info;
+    }
+
+    inverted.push_back(orig);
+
+    for(int i = inverted.size() - 1; i != -1; i--)
+    {
+        res.push_back(inverted[i]);
+    }
+
     return res;
 }
 

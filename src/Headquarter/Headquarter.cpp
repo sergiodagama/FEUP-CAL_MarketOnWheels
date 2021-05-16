@@ -428,51 +428,5 @@ void Headquarter::distributeOrdersToTrucks() {
     }
 }
 
-void Headquarter::distributeOrdersToTrucks() {
-    cout << "Inside distributeOrdersToTrucks" << endl;
-    showOrders();
-
-    for(int truck = 0; truck < trucks.size(); truck++)
-    {
-        cout << "Truck: " << truck << endl;
-        cout << "PRICE: " << orders[0]->getPrice() << endl;
-        cout << "PRICE: " << orders[1]->getPrice() << endl;
-        vector<double> cost(trucks[truck]->getCapacity() + 1, 0);
-        vector<int> best(trucks[truck]->getCapacity() + 1, 0);
-        cout << orders.size() << endl;
-
-        for(int order = 0; order < orders.size(); order++)
-        {
-            cout << "Order: " << order << endl;
-            for(int volume = orders[order]->getSize() ; volume <= trucks[truck]->getCapacity(); volume++)
-            {
-                //117 + custo[160-160]  = 117 > cost[160] TRUE
-                //117 + custo[161-160]  = 117 > cost[161] TRUE
-                //117 +youtub
-                cout << orders[order]->getSize() << " " << orders[order]->getPrice() << " " << cost[volume - orders[order]->getSize()] << " " <<  endl;
-                if( orders[order]->getPrice() + cost[volume - orders[order]->getSize()] > cost[volume])
-                {
-                    cost[volume] = orders[order]->getPrice() + cost[volume - orders[order]->getSize()];
-                    best[volume] = order;
-                }
-            }
-
-        }
-
-        int k = trucks[truck]->getCapacity();
-
-
-        /*while(k > 0)
-        {
-            cout << k << endl;
-            cout << *getOrderById(best[k]);
-            //trucks[truck]->addOrder(getOrderById(best[k]));
-            k -= orders[best[k]]->getSize();
-            //k--;
-        }*/
-        cout << cost[trucks[truck]->getCapacity()] << endl;
-    }
-}
-
 
 
