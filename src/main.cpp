@@ -76,7 +76,6 @@ int main(int argc, char *argv[]) {
                         cout << "Give me the product id and the quantity you want. If you want to stop, insert an negative id\n";
                         Order* order = new Order(client_id);
                         while (!end){
-                            //TODO Add order
                             cout << "What's the id of the product?\n";
                             int id; cin >> id;
                             if(id < 0){
