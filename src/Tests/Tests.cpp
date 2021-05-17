@@ -348,25 +348,27 @@ TEST(test, getProvidersThatSatisfy){
     Order* order1 = new Order(1);
     Order* order2 = new Order(2);
 
-    std::queue<Order *> orders;
-
-    order1->addProduct(headquarter.getProductById(2), 5);
-    order2->addProduct(headquarter.getProductById(4), 10);
-
-    orders.push(order1);
-    orders.push(order2);
-
-
-    /*Order* order3 = new Order(3);
-    Order* order4 = new Order(4);
+    std::queue<Order *> orders1;
 
     order1->addProduct(headquarter.getProductById(2), 5);
     order2->addProduct(headquarter.getProductById(2), 10);
-    order3->addProduct(headquarter.getProductById(2), 5);
-    order4->addProduct(headquarter.getProductById(2), 5);
 
-    headquarter.addOrder(order3);
-    headquarter.addOrder(order4);*/
+    orders1.push(order1);
+    orders1.push(order2);
 
-    headquarter.getProvidersThatSatisfy(orders);
+    std::vector<Provider * > providersNeeded2 = headquarter.getProvidersThatSatisfy(orders1);
+    /*One provider that has all the products of the given orders*/
+    EXPECT_EQ(providersNeeded2.size(), 1);
+    EXPECT_EQ(providersNeeded2[0]->getName() , "continente");
+    EXPECT_EQ(providersNeeded2[0]->getProducts()[headquarter.getProductById(2)] , 285);
+
+    /*More than one provider is needed to complete a given order*/
+    order1->addProduct(headquarter.getProductById(6), 5);
+    std::queue<Order *> orders2;
+    orders2.push(order1);
+    orders2.push(order2);
+
+    std::vector<Provider * > providersNeeded3 = headquarter.getProvidersThatSatisfy(orders2);
+    EXPECT_EQ(providersNeeded3.size(), 2);
+
 }

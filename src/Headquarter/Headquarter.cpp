@@ -472,48 +472,53 @@ void Headquarter::distributeOrdersToTrucks() {
     }
 }
 
-//Para cada truck
+
 std::vector<Provider *> Headquarter::getProvidersThatSatisfy(std::queue<Order *> orders) {
-    std::vector<Provider *> providersNeeded = providers;
-    std::map<Product *, unsigned int> productsNeeded;
+    std::vector<Provider *> providersNeeded ;
+    ProductsWrapper total;
 
-    std::vector<Provider *>::iterator it;
 
-    for(it = providers.begin(); it != providers.end(); it++)
+    while(!orders.empty())
     {
-        cout << (*it)->getName() << endl;
-        while(!orders.empty())
-        {
-            Order * orderTop = orders.front();
+        Order * orderTop = orders.front();
+        std::map<Product *, unsigned int> products = orderTop->getProducts();
 
-            productsNeeded = orderTop->getProducts();
-            std::map<Product *, unsigned int>::iterator itProduct;
+        for(auto it = products.begin(); it != products.end(); it ++){
+            try{
+                total.addQuantityOfProduct((*it).first, (*it).second);
+            }
+            catch (ProductNotFound) {
+                total.addProduct((*it).first, (*it).second);
+            }
+        }
 
-            for(itProduct = productsNeeded.begin(); itProduct != productsNeeded.end(); itProduct++)
-            {
-                cout << *(*itProduct).first;
-                int stockProduct = 0;
-                try{
-                    stockProduct = (*it)->getQuantityOfProduct((*itProduct).first);
-                    cout << stockProduct << endl;
-                }
-                catch(ProductNotFound e)
-                {
+        orders.pop();
+    }
 
-                }
+    std::map<Product *, unsigned int> totalProducts = total.getProducts();
 
-                if(stockProduct >= (*itProduct).second)
-                {
-                    providersNeeded.push_back(*it);
+    for(auto itProvider = providers.begin(); itProvider != providers.end(); itProvider++) {
+        cout << (*itProvider)->getName() << endl;
+        bool firstProduct = false;
 
-                }
-                else break;
+        for (auto itProduct = totalProducts.begin(); itProduct != totalProducts.end(); itProduct++) {
+            cout << *(*itProduct).first << (*itProduct).second << endl;
+            int stockProduct = 0;
+            try {
+                stockProduct = (*itProvider)->getQuantityOfProduct((*itProduct).first);
+            }
+            catch (ProductNotFound e) {
 
             }
 
-            orders.pop();
+            if (stockProduct >= (*itProduct).second) {
+                if (!firstProduct) {
+                    providersNeeded.push_back(*itProvider);
+                    firstProduct = true;
+                }
+                (*itProvider)->removeQuantityOfProduct((*itProduct).first, (*itProduct).second);
+            }
         }
-
     }
 
     return providersNeeded;
