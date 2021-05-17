@@ -133,6 +133,7 @@ public:
     void setState(state_t state);
 
     std::string returnStateString(int state);
+
 };
 
 #endif //SRC_TRUCK_H
