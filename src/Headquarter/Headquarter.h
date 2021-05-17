@@ -288,15 +288,24 @@ public:
     //------------------------- FUNCTIONS TO HANDLE DELIVERS ------------------------- //TODO
 
     /**
+     * Auxiliary function to distributeOrdersToTrucks(), to limit stock of orders
+     * @param ords the orders that exist
+     * @param usedOrders the used orders for a certain capacity
+     * @param M the capacity of the truck
+     * @param ord current order being tested
+     * @return true if has stock, false otherwise
+     */
+    bool stockChecker(std::vector<Order *> ords, std::vector<int> usedOrders, int ord);
+
+    /**
     * A similar implementation of the algorithm that solves the knapsack problem
-    * (don't worry about removing from headquarters orders vector, done later in last deliver function)
     */
     void distributeOrdersToTrucks();
 
     /**
     * Gets a queue of providers that entirely satisfies a set of orders given
     */
-    std::queue<Provider *> getProvidersThatSatisfy(std::queue<Order *>);
+    std::vector<Provider *> getProvidersThatSatisfy(std::queue<Order *>);
 
     /**
     * Calculates initial path of the trucks to their providers (use the function before to get them) in order to fulfill their orders

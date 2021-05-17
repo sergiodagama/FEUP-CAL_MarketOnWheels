@@ -1,4 +1,6 @@
 #include <Headquarter.h>
+#include <algorithm>
+#include <chrono>
 
 using namespace std;
 
@@ -418,48 +420,101 @@ void Headquarter::showProviders() {
 }
 
 void Headquarter::distributeOrdersToTrucks() {
-    cout << "Inside distributeOrdersToTrucks" << endl;
-    showOrders();
+    //sorting trucks by their capacity (higher capacity first)
+    sort(trucks.begin(), trucks.end(), [](Truck const *const truck1, Truck const *const truck2) {
+        return truck1->getCapacity() > truck2->getCapacity();
+    });
 
-    for(int truck = 0; truck < trucks.size(); truck++)
-    {
-        cout << "Truck: " << truck << endl;
-        cout << "PRICE: " << orders[0]->getPrice() << endl;
-        cout << "PRICE: " << orders[1]->getPrice() << endl;
-        vector<double> cost(trucks[truck]->getCapacity() + 1, 0);
-        vector<int> best(trucks[truck]->getCapacity() + 1, 0);
-        cout << orders.size() << endl;
+    //going through all the trucks
+    for (int t = 0; t < trucks.size(); t++) {
 
-        for(int order = 0; order < orders.size(); order++)
-        {
-            cout << "Order: " << order << endl;
-            for(int volume = orders[order]->getSize() ; volume <= trucks[truck]->getCapacity(); volume++)
-            {
-                //117 + custo[160-160]  = 117 > cost[160] TRUE
-                //117 + custo[161-160]  = 117 > cost[161] TRUE
-                //117 +youtub
-                cout << orders[order]->getSize() << " " << orders[order]->getPrice() << " " << cost[volume - orders[order]->getSize()] << " " <<  endl;
-                if( orders[order]->getPrice() + cost[volume - orders[order]->getSize()] > cost[volume])
-                {
-                    cost[volume] = orders[order]->getPrice() + cost[volume - orders[order]->getSize()];
-                    best[volume] = order;
+        vector<Order*> ords(orders);
+
+        //sorting orders by their price (higher prices first)
+        sort(orders.begin(), orders.end(), [](Order const *const order1, Order const *const order2) {
+            return order1->getPrice() > order2->getPrice();
+        });
+
+        cout << "CAPACITY: " << trucks[t]->getCapacity() << "\tID: " << trucks[t]->getId() << endl;
+
+        cout << "------------ORDERS------------" << endl;
+        for (auto it = orders.begin(); it != orders.end(); it++) {
+            cout << "ID: " << (*it)->getId() << "\t";
+            cout << "SIZE: " << (*it)->getSize() << "\t";
+            cout << "PRICE: " << (*it)->getPrice() << endl;
+        }
+        cout << "------------------------------" << endl;
+
+        bool notMoreSpace = false;
+
+        for(auto it = ords.begin(); it != ords.end(); it++) {
+            if(notMoreSpace) break;
+            try {
+                trucks[t]->addOrder(getOrderById((*it)->getId()));
+            }
+            catch (NotAvailableSpace e){
+                notMoreSpace = true;
+            }
+            for(auto in = ++it; in != ords.end(); in++){
+                if(notMoreSpace) break;
+                if((*in)->getClientId() == (*it)->getClientId()){
+                    try {
+                        trucks[t]->addOrder(getOrderById((*in)->getId()));
+                    }
+                    catch (NotAvailableSpace e){
+                        notMoreSpace = true;
+                    }
+                    ords.erase(in);
                 }
             }
-
+            ords.erase(it);
         }
-
-        int k = trucks[truck]->getCapacity();
-
-
-        /*while(k > 0)
-        {
-            cout << k << endl;
-            cout << *getOrderById(best[k]);
-            //trucks[truck]->addOrder(getOrderById(best[k]));
-            k -= orders[best[k]]->getSize();
-            //k--;
-        }*/
-        cout << cost[trucks[truck]->getCapacity()] << endl;
     }
 }
 
+//Para cada truck
+std::vector<Provider *> Headquarter::getProvidersThatSatisfy(std::queue<Order *> orders) {
+    std::vector<Provider *> providersNeeded = providers;
+    std::map<Product *, unsigned int> productsNeeded;
+
+    std::vector<Provider *>::iterator it;
+
+    for(it = providers.begin(); it != providers.end(); it++)
+    {
+        cout << (*it)->getName() << endl;
+        while(!orders.empty())
+        {
+            Order * orderTop = orders.front();
+
+            productsNeeded = orderTop->getProducts();
+            std::map<Product *, unsigned int>::iterator itProduct;
+
+            for(itProduct = productsNeeded.begin(); itProduct != productsNeeded.end(); itProduct++)
+            {
+                cout << *(*itProduct).first;
+                int stockProduct = 0;
+                try{
+                    stockProduct = (*it)->getQuantityOfProduct((*itProduct).first);
+                    cout << stockProduct << endl;
+                }
+                catch(ProductNotFound e)
+                {
+
+                }
+
+                if(stockProduct >= (*itProduct).second)
+                {
+                    providersNeeded.push_back(*it);
+
+                }
+                else break;
+
+            }
+
+            orders.pop();
+        }
+
+    }
+
+    return providersNeeded;
+}

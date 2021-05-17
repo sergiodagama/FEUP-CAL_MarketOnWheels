@@ -101,3 +101,4 @@ void Truck::setLoad(unsigned int load) {
 void Truck::setState(state_t state) {
     this->state = state;
 }
+
