@@ -471,3 +471,50 @@ void Headquarter::distributeOrdersToTrucks() {
         }
     }
 }
+
+//Para cada truck
+std::vector<Provider *> Headquarter::getProvidersThatSatisfy(std::queue<Order *> orders) {
+    std::vector<Provider *> providersNeeded = providers;
+    std::map<Product *, unsigned int> productsNeeded;
+
+    std::vector<Provider *>::iterator it;
+
+    for(it = providers.begin(); it != providers.end(); it++)
+    {
+        cout << (*it)->getName() << endl;
+        while(!orders.empty())
+        {
+            Order * orderTop = orders.front();
+
+            productsNeeded = orderTop->getProducts();
+            std::map<Product *, unsigned int>::iterator itProduct;
+
+            for(itProduct = productsNeeded.begin(); itProduct != productsNeeded.end(); itProduct++)
+            {
+                cout << *(*itProduct).first;
+                int stockProduct = 0;
+                try{
+                    stockProduct = (*it)->getQuantityOfProduct((*itProduct).first);
+                    cout << stockProduct << endl;
+                }
+                catch(ProductNotFound e)
+                {
+
+                }
+
+                if(stockProduct >= (*itProduct).second)
+                {
+                    providersNeeded.push_back(*it);
+
+                }
+                else break;
+
+            }
+
+            orders.pop();
+        }
+
+    }
+
+    return providersNeeded;
+}

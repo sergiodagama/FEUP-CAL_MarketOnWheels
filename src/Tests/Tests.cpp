@@ -312,3 +312,61 @@ TEST(test, floydWarshall_penafielMap){
 
     std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
 }
+
+ /*TEST(test, floydWarshall_penafielMap){
+    Headquarter headquarter("123");
+
+    std::cout << std::endl << "----STARTED LOADING PENAFIEL MAP----" << std::endl;
+    std::cout << "MAP: 10365 nodes" << std::endl;
+
+    headquarter.loadMap("../src/Resources/penafiel_nodes.txt", "../src/Resources/penafiel_edges.txt");
+
+    std::cout << "-------------LOADED MAP-------------" << std::endl << std::endl;
+
+    std::cout << "--------STARTED FLOYD WARSHALL------" << std::endl;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    headquarter.getGraph().floydWarshallShortestPath();
+
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = finish - start;
+
+    std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
+}*/
+
+TEST(test, getProvidersThatSatisfy){
+    Headquarter headquarter("123");
+
+    std::cout << std::endl << "----getProvidersThatSatisfy----" << std::endl;
+
+    headquarter.loadClientData("../src/Resources/clients.txt");
+    headquarter.loadProductData("../src/Resources/products.txt");
+    headquarter.loadProviderData("../src/Resources/providers.txt");
+
+    Order* order1 = new Order(1);
+    Order* order2 = new Order(2);
+
+    std::queue<Order *> orders;
+
+    order1->addProduct(headquarter.getProductById(2), 5);
+    order2->addProduct(headquarter.getProductById(4), 10);
+
+    orders.push(order1);
+    orders.push(order2);
+
+
+    /*Order* order3 = new Order(3);
+    Order* order4 = new Order(4);
+
+    order1->addProduct(headquarter.getProductById(2), 5);
+    order2->addProduct(headquarter.getProductById(2), 10);
+    order3->addProduct(headquarter.getProductById(2), 5);
+    order4->addProduct(headquarter.getProductById(2), 5);
+
+    headquarter.addOrder(order3);
+    headquarter.addOrder(order4);*/
+
+    headquarter.getProvidersThatSatisfy(orders);
+}

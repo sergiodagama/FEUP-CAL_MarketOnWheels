@@ -305,7 +305,7 @@ public:
     /**
     * Gets a queue of providers that entirely satisfies a set of orders given
     */
-    std::queue<Provider *> getProvidersThatSatisfy(std::queue<Order *>);
+    std::vector<Provider *> getProvidersThatSatisfy(std::queue<Order *>);
 
     /**
     * Calculates initial path of the trucks to their providers (use the function before to get them) in order to fulfill their orders
