@@ -222,29 +222,30 @@ int main(int argc, char *argv[]) {
                                                 "../src/Resources/products.txt");
                         break;
                     }
-                        //Calculated optimized paths
+                    //Calculated optimized paths
                     case 2 :{
                         break;
                     }
-                        //Deliver
+                    //Deliver
                     case 3 :{
                         break;
                     }
-                        //Show Trucks
+                    //Show Trucks
                     case 4 :{
                         headquarter.showTrucks();
                         break;
                     }
-                        //Show clients
+                    //Show clients
                     case 5 :{
                         headquarter.showClients();
                         break;
                     }
-                        //Show providers
+                    //Show providers
                     case 6 :{
                         headquarter.showProviders();
                         break;
                     }
+                    //Buy truck
                     case 7:{
                         cout << "What's the capacity?\n";
                         int capacity; cin >> capacity;
@@ -290,6 +291,11 @@ int main(int argc, char *argv[]) {
                             break;
                         }
 
+                        if(!headquarter.emptyAddress(address)){
+                            cout << "There is someone already living in your address\n";
+                            break;
+                        }
+
                         headquarter.addClient(new Client(name, userName, date, address));
                         break;
                     }
@@ -314,6 +320,12 @@ int main(int argc, char *argv[]) {
                             cout << "We can't deliver into you're address\n";
                             break;
                         }
+
+                        if(!headquarter.emptyAddress(address)){
+                            cout << "There is someone already living in your address\n";
+                            break;
+                        }
+
                         headquarter.addProvider(new Provider(name, userName, address));
                         break;
                     }

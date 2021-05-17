@@ -31,6 +31,8 @@ public:
 
     //-------------------------GETTERS-------------------------
 
+    bool emptyAddress(double idVertex);
+
     /**
      * Check if a client already exists
      * @param userName Client user name

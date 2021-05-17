@@ -10,6 +10,20 @@ Headquarter::Headquarter(string admin_pass) {
     this->admin_password = admin_pass;
 }
 
+bool Headquarter::emptyAddress(double idVertex){
+    for(auto it = clients.begin(); it != clients.end(); it++){
+        if((double) (*it)->getAddress() == idVertex){
+            return false;
+        }
+    }
+    for(auto it = providers.begin(); it != providers.end(); it++){
+        if((double) (*it)->getAddress() == idVertex){
+            return false;
+        }
+    }
+    return true;
+}
+
 bool Headquarter::clientSearcher(std::string userName){
     for(vector<Client*>::iterator it = clients.begin(); it != clients.end(); it++){
         if((*it)->getUserName() == userName){
