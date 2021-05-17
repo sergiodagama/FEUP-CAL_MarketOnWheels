@@ -54,3 +54,11 @@ void Order::setClientId(unsigned int client_id) {
 bool operator<(const Order &order1, const Order &order2) {
     return order1.getSize() < order2.getSize();
 }
+
+void Order::setFlag() {
+    this->flag = true;
+}
+
+bool Order::getFlag() const {
+    return flag;
+}

@@ -241,6 +241,7 @@ TEST(test, distributeOrdersToTrucks){
     headquarter.loadProductData("../src/Resources/products.txt");
 
     Truck* truck = new Truck(110);
+    Truck* truck2 = new Truck(300);
 
     Order* order1 = new Order(1);
     Order* order2 = new Order(2);
@@ -273,9 +274,23 @@ TEST(test, distributeOrdersToTrucks){
 
     headquarter.distributeOrdersToTrucks();
 
-    //headquarter.showTrucks();
+    headquarter.showTrucks();
 
-    std::cout << *truck << std::endl;
+    truck->showOrders();
+
+    EXPECT_EQ(truck->getLoad(), 110);
+    EXPECT_EQ(truck->getOrders().size(), 4);
+
+    headquarter.addTruck(truck2);
+
+    headquarter.distributeOrdersToTrucks();
+
+    headquarter.showTrucks();
+
+    truck2->showOrders();
+
+    EXPECT_EQ(truck2->getLoad(), 80);
+    EXPECT_EQ(truck2->getOrders().size(), 4);
 }
 
 TEST(test, floydWarshall_simpleMap){
