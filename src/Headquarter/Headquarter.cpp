@@ -428,12 +428,14 @@ void Headquarter::distributeOrdersToTrucks() {
     //going through all the trucks
     for (int t = 0; t < trucks.size(); t++) {
 
-        vector<Order*> ords(orders);
 
-        //sorting orders by their price (higher prices first)
+        //sorting orders by their price (prices)
         sort(orders.begin(), orders.end(), [](Order const *const order1, Order const *const order2) {
             return order1->getPrice() > order2->getPrice();
         });
+
+
+        vector<Order*> ords(orders);
 
         cout << "CAPACITY: " << trucks[t]->getCapacity() << "\tID: " << trucks[t]->getId() << endl;
 
@@ -441,33 +443,46 @@ void Headquarter::distributeOrdersToTrucks() {
         for (auto it = orders.begin(); it != orders.end(); it++) {
             cout << "ID: " << (*it)->getId() << "\t";
             cout << "SIZE: " << (*it)->getSize() << "\t";
-            cout << "PRICE: " << (*it)->getPrice() << endl;
+            cout << "PRICE: " << (*it)->getPrice() << "\t";
+            cout << "CLIENT ID: " << (*it)->getClientId() << endl;
         }
         cout << "------------------------------" << endl;
 
-        bool notMoreSpace = false;
+        unsigned int current_client_id = ords.at(0)->getClientId();
+
+        vector<Order*> ordsSorted;
+
+        ordsSorted.push_back(ords.at(0));
+
+
+        for(int i = 1; i < ords.size(); i++) {
+            if(current_client_id != ords[i]->getClientId()) {
+                current_client_id = ords[i]->getClientId();
+            }
+            else{
+                ordsSorted.push_back(ords[i]);
+
+            }
+            i++;
+        }
+
+        cout << "------------ORDERS AFTER PRICE SORT------------" << endl;
+        for (auto it = orders.begin(); it != orders.end(); it++) {
+            cout << "ID: " << (*it)->getId() << "\t";
+            cout << "SIZE: " << (*it)->getSize() << "\t";
+            cout << "PRICE: " << (*it)->getPrice() << "\t";
+            cout << "CLIENT ID: " << (*it)->getClientId() << endl;
+        }
+        cout << "------------------------------" << endl;
+*/
 
         for(auto it = ords.begin(); it != ords.end(); it++) {
-            if(notMoreSpace) break;
             try {
                 trucks[t]->addOrder(getOrderById((*it)->getId()));
             }
-            catch (NotAvailableSpace e){
-                notMoreSpace = true;
+            catch (NotAvailableSpace e) {
+                continue;
             }
-            for(auto in = ++it; in != ords.end(); in++){
-                if(notMoreSpace) break;
-                if((*in)->getClientId() == (*it)->getClientId()){
-                    try {
-                        trucks[t]->addOrder(getOrderById((*in)->getId()));
-                    }
-                    catch (NotAvailableSpace e){
-                        notMoreSpace = true;
-                    }
-                    ords.erase(in);
-                }
-            }
-            ords.erase(it);
         }
     }
 }

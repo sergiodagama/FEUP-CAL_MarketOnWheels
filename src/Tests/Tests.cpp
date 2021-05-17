@@ -245,25 +245,37 @@ TEST(test, distributeOrdersToTrucks){
     Order* order1 = new Order(1);
     Order* order2 = new Order(2);
     Order* order3 = new Order(3);
-    Order* order4 = new Order(4);
+    Order* order4 = new Order(1);
+    Order* order5 = new Order(1);
+    Order* order6 = new Order(3);
+    Order* order7 = new Order(3);
+    Order* order8 = new Order(4);
 
-    order1->addProduct(headquarter.getProductById(2), 5);
+    order1->addProduct(headquarter.getProductById(2), 10);
     order2->addProduct(headquarter.getProductById(2), 10);
     order3->addProduct(headquarter.getProductById(2), 5);
     order4->addProduct(headquarter.getProductById(2), 5);
+    order5->addProduct(headquarter.getProductById(2), 20);
+    order6->addProduct(headquarter.getProductById(2), 30);
+    order7->addProduct(headquarter.getProductById(2), 10);
+    order8->addProduct(headquarter.getProductById(2), 5);
 
     headquarter.addOrder(order1);
     headquarter.addOrder(order2);
     headquarter.addOrder(order3);
     headquarter.addOrder(order4);
+    headquarter.addOrder(order5);
+    headquarter.addOrder(order6);
+    headquarter.addOrder(order7);
+    headquarter.addOrder(order8);
 
     headquarter.addTruck(truck);
 
     headquarter.distributeOrdersToTrucks();
 
-    headquarter.showTrucks();
+    //headquarter.showTrucks();
 
-    std::cout << truck << std::endl;
+    std::cout << *truck << std::endl;
 }
 
 TEST(test, floydWarshall_simpleMap){
