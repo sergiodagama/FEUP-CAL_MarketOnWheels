@@ -73,9 +73,47 @@ int main(int argc, char *argv[]) {
                 switch (client_option) {
                     case 1:{
                         bool end = false;
+                        cout << "Give me the product id and the quantity you want. If you want to stop, insert an negative id\n";
+                        Order* order = new Order(client_id);
                         while (!end){
                             //TODO Add order
-                            end = true;
+                            cout << "What's the id of the product?\n";
+                            int id; cin >> id;
+                            if(id < 0){
+                                cout << "Thank you for your order\n";
+                                end = true;
+                                break;
+                            }
+                            Product* product;
+                            try{
+                                product = headquarter.getProductById(id);
+                            }
+                            catch (ProductNotFound) {
+                                cout << "We don't have that product\n";
+                                continue;
+                            }
+                            cout << "What's the quantity of the product?\n";
+                            int quantity; cin >> quantity;
+                            if(quantity < 0){
+                                cout << "Invalid quantity\n";
+                                continue;
+                            }
+                            if(order->searchProduct(product->getName())){
+                                order->addQuantityOfProduct(product, quantity);
+                            } else{
+                              order->addProduct(product, quantity);
+                            }
+                        }
+                        if(order->getSize() == 0){
+                            cout << "Empty order\n";
+                            delete order;
+                            break;
+                        }
+                        if(headquarter.acceptOrder(order)){
+                            headquarter.addOrder(order);
+                        } else{
+                            cout << "Not enough stock\n";
+                            delete order;
                         }
                         break;
                     }

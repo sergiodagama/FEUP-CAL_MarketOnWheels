@@ -1,4 +1,5 @@
 #include <Headquarter.h>
+#include <map>
 
 using namespace std;
 
@@ -37,6 +38,41 @@ Product* Headquarter::productSearcher(std::string name){
         }
     }
     return NULL;
+}
+
+bool Headquarter::acceptOrder(Order* order){
+    ProductsWrapper total;
+    for(auto it = products.begin(); it != products.end(); it ++){
+        total.addProduct(*it, 0);
+    }
+    for(auto it = providers.begin(); it != providers.end(); it++){
+        map<Product*, unsigned int> products = (*it)->getProducts();
+        for (auto it2 = products.begin();  it2 != products.end(); it2++){
+            try{
+                total.addQuantityOfProduct((*it2).first, (*it2).second);
+            }
+            catch (ProductNotFound) {
+                continue;
+            }
+
+        }
+    }
+    for(auto it = orders.begin(); it != orders.end(); it ++){
+        map<Product*, unsigned int> products = (*it)->getProducts();
+        for (auto it2 = products.begin();  it2 != products.end(); it2++){
+            try{
+                total.addQuantityOfProduct((*it2).first, -1*(*it2).second);
+            }
+            catch (ProductNotFound) {
+                continue;
+            }
+        }
+    }
+    map<Product*, unsigned int> ord = order->getProducts();
+    for(auto it = ord.begin(); it != ord.end(); it ++){
+        if(total.getQuantityOfProduct((*it).first) < (*it).second) return false;
+    }
+    return true;
 }
 
 Graph<Position> Headquarter::getGraph() const {
