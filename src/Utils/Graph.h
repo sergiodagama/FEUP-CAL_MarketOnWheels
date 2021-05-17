@@ -11,6 +11,7 @@
 #include <limits>
 #include <cmath>
 #include <algorithm>
+#include "MutablePriorityQueue.h"
 
 /*#include "MutablePriorityQueue.h"// falta adicionar mutable*/
 
@@ -52,7 +53,7 @@ public:
 
     bool operator<(Vertex<T> &vertex) const; // // required by MutablePriorityQueue
     friend class Graph<T>;
-    /*  friend class MutablePriorityQueue<Vertex<T>>;*/
+    friend class MutablePriorityQueue<Vertex<T>>;
 };
 
 
@@ -129,6 +130,9 @@ public:
 
     void floydWarshallShortestPath();
     std::vector<T> getfloydWarshallPath(const T &origin, const T &dest) const;
+    void dijkstraShortestPath(const T &s);
+    std::vector<T> getPath(const T &origin, const T &dest) const;
+    void travellingSalesmanProblem(const T &origin);
 
 };
 
@@ -273,5 +277,76 @@ std::vector<T> Graph<T>::getfloydWarshallPath(const T &orig, const T &dest) cons
     return res;
 }
 
+template<class T>
+void Graph<T>::dijkstraShortestPath(const T &origin) {
+    //setting up every vertex with initial values
+    for(auto &it : vertexSet){
+        it->dist = INF;
+        it->path = NULL;
+    }
+
+    //getting the first vertex
+    Vertex<T> * start = findVertex(origin);
+    if(start == NULL) return;
+    start->dist = 0;
+
+    MutablePriorityQueue<Vertex<T>> vertex_queue;
+
+    vertex_queue.insert(start);
+
+    Vertex<T> * current_vertex;
+
+    while(!vertex_queue.empty()){
+        //retrieve the minimum value from queue
+        current_vertex = vertex_queue.extractMin();
+
+        //go through all adjacent edges
+        for(auto itr : current_vertex->adj){
+            if(itr.dest->dist > current_vertex->dist + itr.weight){
+                double old_dist = itr.dest->dist;
+
+                //update current edge distance and path
+                itr.dest->dist = current_vertex->dist + itr.weight;
+                itr.dest->path = current_vertex;
+
+                //if it wasn't processed yet, send it to the queue
+                if(old_dist == INF) vertex_queue.insert(itr.dest);
+                else vertex_queue.decreaseKey(itr.dest);
+            }
+        }
+    }
+}
+
+template<class T>
+std::vector<T> Graph<T>::getPath(const T &origin, const T &dest) const{
+    std::vector<T> res;
+
+    Vertex<T> * first = findVertex(origin);
+    Vertex<T> * end = findVertex(dest);
+    Vertex<T> * current = end;
+    res.push_back(current->info);
+
+    while(current != first)
+    {
+        res.push_back(current->path->info);
+        current = current->path;
+
+    }
+    reverse(res.begin(), res.end());
+
+    return res;
+}
+
+template<class T>
+void Graph<T>::travellingSalesmanProblem(const T &origin) {
+
+    Vertex<T> * first = findVertex(origin);
+    for(auto vertexIt = vertexSet.begin() ; vertexIt != vertexSet.end(); vertexIt++)
+    {
+        if(*vertexIt != first)
+            dijkstraShortestPath(origin, vertexIt);
+    }
+
+}
 
 #endif /* GRAPH_H_ */

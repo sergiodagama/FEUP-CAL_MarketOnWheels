@@ -30,6 +30,10 @@ unsigned int Truck::getLoad() const {
     return load;
 }
 
+std::queue<Order *> Truck::getOrders() const {
+    return orders;
+}
+
 void Truck::popOrder() {
     load -= orders.front()->getSize();  //no need to check < 0,
     orders.pop();                       //because load will be always < capacity
@@ -101,4 +105,6 @@ void Truck::setLoad(unsigned int load) {
 void Truck::setState(state_t state) {
     this->state = state;
 }
+
+
 

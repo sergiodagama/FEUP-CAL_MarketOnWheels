@@ -568,7 +568,6 @@ std::vector<Provider *> Headquarter::getProvidersThatSatisfy(std::queue<Order *>
                 stockProduct = (*itProvider)->getQuantityOfProduct((*itProduct).first);
             }
             catch (ProductNotFound e) {
-
             }
 
             if (stockProduct >= (*itProduct).second) {
@@ -582,4 +581,32 @@ std::vector<Provider *> Headquarter::getProvidersThatSatisfy(std::queue<Order *>
     }
 
     return providersNeeded;
+}
+
+std::map<unsigned int, std::vector<int>> Headquarter::calculateTrucksToProvidersPath() {
+
+
+    for(auto it = trucks.begin(); it != trucks.end(); it++)
+    {
+        Graph<Position> providersGraph;
+        std::vector<Provider *>  providersNeeded = getProvidersThatSatisfy((*it)->getOrders());
+        //Caixeiro vaijante talvez?
+        /*providersGraph.dijkstraShortestPath(*address);
+        providersGraph.getPath(*address, getPositionById(providersNeeded[0]->getAddress()));*/
+
+        Vertex<Position> * first = graph.findVertex(*address);
+        graph.dijkstraShortestPath(*address);
+        vector<Position> path = graph.getPath(*address, getPositionById(providers[0]->getAddress()));
+        for(int i = 0; i < path.size(); i++)
+        {
+            cout << path[i] << " " << endl;
+        }
+
+        /*for(auto vertexIt = graph.getVertexSet().begin() ; vertexIt != vertexSet.end(); vertexIt++)
+        {
+            if(*vertexIt != first)
+                dijkstraShortestPath(origin, vertexIt);
+        }*/
+    }
+    return std::map<unsigned int, std::vector<int>>();
 }

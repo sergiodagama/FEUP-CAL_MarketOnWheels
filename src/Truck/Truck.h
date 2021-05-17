@@ -62,6 +62,13 @@ public:
     unsigned int getLoad() const;
 
     /**
+    * Gets the trucks load
+    *
+    * @return the load of the truck
+    */
+    std::queue<Order *> getOrders() const;
+
+    /**
      * Sets trucks load
      *
      * @param load the load to be set
