@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <Headquarter.h>
+#include <chrono>
 
 /**
  * TESTS TO HEADQUARTERS FUNCTIONS AND CLASSES
@@ -262,5 +263,52 @@ TEST(test, distributeOrdersToTrucks){
 
     headquarter.showTrucks();
 
-    //capacity greater than order size
+    std::cout << truck << std::endl;
+}
+
+TEST(test, floydWarshall_simpleMap){
+    Headquarter headquarter("123");
+
+    std::cout << std::endl << "-------STARTED LOADING MAP--------" << std::endl;
+    std::cout << "MAP: 25 nodes" << std::endl;
+
+    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+
+    std::cout << "--------LOADED SIMPLE MAP---------" << std::endl << std::endl;
+
+    std::cout << "------STARTED FLOYD WARSHALL------" << std::endl;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    headquarter.getGraph().floydWarshallShortestPath();
+
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = finish - start;
+
+    std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
+}
+
+//WARNING PROCESSING TIME TOO BIG (just for demo purpose)
+TEST(test, floydWarshall_penafielMap){
+    Headquarter headquarter("123");
+
+    std::cout << std::endl << "----STARTED LOADING PENAFIEL MAP----" << std::endl;
+    std::cout << "MAP: 10365 nodes" << std::endl;
+
+    headquarter.loadMap("../src/Resources/penafiel_nodes.txt", "../src/Resources/penafiel_edges.txt");
+
+    std::cout << "-------------LOADED MAP-------------" << std::endl << std::endl;
+
+    std::cout << "--------STARTED FLOYD WARSHALL------" << std::endl;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    headquarter.getGraph().floydWarshallShortestPath();
+
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = finish - start;
+
+    std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
 }

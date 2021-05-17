@@ -227,6 +227,8 @@ void Graph<T>::floydWarshallShortestPath() {
     }
 
     for (int k = 0; k < vertexSet.size(); k++) {
+        std::cout << "inside floydWarshall K: " << k << std::endl;
+
         for (int i = 0; i < vertexSet.size(); i++){
             for (int j = 0; j < vertexSet.size(); j++)
             {
@@ -239,7 +241,6 @@ void Graph<T>::floydWarshallShortestPath() {
             }
         }
     }
-
 }
 
 template<class T>

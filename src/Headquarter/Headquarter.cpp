@@ -1,5 +1,6 @@
 #include <Headquarter.h>
 #include <algorithm>
+#include <chrono>
 
 using namespace std;
 
@@ -419,20 +420,54 @@ void Headquarter::showProviders() {
 }
 
 void Headquarter::distributeOrdersToTrucks() {
-    sort(trucks.begin(), trucks.end(), [] (Truck const *const truck1, Truck const *const truck2){return truck1->getCapacity() < truck2->getCapacity();});
+    //sorting trucks by their capacity (higher capacity first)
+    sort(trucks.begin(), trucks.end(), [](Truck const *const truck1, Truck const *const truck2) {
+        return truck1->getCapacity() > truck2->getCapacity();
+    });
 
-    for(int t = 0; t < trucks.size(); t++){
+    //going through all the trucks
+    for (int t = 0; t < trucks.size(); t++) {
 
-        sort(orders.begin(), orders.end(), [] (Order const *const order1, Order const *const order2){return order1->getPrice() < order2->getPrice();});
+        vector<Order*> ords(orders);
 
-        cout << "CAPACITY: " << trucks[t]->getCapacity() << endl;
+        //sorting orders by their price (higher prices first)
+        sort(orders.begin(), orders.end(), [](Order const *const order1, Order const *const order2) {
+            return order1->getPrice() > order2->getPrice();
+        });
+
+        cout << "CAPACITY: " << trucks[t]->getCapacity() << "\tID: " << trucks[t]->getId() << endl;
 
         cout << "------------ORDERS------------" << endl;
-        for(auto it = orders.begin(); it != orders.end(); it++){
+        for (auto it = orders.begin(); it != orders.end(); it++) {
             cout << "ID: " << (*it)->getId() << "\t";
-            cout << "SIZE: " << (*it)->getSize()  << "\t";
+            cout << "SIZE: " << (*it)->getSize() << "\t";
             cout << "PRICE: " << (*it)->getPrice() << endl;
         }
         cout << "------------------------------" << endl;
+
+        bool notMoreSpace = false;
+
+        for(auto it = ords.begin(); it != ords.end(); it++) {
+            if(notMoreSpace) break;
+            try {
+                trucks[t]->addOrder(getOrderById((*it)->getId()));
+            }
+            catch (NotAvailableSpace e){
+                notMoreSpace = true;
+            }
+            for(auto in = ++it; in != ords.end(); in++){
+                if(notMoreSpace) break;
+                if((*in)->getClientId() == (*it)->getClientId()){
+                    try {
+                        trucks[t]->addOrder(getOrderById((*in)->getId()));
+                    }
+                    catch (NotAvailableSpace e){
+                        notMoreSpace = true;
+                    }
+                    ords.erase(in);
+                }
+            }
+            ords.erase(it);
+        }
     }
 }
