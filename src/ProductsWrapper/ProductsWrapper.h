@@ -95,6 +95,13 @@ public:
     * @return the order price, if none returns 0
     */
     float getPrice() const;
+
+    /**
+     * Checks if a wrapper has a certain product
+     * @param productName Product name
+     * @return True if the wrapper has it, false otherwise
+     */
+    bool searchProduct(std::string productName) const;
 };
 
 #endif //MARKETONWHEELS_PRODUCTSWRAPPER_H
