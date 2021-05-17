@@ -327,8 +327,6 @@ int main(int argc, char *argv[]) {
     headquarter.saveAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
                             "../src/Resources/trucks.txt", "../src/Resources/orders.txt",
                             "../src/Resources/products.txt");
-
-    //TODO destrutor para a headquarters
 }
 
 
@@ -336,24 +334,7 @@ int main(int argc, char *argv[]) {
     std::cout << "\n\n----------MARKETONWHEELS TESTS----------" << std::endl;
     return RUN_ALL_TESTS();*/
 
-/*
- *  std::cout << "Importing data into program structures..." << std::endl;
-                        headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
-                                                "../src/Resources/trucks.txt", "src/Resources/orders.txt",
-                                                "../src/Resources/products.txt");*/
 
-/*unsigned int provider_id;
-                std::cout << "Enter your provider id: " << std::endl;
-                do {
-                    std::cout << "->";
-                    std::cin >> provider_id;
-                    if (provider_id == 0) {
-                        exit = true;
-                        break;
-                    }
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                } while (std::cin.fail() || headquarter.getProviderById(provider_id) == nullptr);*/
 
 /*
     Headquarter headquarter(1000000);

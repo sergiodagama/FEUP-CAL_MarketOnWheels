@@ -38,14 +38,32 @@ public:
      */
     bool clientSearcher(std::string userName);
 
-
+    /**
+     * Checks if the map has a certain position
+     * @param idVertex Vertex id of the graph
+     * @return True if the vertex exists and is a reachable, false otherwise //TODO
+     */
     bool positionSearcher(double idVertex);
 
-
+    /**
+     * Checks if the company has a certain provider
+     * @param userName Provider name
+     * @return True if the provider already exists, false otherwise
+     */
     bool providerSearcher(std::string userName);
 
+    /**
+     * Checks if the company has a certain product
+     * @param name Product name
+     * @return True if the product already exists, false otherwise
+     */
     Product* productSearcher(std::string name);
 
+    /**
+     * Function that checks if there is stock enough to supply a certain order
+     * @param order The order to be supplied
+     * @return True if the order can be supplied, false otherwise
+     */
     bool acceptOrder(Order* order);
 
     /**
