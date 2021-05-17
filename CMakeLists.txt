@@ -39,6 +39,6 @@ add_executable(MarketOnWheels
         src/Utils/Date.h
         src/Utils/Graph.h
         src/main.cpp
-        src/Position/Position.cpp src/Position/Position.h src/Utils/Utils.cpp src/Utils/Utils.h src/ProductsWrapper/ProductsWrapper.cpp src/ProductsWrapper/ProductsWrapper.h src/Tests/Tests.cpp)
+        src/Position/Position.cpp src/Position/Position.h src/Utils/Utils.cpp src/Utils/Utils.h src/ProductsWrapper/ProductsWrapper.cpp src/ProductsWrapper/ProductsWrapper.h src/Tests/Tests.cpp src/Interface/Interface.cpp src/Interface/Interface.h)
 
 target_link_libraries(MarketOnWheels gtest gtest_main)
