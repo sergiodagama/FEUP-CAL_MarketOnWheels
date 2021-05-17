@@ -21,7 +21,7 @@ private:
     state_t state;
     unsigned int capacity;
     unsigned int load;
-    std::queue<Order *> orders;
+    std::queue<Order* > orders;
     std::queue<Position *> path;
 public:
 
@@ -62,11 +62,11 @@ public:
     unsigned int getLoad() const;
 
     /**
-    * Gets the trucks load
-    *
-    * @return the load of the truck
-    */
-    std::queue<Order *> getOrders() const;
+     * Gets all the trucks orders
+     *
+     * @return the orders queue
+     */
+    std::queue<Order*> getOrders() const;
 
     /**
      * Sets trucks load
@@ -140,6 +140,11 @@ public:
     void setState(state_t state);
 
     std::string returnStateString(int state);
+
+    /**
+     * Shows all trucks orders
+     */
+    void showOrders();
 
 };
 

@@ -106,5 +106,17 @@ void Truck::setState(state_t state) {
     this->state = state;
 }
 
+void Truck::showOrders(){
+    std::queue<Order*> trucks_orders = getOrders();
 
+    std::cout << std::endl << "----------------TRUCKS ORDERS------------------" << std::endl;
+    while(!trucks_orders.empty()){
+        std::cout << "ID: " << trucks_orders.front()->getId() << "\t";
+        std::cout << "SIZE: " << trucks_orders.front()->getSize() << "\t";
+        std::cout << "PRICE: " << trucks_orders.front()->getPrice() << "\t";
+        std::cout << "CLIENT ID: " << trucks_orders.front()->getClientId() << std::endl;
+        trucks_orders.pop();
+    }
+    std::cout << "-----------------------------------------------" << std::endl;
+}
 
