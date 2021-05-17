@@ -95,6 +95,8 @@ public:
     * @return the order price, if none returns 0
     */
     float getPrice() const;
+
+    bool searchProduct(std::string productName) const;
 };
 
 #endif //MARKETONWHEELS_PRODUCTSWRAPPER_H

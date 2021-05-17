@@ -1,8 +1,8 @@
 #include <Headquarter.h>
 #include <Menu.h>
 
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
+/*#include "gtest/gtest.h"
+#include "gmock/gmock.h"*/
 
 using namespace std;
 
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
                 exit = true;
                 break;
             }
-            //client area
+                //client area
             case 1: {
                 cout << "Client area\n" << std::endl;
                 unsigned int client_id;
@@ -68,24 +68,60 @@ int main(int argc, char *argv[]) {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 } while (cin.fail() || headquarter.getClientById(client_id) == nullptr);
-
                 client_menu.show();
                 unsigned int client_option = client_menu.getInput();
                 switch (client_option) {
                     case 1:{
                         bool end = false;
+                        cout << "Give me the product id and the quantity you want. If you want to stop, insert an negative id\n";
+                        Order* order = new Order(client_id);
                         while (!end){
                             //TODO Add order
-                            end = true;
+                            cout << "What's the id of the product?\n";
+                            int id; cin >> id;
+                            if(id < 0){
+                                cout << "Thank you for your order\n";
+                                end = true;
+                                break;
+                            }
+                            Product* product;
+                            try{
+                                product = headquarter.getProductById(id);
+                            }
+                            catch (ProductNotFound) {
+                                cout << "We don't have that product\n";
+                                continue;
+                            }
+                            cout << "What's the quantity of the product?\n";
+                            int quantity; cin >> quantity;
+                            if(quantity < 0){
+                                cout << "Invalid quantity\n";
+                                continue;
+                            }
+                            if(order->searchProduct(product->getName())){
+                                order->addQuantityOfProduct(product, quantity);
+                            } else{
+                                order->addProduct(product, quantity);
+                            }
+                        }
+                        if(order->getSize() == 0){
+                            cout << "Empty order\n";
+                            delete order;
+                            break;
+                        }
+                        if(headquarter.acceptOrder(order)){
+                            headquarter.addOrder(order);
+                        } else{
+                            cout << "Not enough stock\n";
+                            delete order;
                         }
                         break;
                     }
                 }
-
                 break;
             }
 
-            //provider area
+                //provider area
             case 2:{
                 cout << "Provider area\n" << std::endl;
                 unsigned int provider_id;
@@ -96,9 +132,84 @@ int main(int argc, char *argv[]) {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 } while (cin.fail() || headquarter.getClientById(provider_id) == nullptr);
+                Provider* provider = headquarter.getProviderById(provider_id);
+                cout << provider->getName()<< endl;
+                providers_menu.show();
+                unsigned int option = providers_menu.getInput();
+                switch (option) {
+                    //Add a new product
+                    case 1: {
+                        cout << "What's the product name?\n";
+                        string name; cin >> name;
+
+                        cout << "What's the price of the product?\n";
+                        float price; cin >> price;
+                        if(price < 0){
+                            cout << "Invalid price\n";
+                            break;
+                        }
+
+                        cout << "What's the size of the product?\n";
+                        int size; cin >> size;
+                        if(size < 0){
+                            cout << "Invalid size\n";
+                            break;
+                        }
+
+                        cout << "What's the quantity of the product?\n";
+                        int quantity; cin >> quantity;
+                        if(quantity < 0){
+                            cout << "Invalid quantity\n";
+                            break;
+                        }
+                        if(provider->searchProduct(name)) {
+                            cout << "Product already exists\n";
+                            break;
+                        }
+
+                        Product* newProduct = headquarter.productSearcher(name);
+                        if(newProduct == NULL){
+                            newProduct = new Product(name, price, size);
+                            headquarter.addProduct(newProduct);
+                        }
+                        else{
+                            cout << "We already sell this product, so it will be our price and characteristics\n";
+                        }
+
+                        provider->addProduct(newProduct, quantity);
+                        break;
+                    }
+                        //Add quantity to an existing product
+                    case 2: {
+                        cout << "What's the product name?\n";
+                        string name; cin >> name;
+
+                        Product* product = headquarter.productSearcher(name);
+                        if(product == NULL){
+                            cout << "We don't sell this product\n";
+                            break;
+                        }
+
+                        cout << "What's the quantity of the product?\n";
+                        int quantity; cin >> quantity;
+                        if(quantity < 0){
+                            cout << "Invalid quantity\n";
+                            break;
+                        }
+
+                        try{
+                            provider->addQuantityOfProduct(product, quantity);
+                        }
+                        catch (ProductNotFound) {
+                            cout << "You don't sell this product\n";
+                            break;
+                        }
+                        break;
+                    }
+                }
                 break;
             }
-            //admin area
+                //admin area
             case 3: {
                 cout << "Administration area\n" << std::endl;
                 admin_menu.show();
@@ -111,25 +222,25 @@ int main(int argc, char *argv[]) {
                                                 "../src/Resources/products.txt");
                         break;
                     }
-                    //Calculated optimized paths
+                        //Calculated optimized paths
                     case 2 :{
                         break;
                     }
-                    //Deliver
+                        //Deliver
                     case 3 :{
                         break;
                     }
-                    //Show Trucks
+                        //Show Trucks
                     case 4 :{
                         headquarter.showTrucks();
                         break;
                     }
-                    //Show clients
+                        //Show clients
                     case 5 :{
                         headquarter.showClients();
                         break;
                     }
-                    //Show providers
+                        //Show providers
                     case 6 :{
                         headquarter.showProviders();
                         break;
@@ -146,7 +257,7 @@ int main(int argc, char *argv[]) {
                 }
                 break;
             }
-            //register area
+                //register area
             case 4: {
                 cout << "Registration area\n" << std::endl;
                 register_menu.show();
@@ -186,7 +297,6 @@ int main(int argc, char *argv[]) {
                         cout << "Provider \n";
 
                         cout << "What's your name?\n";
-
                         string name; cin >> name;
                         cout << "What's your user name?\n";
                         string userName; cin >> userName;
@@ -204,9 +314,7 @@ int main(int argc, char *argv[]) {
                             cout << "We can't deliver into you're address\n";
                             break;
                         }
-                        else{
-                            cout << "You're already registered!\n";
-                        }
+                        headquarter.addProvider(new Provider(name, userName, address));
                         break;
                     }
                 }
@@ -223,12 +331,10 @@ int main(int argc, char *argv[]) {
     //TODO destrutor para a headquarters
 }
 
-/*
 
- testing::InitGoogleTest(&argc, argv);
+/* testing::InitGoogleTest(&argc, argv);
     std::cout << "\n\n----------MARKETONWHEELS TESTS----------" << std::endl;
-    return RUN_ALL_TESTS();
-}*/
+    return RUN_ALL_TESTS();*/
 
 /*
  *  std::cout << "Importing data into program structures..." << std::endl;
@@ -252,15 +358,10 @@ int main(int argc, char *argv[]) {
 /*
     Headquarter headquarter(1000000);
     headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
-
     headquarter.loadProductData("../src/Resources/products.txt");
     headquarter.loadOrderData("../src/Resources/orders.txt");
-
     Truck *truck = new Truck(100);
-
     headquarter.addTruck(truck);
-
     headquarter.distributeOrdersToTrucks();
-
     return 0;
 }*/
