@@ -181,6 +181,13 @@ public:
     void addOrder(Order *order);
 
     /**
+     * Removes an order by its id
+     *
+     * @param id the order id
+     */
+    void removeOrderById(unsigned int id);
+
+    /**
      * Adds a product to headquarters database
      *
      * @param product the product to be added
@@ -311,17 +318,12 @@ public:
     //------------------------- FUNCTIONS TO HANDLE DELIVERS ------------------------- //TODO
 
     /**
-     * Auxiliary function to distributeOrdersToTrucks(), to limit stock of orders
-     * @param ords the orders that exist
-     * @param usedOrders the used orders for a certain capacity
-     * @param M the capacity of the truck
-     * @param ord current order being tested
-     * @return true if has stock, false otherwise
-     */
-    bool stockChecker(std::vector<Order *> ords, std::vector<int> usedOrders, int ord);
-
-    /**
-    * A similar implementation of the algorithm that solves the knapsack problem
+    * It uses a greedy approach by starting with a sort of the orders that exist, by price,
+    * so that are added the most valuable orders first.
+    * After that, if an order is added to the truck, the other orders of the same client
+    * are given priority. If there are no space, the algorithm follows the same logical order,
+    * however it keep trying all the next orders, until the truck is full, or there are no more orders
+    * As it adds the orders to trucks, sets order flag to true, so that they can't be added more than once
     */
     void distributeOrdersToTrucks();
 

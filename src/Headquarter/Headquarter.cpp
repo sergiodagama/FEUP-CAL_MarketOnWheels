@@ -164,6 +164,15 @@ void Headquarter::addOrder(Order *order) {
     orders.push_back(order);
 }
 
+void Headquarter::removeOrderById(unsigned int id){
+    for(auto it = orders.begin(); it != orders.end(); it++){
+        if((*it)->getId() == id){
+            orders.erase(it);
+            break;
+        }
+    }
+}
+
 void Headquarter::addProduct(Product *product) {
     products.push_back(product);
 }
@@ -426,13 +435,14 @@ void Headquarter::loadProductData(const string &products_path) {
 }
 
 void Headquarter::showProducts() {
-    cout << "Products" << endl;
+    cout << "----------------Products----------------" << endl;
     for (auto it = products.begin(); it != products.end(); it++) {
         cout << *(*it);
     }
 }
 
 void Headquarter::showTrucks() {
+    cout << "----------------Trucks----------------" << endl;
     if (trucks.empty()) {
         cout << "It does not exist any truck yet" << endl;
         return;
@@ -445,6 +455,7 @@ void Headquarter::showTrucks() {
 }
 
 void Headquarter::showOrders() {
+    cout << "----------------Orders----------------" << endl;
     if (orders.empty()) {
         cout << "It does not exist any order yet" << endl;
         return;
@@ -456,6 +467,7 @@ void Headquarter::showOrders() {
 }
 
 void Headquarter::showClients() { //TODO investigate format
+    cout << "----------------Clients----------------" << endl;
     if (clients.empty()) {
         cout << "It does not exist any client yet" << endl;
         return;
@@ -468,6 +480,7 @@ void Headquarter::showClients() { //TODO investigate format
 }
 
 void Headquarter::showProviders() {
+    cout << "----------------Providers----------------" << endl;
     if (providers.empty()) {
         cout << "It does not exist any provider yet" << endl;
         return;
@@ -488,46 +501,47 @@ void Headquarter::distributeOrdersToTrucks() {
     //going through all the trucks
     for (int t = 0; t < trucks.size(); t++) {
 
-        vector<Order*> ords(orders);
-
-        //sorting orders by their price (higher prices first)
+        //sorting orders by their price (prices)
         sort(orders.begin(), orders.end(), [](Order const *const order1, Order const *const order2) {
             return order1->getPrice() > order2->getPrice();
         });
 
-        cout << "CAPACITY: " << trucks[t]->getCapacity() << "\tID: " << trucks[t]->getId() << endl;
+        vector<Order*> ords(orders);
 
-        cout << "------------ORDERS------------" << endl;
-        for (auto it = orders.begin(); it != orders.end(); it++) {
-            cout << "ID: " << (*it)->getId() << "\t";
-            cout << "SIZE: " << (*it)->getSize() << "\t";
-            cout << "PRICE: " << (*it)->getPrice() << endl;
+        unsigned int current_client_id, cur_ord_id;
+
+        vector<Order*> ordsSorted;
+
+        //grouping orders by id, maintaining the order by price
+        while(ords.size() != 0) {
+            ordsSorted.push_back(ords.at(0));
+            current_client_id = ords.at(0)->getClientId();
+            cur_ord_id = ords.at(0)->getId();
+            ords.erase(ords.begin());
+
+            auto it = ords.begin();
+            while(it != ords.end()) {
+                if (current_client_id == (*it)->getClientId() && cur_ord_id != (*it)->getId()) {
+                    ordsSorted.push_back((*it));
+                    ords.erase(it);
+                }
+                else it++;
+            }
         }
-        cout << "------------------------------" << endl;
 
-        bool notMoreSpace = false;
-
-        for(auto it = ords.begin(); it != ords.end(); it++) {
-            if(notMoreSpace) break;
+        //filling trucks [just needed to follow the order of the sorted vector]
+        for(auto it = ordsSorted.begin(); it != ordsSorted.end(); it++) {
+            if(getOrderById((*it)->getId())->getFlag()) continue; //if truck is already being delivered
             try {
                 trucks[t]->addOrder(getOrderById((*it)->getId()));
+                getOrderById((*it)->getId())->setFlag();
             }
-            catch (NotAvailableSpace e){
-                notMoreSpace = true;
+            catch(NotAvailableSpace e) {
+                continue;  //when there is no available space goes to next order, until finished
             }
-            for(auto in = ++it; in != ords.end(); in++){
-                if(notMoreSpace) break;
-                if((*in)->getClientId() == (*it)->getClientId()){
-                    try {
-                        trucks[t]->addOrder(getOrderById((*in)->getId()));
-                    }
-                    catch (NotAvailableSpace e){
-                        notMoreSpace = true;
-                    }
-                    ords.erase(in);
-                }
-            }
-            ords.erase(it);
+            //here it's just an optimization, not actually necessary,
+            //but prevents going through all orders, when truck it's already full
+            if(trucks[t]->getCapacity() == trucks[t]->getLoad()) break;
         }
     }
 }

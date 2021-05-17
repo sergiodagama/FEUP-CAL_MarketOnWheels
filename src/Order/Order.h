@@ -13,6 +13,7 @@ private:
     */
     static unsigned int id_aux;
     unsigned int client_id;
+    bool flag = false; //used to flag if order is being delivered
 public:
 
     /**
@@ -54,6 +55,18 @@ public:
      * @param client_id the client id associated
      */
     void setClientId(unsigned int client_id);
+
+    /**
+     * Sets the order flag to true
+     */
+    void setFlag();
+
+    /**
+     * Gets the order flag
+     *
+     * @return the order flag
+     */
+    bool getFlag() const;
 
     /**
     * Overload to the << operator of Order
