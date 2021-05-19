@@ -13,9 +13,6 @@
 #include <algorithm>
 #include "MutablePriorityQueue.h"
 
-/*#include "MutablePriorityQueue.h"// falta adicionar mutable*/
-
-
 template<class T>
 class Edge;
 
