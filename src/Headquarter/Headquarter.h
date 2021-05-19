@@ -16,7 +16,7 @@ private:
     std::vector<Truck *> trucks;
     std::vector<Order *> orders;
     std::vector<Product *> products;
-    Position *address;
+    unsigned int position_id = 1;
     Graph<Position> graph;
     std::string admin_password = "123";
 public:
@@ -332,21 +332,23 @@ public:
     */
     std::vector<Provider *> getProvidersThatSatisfy(std::queue<Order *>);
 
-    /**
+    /** //TODO OLD COMMENT
     * Calculates initial path of the trucks to their providers (use the function before to get them) in order to fulfill their orders
     * Note: based on the floyd warshall algorithm results, obtained before!
     * @return map with the trucks ids and their respective path until the providers (ids of nodes ordered)
     */
-    std::map<unsigned int, std::vector<int>> calculateTrucksToProvidersPath();
+    void calculateTrucksToProvidersPath();
 
-    /**
+    std::vector<Client*> getClientsFromOrders(std::queue<Order*> orders);
+
+    /** //TODO OLD COMMENT
      * Calculates final path of the trucks from providers to clients
      * Note: based on the floyd warshall algorithm results, obtained before!
      * IDEA: calculate lowest path from last provider until all clients and see which path takes more clients in the way (do it until all clients are in path)
      * @return map with the trucks ids and their respective path until the clients from the last provider given (ids of nodes ordered)
      */
-    std::map<unsigned int, std::vector<int>>
-    calculateTrucksFromProvidersToClientsPath(unsigned int trucksLastProviderId);
+    void
+    calculateTrucksFromProvidersToClientsPath();
 
     /**
     * Calculate trucks paths (just join the last two functions), adding the last path from last client to headquarters

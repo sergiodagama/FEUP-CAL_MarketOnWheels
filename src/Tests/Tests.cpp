@@ -340,29 +340,6 @@ TEST(test, floydWarshall_penafielMap){
     std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
 }
 
- /*TEST(test, floydWarshall_penafielMap){
-    Headquarter headquarter("123");
-
-    std::cout << std::endl << "----STARTED LOADING PENAFIEL MAP----" << std::endl;
-    std::cout << "MAP: 10365 nodes" << std::endl;
-
-    headquarter.loadMap("../src/Resources/penafiel_nodes.txt", "../src/Resources/penafiel_edges.txt");
-
-    std::cout << "-------------LOADED MAP-------------" << std::endl << std::endl;
-
-    std::cout << "--------STARTED FLOYD WARSHALL------" << std::endl;
-
-    auto start = std::chrono::high_resolution_clock::now();
-
-    headquarter.getGraph().floydWarshallShortestPath();
-
-    auto finish = std::chrono::high_resolution_clock::now();
-
-    std::chrono::duration<double> elapsed = finish - start;
-
-    std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
-}*/
-
 TEST(test, getProvidersThatSatisfy){
     Headquarter headquarter("123");
 
@@ -397,5 +374,31 @@ TEST(test, getProvidersThatSatisfy){
 
     std::vector<Provider * > providersNeeded3 = headquarter.getProvidersThatSatisfy(orders2);
     EXPECT_EQ(providersNeeded3.size(), 2);
+}
 
+TEST(test, calculateTrucksToProvidersPath){
+    Headquarter headquarter("123");
+
+    headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
+    headquarter.loadMap("../src/Resources/penafiel_nodes.txt", "../src/Resources/penafiel_edges.txt");
+
+    headquarter.calculateTrucksToProvidersPath();
+}
+
+TEST(test, calculateTrucksFromProvidersToClientsPath){
+    Headquarter headquarter("123");
+
+    headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
+    headquarter.loadMap("../src/Resources/penafiel_nodes.txt", "../src/Resources/penafiel_edges.txt");
+
+    headquarter.calculateTrucksFromProvidersToClientsPath();
+/*
+    headquarter.getGraph().dijkstraShortestPath(headquarter.getPositionById(1));
+
+    std::vector<Position> path = headquarter.getGraph().getPath(headquarter.getPositionById(1), headquarter.getPositionById(2494));
+
+    for(auto it : path){
+        std::cout << it << std::endl;
+    }
+    */
 }

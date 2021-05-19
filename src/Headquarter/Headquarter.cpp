@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <chrono>
 #include <map>
+#include <set>
 
 using namespace std;
 
@@ -551,32 +552,30 @@ std::vector<Provider *> Headquarter::getProvidersThatSatisfy(std::queue<Order *>
     std::vector<Provider *> providersNeeded ;
     ProductsWrapper total;
 
-
-    while(!orders.empty())
-    {
+    //building an auxiliary buffer that holds all orders products and respective quantities
+    while(!orders.empty()) {
         Order * orderTop = orders.front();
         std::map<Product *, unsigned int> products = orderTop->getProducts();
 
         for(auto it = products.begin(); it != products.end(); it ++){
             try{
                 total.addQuantityOfProduct((*it).first, (*it).second);
-            }
-            catch (ProductNotFound) {
+            } catch (ProductNotFound) {
                 total.addProduct((*it).first, (*it).second);
             }
         }
-
         orders.pop();
     }
 
     std::map<Product *, unsigned int> totalProducts = total.getProducts();
 
+
     for(auto itProvider = providers.begin(); itProvider != providers.end(); itProvider++) {
-        cout << (*itProvider)->getName() << endl;
+        //cout << (*itProvider)->getName() << endl;
         bool firstProduct = false;
 
         for (auto itProduct = totalProducts.begin(); itProduct != totalProducts.end(); itProduct++) {
-            cout << *(*itProduct).first << (*itProduct).second << endl;
+            //cout << *(*itProduct).first << (*itProduct).second << endl;
             int stockProduct = 0;
             try {
                 stockProduct = (*itProvider)->getQuantityOfProduct((*itProduct).first);
@@ -593,34 +592,112 @@ std::vector<Provider *> Headquarter::getProvidersThatSatisfy(std::queue<Order *>
             }
         }
     }
-
+    //TODO COMPLETE WITH DISTANCES
     return providersNeeded;
 }
 
-std::map<unsigned int, std::vector<int>> Headquarter::calculateTrucksToProvidersPath() {
+//providerNeed must be order by distance to headquarters
+void Headquarter::calculateTrucksToProvidersPath(){
 
+    //going through each truck
+    for(auto it = trucks.begin(); it != trucks.end(); it++) {
 
-    for(auto it = trucks.begin(); it != trucks.end(); it++)
-    {
-        Graph<Position> providersGraph;
-        std::vector<Provider *>  providersNeeded = getProvidersThatSatisfy((*it)->getOrders());
-        //Caixeiro vaijante talvez?
-        /*providersGraph.dijkstraShortestPath(*address);
-        providersGraph.getPath(*address, getPositionById(providersNeeded[0]->getAddress()));*/
-
-        Vertex<Position> * first = graph.findVertex(*address);
-        graph.dijkstraShortestPath(*address);
-        vector<Position> path = graph.getPath(*address, getPositionById(providers[0]->getAddress()));
-        for(int i = 0; i < path.size(); i++)
-        {
-            cout << path[i] << " " << endl;
+        //getting first position (headquarter position)
+        vector<Provider *> providersNeeded = getProvidersThatSatisfy((*it)->getOrders());
+        Vertex<Position> *first = graph.findVertex(getPositionById(position_id));
+        cout << "---------------Providers needed for truck " << (*it)->getId() << " ---------------" << endl;
+        for(auto u = providersNeeded.begin(); u != providersNeeded.end(); u++) {
+            cout << *(*u) << endl;
         }
 
-        /*for(auto vertexIt = graph.getVertexSet().begin() ; vertexIt != vertexSet.end(); vertexIt++)
-        {
-            if(*vertexIt != first)
-                dijkstraShortestPath(origin, vertexIt);
-        }*/
+        for (int i = 0; i < providersNeeded.size(); i++) {
+
+            cout << "first: " << first->getInfo() << endl;
+
+            //getting last position
+            Vertex<Position> *end = graph.findVertex(getPositionById(providersNeeded.at(i)->getAddress()));
+            cout << "end: " << end->getInfo() << endl;
+            graph.dijkstraShortestPath(first->getInfo());
+
+            vector<Position> path = graph.getPath(first->getInfo(), end->getInfo());
+
+            first = end;
+
+            cout << "---------------PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
+            for (auto itr = path.begin(); itr != path.end() - 1; itr++) {
+                cout << "Position: " << (*itr).getId() << endl;
+                (*it)->addPositionToPath((*itr));
+            }
+            (*it)->addPositionToPath(first->getInfo());
+
+            cout << "-------------END TRUCK PATH-------------" << endl;
+        }
     }
-    return std::map<unsigned int, std::vector<int>>();
+}
+
+
+std::vector<Client*> Headquarter::getClientsFromOrders(queue<Order*> orders){
+    set<unsigned int> cliens;
+    vector<Client*> res;
+
+    while(!orders.empty()){
+        Order * ord = orders.front();
+        cliens.insert(ord->getClientId());
+        orders.pop();
+    }
+
+    for(auto elem : cliens){
+        res.push_back(getClientById(elem));
+    }
+    return res;
+    //TODO order by distance maiores primeiros
+}
+
+void
+Headquarter::calculateTrucksFromProvidersToClientsPath() {
+    for(auto it = trucks.begin(); it != trucks.end(); it++) {
+
+        //getting first position (headquarter position)
+        queue<Order *> truckOrders = (*it)->getOrders();
+
+        vector<Client*> truckClients = getClientsFromOrders(truckOrders);
+
+        Vertex<Position> *first = graph.findVertex(getPositionById((*it)->getPath().back().getId()));
+
+        cout << "---------------Clients of truck orders" << (*it)->getId() << " ---------------" << endl;
+        for(auto u = truckClients.begin(); u != truckClients.end(); u++) {
+            cout << *(*u) << endl;
+        }
+
+        for (int i = 0; i < truckClients.size(); i++) {
+
+            cout << "first: " << first->getInfo() << endl;
+
+            //getting last position
+            Vertex<Position> *end = graph.findVertex(getPositionById(truckClients.at(i)->getAddress()));
+            cout << "end: " << end->getInfo() << endl;
+            graph.dijkstraShortestPath(first->getInfo());
+
+            vector<Position> path = graph.getPath(first->getInfo(), end->getInfo());
+
+            first = end;
+
+            cout << "---------------PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
+            for (auto itr = path.begin(); itr != path.end() - 1; itr++) {
+                cout << "Position: " << (*itr).getId() << endl;
+                (*it)->addPositionToPath((*itr));
+            }
+            (*it)->addPositionToPath(first->getInfo());
+
+            cout << "-------------END TRUCK PATH-------------" << endl;
+        }
+        graph.dijkstraShortestPath(first->getInfo());
+        vector<Position> pathToHead = graph.getPath(first->getInfo(), getPositionById(position_id));
+        cout << "---------------FINAL PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
+        for (auto itr = pathToHead.begin(); itr != pathToHead.end() - 1; itr++) {
+            cout << "Position: " << (*itr).getId() << endl;
+            (*it)->addPositionToPath((*itr));
+        }
+        cout << "-------------END TRUCK PATH-------------" << endl;
+    }
 }

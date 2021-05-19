@@ -126,6 +126,8 @@ public:
 
     double getWeight(Vertex<T>* vertex1, Vertex<T>* vertex2);
 
+    long double distanceFromPath(const std::vector<T> &path);
+
     std::vector<Vertex<T> *> getVertexSet() const;
 
     void floydWarshallShortestPath();
@@ -349,4 +351,20 @@ void Graph<T>::travellingSalesmanProblem(const T &origin) {
 
 }
 
+/**
+ * Calculates the distance between two nodes, from a vector containing the path
+ *
+ * @return the distance between the nodes
+ */
+template<class T>
+long double Graph<T>::distanceFromPath(const std::vector<T> &path) {
+    long double distance = 0;
+    for(auto it = path.begin(); it != path.end() - 1; it++){
+        Vertex<T>* i = findVertex((*it));
+        Vertex<T>* j = findVertex((*it));
+
+        distance += getWeight(i, j);
+    }
+    return distance;
+}
 #endif /* GRAPH_H_ */
