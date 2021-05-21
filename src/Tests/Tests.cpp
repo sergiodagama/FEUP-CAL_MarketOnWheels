@@ -4,6 +4,8 @@
 
 /**
  * TESTS TO HEADQUARTERS FUNCTIONS AND CLASSES
+ *
+ * (WARNING: SOME TESTS DEPEND ON OTHERS)
  */
 
 using testing::Eq;
@@ -529,3 +531,7 @@ TEST(test, deliver){
 
     headquarter.deliver();
 }
+
+/**
+ * END OF TESTS
+ */
