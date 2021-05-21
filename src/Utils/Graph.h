@@ -362,9 +362,9 @@ long double Graph<T>::distanceFromPath(const std::vector<T> &path) {
     long double distance = 0;
     for(auto it = path.begin(); it != path.end() - 1; it++){
         Vertex<T>* i = findVertex((*it));
-        if(i == NULL) return -1;
+        if(i == NULL) return 0;
         Vertex<T>* j = findVertex((*(it+1)));
-        if(j == NULL) return -1;
+        if(j == NULL) return 0;
 
         distance += getWeight(i, j);
     }

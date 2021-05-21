@@ -18,7 +18,7 @@ TEST(test, saveProductData) {
     headquarter.loadMap("../src/Resources/Maps/nodes.txt", "../src/Resources/Maps/edges.txt");
 
     Product* potato = new Product("potato", 1.2, 2);
-    Product* rice = new Product("rice", 1, 5);
+    Product* rice = new Product("rice", 1, 2);
     Product* pasta = new Product("pasta", 2.1, 3);
     Product* tomato = new Product("tomato", 1.3, 1);
     Product* bread = new Product("bread", 0.4, 1);
@@ -331,6 +331,26 @@ TEST(test, dijkstraShortestPath_getPath){
     EXPECT_EQ(no_path.size(), 0);
 }
 
+TEST(test, distanceFromPath){
+    Headquarter headquarter("123");
+
+    int begin = 2555, end = 6865;
+    //int begin = 1, end = 32;
+    int intermediate = 10361;
+
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    headquarter.getGraph().dijkstraShortestPath(headquarter.getPositionById(begin));
+
+    std::vector<Position> path = headquarter.getGraph().getPath(headquarter.getPositionById(begin), headquarter.getPositionById(end));
+
+    std::cout << "DISTANCE FROM " << begin << " TO " << intermediate << " : " << headquarter.getGraph().getWeight(headquarter.getGraph().findVertex(headquarter.getPositionById(begin)), headquarter.getGraph().findVertex(headquarter.getPositionById(intermediate)));
+
+    std::cout << "\nDISTANCE FROM " << intermediate << " TO " << end << " : " << headquarter.getGraph().getWeight(headquarter.getGraph().findVertex(headquarter.getPositionById(intermediate)), headquarter.getGraph().findVertex(headquarter.getPositionById(end)));
+
+    std::cout << "\nDISTANCE FROM VERTEX " << begin << " TO "  << end << " : " << headquarter.getGraph().distanceFromPath(path);
+}
+
 /**
  * FUNCTIONS THAT HANDLES DELIVERS AND SHORTEST PATHS
  */
@@ -398,11 +418,9 @@ TEST(test, getProvidersThatSatisfy){
     Headquarter headquarter("123");
 
     std::cout << std::endl << "----getProvidersThatSatisfy----" << std::endl;
-
-    headquarter.loadClientData("../src/Resources/clients.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
     headquarter.loadProductData("../src/Resources/products.txt");
     headquarter.loadProviderData("../src/Resources/providers.txt");
-
 
     Order* order1 = new Order(1);
     Order* order2 = new Order(2);
@@ -416,12 +434,13 @@ TEST(test, getProvidersThatSatisfy){
     orders1.push(order2);
 
     std::vector<Provider * > providersNeeded2 = headquarter.getProvidersThatSatisfy(orders1);
-    /*One provider that has all the products of the given orders*/
+
+    //One provider that has all the products of the given orders
     EXPECT_EQ(providersNeeded2.size(), 1);
     EXPECT_EQ(providersNeeded2[0]->getName() , "continente");
     EXPECT_EQ(providersNeeded2[0]->getProducts()[headquarter.getProductById(2)] , 285);
 
-    /*More than one provider is needed to complete a given order*/
+    //More than one provider is needed to complete a given order
     order1->addProduct(headquarter.getProductById(6), 5);
     std::queue<Order *> orders2;
     orders2.push(order1);
@@ -431,7 +450,7 @@ TEST(test, getProvidersThatSatisfy){
     EXPECT_EQ(providersNeeded3.size(), 2);
 }
 
-TEST(test, calculateTrucksFromProvidersToClientsPath){
+TEST(test, calculateTrucksPathFromHeadToProviders){
     Headquarter headquarter("123");
 
     headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
@@ -439,5 +458,54 @@ TEST(test, calculateTrucksFromProvidersToClientsPath){
 
     headquarter.distributeOrdersToTrucks();
 
-    headquarter.calculateTrucksFromProvidersToClientsPath();
+    headquarter.calculateTrucksPathFromHeadToProviders();
+}
+
+TEST(test, getClientsFromOrders){
+    Headquarter headquarter("123");
+
+    headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    std::queue<Order*> ords;
+
+    Order* order1 = new Order(1);
+    Order* order2 = new Order(1);
+    Order* order3 = new Order(2);
+    Order* order4 = new Order(1);
+    Order* order5 = new Order(3);
+
+    order1->addProduct(headquarter.getProductById(1), 5);
+    order2->addProduct(headquarter.getProductById(1), 10);
+    order3->addProduct(headquarter.getProductById(1), 10);
+    order4->addProduct(headquarter.getProductById(1), 10);
+    order5->addProduct(headquarter.getProductById(1), 10);
+
+    ords.push(order1);
+    ords.push(order2);
+    ords.push(order3);
+    ords.push(order4);
+    ords.push(order5);
+
+    std::vector<Client*> cli = headquarter.getClientsFromOrders(ords);
+
+    std::cout << "AFTER GET CLIENTS" << std::endl;
+    for(auto i : cli){
+        std::cout << i->getId() << std::endl;
+    }
+    EXPECT_EQ(cli.size(), 3);
+    EXPECT_EQ(cli.at(1)->getId(), 3);
+}
+
+TEST(test, calculateTrucksPathFromProvidersToClients){
+    Headquarter headquarter("123");
+
+    headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    headquarter.distributeOrdersToTrucks();
+
+    headquarter.calculateTrucksPathFromHeadToProviders();
+
+    headquarter.calculateTrucksPathFromProvidersToClients();
 }

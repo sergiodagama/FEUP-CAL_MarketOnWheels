@@ -2,8 +2,13 @@
 #define SRC_HEADQUARTER_H
 
 #include <vector>
+#include <limits>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
+#include <chrono>
+#include <map>
+#include <set>
 #include <Provider.h>
 #include <Client.h>
 #include <Truck.h>
@@ -315,7 +320,7 @@ public:
     */
     void showOrders();
 
-    //------------------------- FUNCTIONS TO HANDLE DELIVERS ------------------------- //TODO
+    //------------------------- FUNCTIONS TO HANDLE DELIVERS -------------------------
 
     /**
     * It uses a greedy approach by starting with a sort of the orders that exist, by price,
@@ -332,34 +337,41 @@ public:
     * This vector has some particular characteristics, it is optimized by the distance,
     * so the providers are added by distance from the headquarter, until the orders
     * are all able to be satisfied
+    *
+    * @param orders the orders from given from a truck
+    * @return a vector of providers optimized that satisfy all the orders
     */
-    std::vector<Provider *> getProvidersThatSatisfy(std::queue<Order *>);
-
-    /** //TODO OLD COMMENT
-    * Calculates initial path of the trucks to their providers (use the function before to get them) in order to fulfill their orders
-    * Note: based on the floyd warshall algorithm results, obtained before!
-    * @return map with the trucks ids and their respective path until the providers (ids of nodes ordered)
-    */
-    void calculateTrucksToProvidersPath();
-
-    std::vector<Client*> getClientsFromOrders(std::queue<Order*> orders);
-
-    /** //TODO OLD COMMENT
-     * Calculates final path of the trucks from providers to clients
-     * Note: based on the floyd warshall algorithm results, obtained before!
-     * IDEA: calculate lowest path from last provider until all clients and see which path takes more clients in the way (do it until all clients are in path)
-     * @return map with the trucks ids and their respective path until the clients from the last provider given (ids of nodes ordered)
-     */
-    void
-    calculateTrucksFromProvidersToClientsPath();
+    std::vector<Provider *> getProvidersThatSatisfy(std::queue<Order*> orders);
 
     /**
-    * Calculate trucks paths (just join the last two functions), adding the last path from last client to headquarters
+    * Calculates initial path of the trucks to their providers (using function getProvidersThatSatisfy to get the providers list)
+    * in order to fulfill their orders
+    *
+    */
+    void calculateTrucksPathFromHeadToProviders();
+
+    /**
+     * Gets all the clients from a given set of orders
+     * It also orders those clients, by the least distance between them, from the first client picked up
+     * It's a pseudo optimization, because the first client it's randomly picked up
+     *
+     * @param orders the set of orders passed from trucks
+     * @return the clients ordered with the respective optimization
+     */
+    std::vector<Client*> getClientsFromOrders(std::queue<Order*> orders);
+
+     /**
+     * Calculates final path of the trucks from providers to clients and to headquarter
+     */
+    void calculateTrucksPathFromProvidersToClients();
+
+    /**
+    * Calculate trucks paths (join the two functions: calculateTrucksPathFromHeadToProviders, calculateTrucksPathFromProvidersToClients)
     */
     void calculateTrucksPaths();
 
     /**
-    * Delivering the respective orders to clients (empty all trucks and set respective orders flags to done in headquarters, or delete them)
+    * Delivering the respective orders to clients (empty all trucks)
     */
     void deliver();
 };
