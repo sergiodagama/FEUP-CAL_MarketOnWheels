@@ -40,6 +40,6 @@ add_executable(MarketOnWheels
         src/Utils/Graph.h
         src/Utils/MutablePriorityQueue.h
         src/main.cpp
-        src/Position/Position.cpp src/Position/Position.h src/Utils/Utils.cpp src/Utils/Utils.h src/ProductsWrapper/ProductsWrapper.cpp src/ProductsWrapper/ProductsWrapper.h src/Tests/Tests.cpp src/Interface/Interface.cpp src/Interface/Interface.h src/Tests/Dataset1.cpp src/Tests/Dataset2.cpp src/Tests/Dataset3.cpp)
+        src/Position/Position.cpp src/Position/Position.h src/Utils/Utils.cpp src/Utils/Utils.h src/ProductsWrapper/ProductsWrapper.cpp src/ProductsWrapper/ProductsWrapper.h src/Tests/Tests.cpp src/Interface/Interface.cpp src/Interface/Interface.h src/Tests/Dataset.cpp)
 
 target_link_libraries(MarketOnWheels gtest gtest_main)
