@@ -335,7 +335,7 @@ TEST(test, distanceFromPath){
     Headquarter headquarter("123");
 
     int begin = 2555, end = 6865;
-    //int begin = 1, end = 32;
+    //int begin = 17, end = 1;
     int intermediate = 10361;
 
     headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
@@ -508,4 +508,17 @@ TEST(test, calculateTrucksPathFromProvidersToClients){
     headquarter.calculateTrucksPathFromHeadToProviders();
 
     headquarter.calculateTrucksPathFromProvidersToClients();
+}
+
+TEST(test, calculateTrucksPaths){
+    Headquarter headquarter("123");
+
+    headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    headquarter.calculateTrucksPaths();
+}
+
+TEST(test, deliver){
+    //TODO
 }
