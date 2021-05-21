@@ -448,7 +448,7 @@ void Headquarter::showTrucks() {
     }
     cout << "Id\tCapacity\tLoad\tState" << endl;
     for (auto it = trucks.begin(); it != trucks.end(); it++) {
-        cout << (*it)->getId() << "\t" << (*it)->getCapacity() << "\t" << (*it)->getLoad() << "\t" << (*it)->getState()
+        cout << (*it)->getId() << "\t" << (*it)->getCapacity() << "\t" << (*it)->getLoad() << "\t" << (*it)->isDelivering()
              << endl;
     }
 }
@@ -497,49 +497,53 @@ void Headquarter::distributeOrdersToTrucks() {
         return truck1->getCapacity() > truck2->getCapacity();
     });
 
+    //sorting orders by their price (prices)
+    sort(orders.begin(), orders.end(), [](Order const *const order1, Order const *const order2) {
+        return order1->getPrice() > order2->getPrice();
+    });
+
+    vector<Order *> ords(orders);
+
+    unsigned int current_client_id, cur_ord_id;
+
+    vector<Order *> ordsSorted;
+
+    //grouping orders by id, maintaining the order by price
+    while (ords.size() != 0) {
+        ordsSorted.push_back(ords.at(0));
+        current_client_id = ords.at(0)->getClientId();
+        cur_ord_id = ords.at(0)->getId();
+        ords.erase(ords.begin());
+
+        auto it = ords.begin();
+        while (it != ords.end()) {
+            if (current_client_id == (*it)->getClientId() && cur_ord_id != (*it)->getId()) {
+                ordsSorted.push_back((*it));
+                ords.erase(it);
+            } else it++;
+        }
+    }
+
     //going through all the trucks
     for (int t = 0; t < trucks.size(); t++) {
 
-        //sorting orders by their price (prices)
-        sort(orders.begin(), orders.end(), [](Order const *const order1, Order const *const order2) {
-            return order1->getPrice() > order2->getPrice();
-        });
-
-        vector<Order *> ords(orders);
-
-        unsigned int current_client_id, cur_ord_id;
-
-        vector<Order *> ordsSorted;
-
-        //grouping orders by id, maintaining the order by price
-        while (ords.size() != 0) {
-            ordsSorted.push_back(ords.at(0));
-            current_client_id = ords.at(0)->getClientId();
-            cur_ord_id = ords.at(0)->getId();
-            ords.erase(ords.begin());
-
-            auto it = ords.begin();
-            while (it != ords.end()) {
-                if (current_client_id == (*it)->getClientId() && cur_ord_id != (*it)->getId()) {
-                    ordsSorted.push_back((*it));
-                    ords.erase(it);
-                } else it++;
+        //checking if truck is available
+        if (!trucks[t]->isDelivering()) {
+            //filling trucks [just needed to follow the order of the sorted vector]
+            for (auto it = ordsSorted.begin(); it != ordsSorted.end(); it++) {
+                if (getOrderById((*it)->getId())->getFlag()) continue; //if truck is already being delivered
+                try {
+                    trucks[t]->addOrder(getOrderById((*it)->getId()));
+                    getOrderById((*it)->getId())->setFlag();
+                    if (!trucks[t]->isDelivering()) trucks[t]->setDelivering(true);
+                }
+                catch (NotAvailableSpace e) {
+                    continue;  //when there is no available space goes to next order, until finished
+                }
+                //here it's just an optimization, not actually necessary,
+                //but prevents going through all orders, when truck it's already full
+                if (trucks[t]->getCapacity() == trucks[t]->getLoad()) break;
             }
-        }
-
-        //filling trucks [just needed to follow the order of the sorted vector]
-        for (auto it = ordsSorted.begin(); it != ordsSorted.end(); it++) {
-            if (getOrderById((*it)->getId())->getFlag()) continue; //if truck is already being delivered
-            try {
-                trucks[t]->addOrder(getOrderById((*it)->getId()));
-                getOrderById((*it)->getId())->setFlag();
-            }
-            catch (NotAvailableSpace e) {
-                continue;  //when there is no available space goes to next order, until finished
-            }
-            //here it's just an optimization, not actually necessary,
-            //but prevents going through all orders, when truck it's already full
-            if (trucks[t]->getCapacity() == trucks[t]->getLoad()) break;
         }
     }
 }
@@ -771,5 +775,12 @@ void Headquarter::calculateTrucksPaths() {
 }
 
 void Headquarter::deliver() {
-    //TODO
+    //going through all trucks
+    for(auto it : trucks){
+        //clears all trucks paths
+        (*it).clearPath();
+
+        //setting trucks state to available again
+        (*it).setDelivering(false);
+    }
 }

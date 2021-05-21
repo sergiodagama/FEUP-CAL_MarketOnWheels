@@ -520,5 +520,12 @@ TEST(test, calculateTrucksPaths){
 }
 
 TEST(test, deliver){
-    //TODO
+    Headquarter headquarter("123");
+
+    headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    headquarter.calculateTrucksPaths();
+
+    headquarter.deliver();
 }

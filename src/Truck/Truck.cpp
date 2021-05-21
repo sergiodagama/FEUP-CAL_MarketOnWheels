@@ -62,25 +62,8 @@ void Truck::addPositionToPath(Position position) {
     path.push(position);
 }
 
-state_t Truck::getState() {
-    return this->state;
-}
-
-std::string Truck::returnStateString(int state) {
-    switch (state) {
-        case 0:
-            return "assign";
-        case 1:
-            return "delivering";
-        case 2:
-            return "completed";
-        default:
-            return " ";
-    }
-}
-
 ostream &operator<<(ostream &os, const Truck &truck) {
-    os << truck.id << DELIMITER << truck.capacity << DELIMITER << truck.load << DELIMITER << truck.state << endl;
+    os << truck.id << DELIMITER << truck.capacity << DELIMITER << truck.load << DELIMITER << truck.isDelivering() << endl;
 
     queue<Order *> buffer = truck.orders;
 
@@ -102,8 +85,8 @@ void Truck::setLoad(unsigned int load) {
     this->load = load;
 }
 
-void Truck::setState(state_t state) {
-    this->state = state;
+void Truck::setDelivering(bool delivering){
+    this->delivering = delivering;
 }
 
 void Truck::showOrders(){
@@ -118,5 +101,15 @@ void Truck::showOrders(){
         trucks_orders.pop();
     }
     std::cout << "-----------------------------------------------" << std::endl;
+}
+
+void Truck::clearPath() {
+    while(!path.empty()){
+        path.pop();
+    }
+}
+
+bool Truck::isDelivering() const {
+    return delivering;
 }
 

@@ -6,10 +6,6 @@
 #include "Order.h"
 #include "../Position/Position.h"
 
-typedef enum {
-    created, assigned, delivering, completed
-} state_t;
-
 class Truck {
 private:
     unsigned int id;
@@ -18,11 +14,11 @@ private:
     * Id auxiliar to create unique id's
     */
     static unsigned int id_aux;
-    state_t state;
     unsigned int capacity;
     unsigned int load;
     std::queue<Order* > orders;
     std::queue<Position> path;
+    bool delivering = false;
 public:
 
     /**
@@ -118,6 +114,20 @@ public:
     void removePositionFromPath();
 
     /**
+     * Sets the state of the truck to delivering
+     *
+     * @param delivering states if the truck is delivering or available
+     */
+    void setDelivering(bool delivering);
+
+    /**
+     * Gets the state of the truck
+     *
+     * @return the delivering flag of the truck
+     */
+    bool isDelivering() const;
+
+    /**
     * Overload to << operator of Truck
     *
     * @param os the output stream to be outputted
@@ -135,17 +145,15 @@ public:
     */
     friend std::istream &operator>>(std::istream &is, Truck &truck);
 
-    state_t getState();
-
-    void setState(state_t state);
-
-    std::string returnStateString(int state);
-
     /**
      * Shows all trucks orders
      */
     void showOrders();
 
+    /**
+     * Clears the trucks path
+     */
+    void clearPath();
 };
 
 #endif //SRC_TRUCK_H
