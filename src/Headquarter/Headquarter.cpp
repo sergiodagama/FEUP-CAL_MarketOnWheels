@@ -102,7 +102,9 @@ string Headquarter::getAdminPassword() const {
 }
 
 Position Headquarter::getPositionById(double id) {
-    return graph.findVertex(Position(id, 0, 0))->getInfo();
+    Vertex<Position>* v = graph.findVertex(Position(id, 0, 0));
+    if(v != NULL) return v->getInfo();
+    else return Position(0, 0, 0);
 }
 
 Product *Headquarter::getProductById(unsigned int id) {
@@ -638,7 +640,7 @@ void Headquarter::calculateTrucksToProvidersPath(){
 
 std::vector<Client*> Headquarter::getClientsFromOrders(queue<Order*> orders){
     set<unsigned int> cliens;
-    vector<Client*> res;
+    vector<Client*> unique;
 
     while(!orders.empty()){
         Order * ord = orders.front();
@@ -647,10 +649,35 @@ std::vector<Client*> Headquarter::getClientsFromOrders(queue<Order*> orders){
     }
 
     for(auto elem : cliens){
-        res.push_back(getClientById(elem));
+        unique.push_back(getClientById(elem));
+    }
+
+    //Getting pseudo minimal path that goes through all the clients
+    vector<Client*> res;
+    res.push_back(unique.at(0));
+
+    for(int k = 0; k < unique.size(); k++){
+        graph.dijkstraShortestPath(getPositionById(unique[k]->getAddress()));
+
+        long double smaller = 0;
+        unsigned int smaller_offset = 0;
+
+        for(int c = k + 1; c < unique.size(); c++) {
+            vector<Position> path = graph.getPath(getPositionById(unique[k]->getAddress()), getPositionById(unique[c]->getAddress()));
+
+            long double distance = graph.distanceFromPath(path);
+
+            cout << "DISTANCE: " << distance << endl;
+
+            if(distance < smaller){
+                smaller = distance;
+                smaller_offset = c;
+            }
+        }
+        res.push_back(unique.at(smaller_offset));
+        unique.erase(unique.begin() + smaller_offset);
     }
     return res;
-    //TODO order by distance maiores primeiros
 }
 
 void
@@ -660,6 +687,7 @@ Headquarter::calculateTrucksFromProvidersToClientsPath() {
         //getting first position (headquarter position)
         queue<Order *> truckOrders = (*it)->getOrders();
 
+        //using the getClientFromOrders function to obtain the optimized clients ordered vector
         vector<Client*> truckClients = getClientsFromOrders(truckOrders);
 
         Vertex<Position> *first = graph.findVertex(getPositionById((*it)->getPath().back().getId()));
@@ -669,6 +697,7 @@ Headquarter::calculateTrucksFromProvidersToClientsPath() {
             cout << *(*u) << endl;
         }
 
+
         for (int i = 0; i < truckClients.size(); i++) {
 
             cout << "first: " << first->getInfo() << endl;
@@ -676,28 +705,29 @@ Headquarter::calculateTrucksFromProvidersToClientsPath() {
             //getting last position
             Vertex<Position> *end = graph.findVertex(getPositionById(truckClients.at(i)->getAddress()));
             cout << "end: " << end->getInfo() << endl;
+
             graph.dijkstraShortestPath(first->getInfo());
 
             vector<Position> path = graph.getPath(first->getInfo(), end->getInfo());
 
             first = end;
 
-            cout << "---------------PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
+            //cout << "---------------PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
             for (auto itr = path.begin(); itr != path.end() - 1; itr++) {
-                cout << "Position: " << (*itr).getId() << endl;
+                //cout << "Position: " << (*itr).getId() << endl;
                 (*it)->addPositionToPath((*itr));
             }
             (*it)->addPositionToPath(first->getInfo());
 
-            cout << "-------------END TRUCK PATH-------------" << endl;
+            //cout << "-------------END TRUCK PATH-------------" << endl;
         }
         graph.dijkstraShortestPath(first->getInfo());
         vector<Position> pathToHead = graph.getPath(first->getInfo(), getPositionById(position_id));
-        cout << "---------------FINAL PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
+        //cout << "---------------FINAL PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
         for (auto itr = pathToHead.begin(); itr != pathToHead.end() - 1; itr++) {
-            cout << "Position: " << (*itr).getId() << endl;
+           // cout << "Position: " << (*itr).getId() << endl;
             (*it)->addPositionToPath((*itr));
         }
-        cout << "-------------END TRUCK PATH-------------" << endl;
+        //cout << "-------------END TRUCK PATH-------------" << endl;
     }
 }

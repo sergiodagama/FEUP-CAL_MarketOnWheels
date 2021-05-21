@@ -321,15 +321,19 @@ std::vector<T> Graph<T>::getPath(const T &origin, const T &dest) const{
     std::vector<T> res;
 
     Vertex<T> * first = findVertex(origin);
+    if(first == NULL) return std::vector<T>();
     Vertex<T> * end = findVertex(dest);
+    if(end == NULL) return std::vector<T>();
+
+    if(first->getInfo() == end->getInfo()) return std::vector<T>();
+
     Vertex<T> * current = end;
     res.push_back(current->info);
 
-    while(current != first)
-    {
-        res.push_back(current->path->info);
+    while(current != first) {
+        if(current->path == NULL) return std::vector<T>();
         current = current->path;
-
+        res.push_back(current->info);
     }
     reverse(res.begin(), res.end());
 
@@ -358,7 +362,9 @@ long double Graph<T>::distanceFromPath(const std::vector<T> &path) {
     long double distance = 0;
     for(auto it = path.begin(); it != path.end() - 1; it++){
         Vertex<T>* i = findVertex((*it));
-        Vertex<T>* j = findVertex((*it));
+        if(i == NULL) return -1;
+        Vertex<T>* j = findVertex((*(it+1)));
+        if(j == NULL) return -1;
 
         distance += getWeight(i, j);
     }

@@ -1,14 +1,11 @@
-1 continente cont 1
-9 1
+1 continente cont 26
 4 40
-1 201
+1 200
 2 300
 _
-2 pingodoce ping 1
+2 pingodoce ping 32
 6 50
-8 340
 7 120
+8 340
 5 45
-_
-3 Jumbo jumbo 7
 _

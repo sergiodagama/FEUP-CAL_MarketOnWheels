@@ -328,7 +328,10 @@ public:
     void distributeOrdersToTrucks();
 
     /**
-    * Gets a queue of providers that entirely satisfies a set of orders given
+    * Gets a vector of providers that entirely satisfies a set of orders given
+    * This vector has some particular characteristics, it is optimized by the distance,
+    * so the providers are added by distance from the headquarter, until the orders
+    * are all able to be satisfied
     */
     std::vector<Provider *> getProvidersThatSatisfy(std::queue<Order *>);
 
