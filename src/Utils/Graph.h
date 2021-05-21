@@ -11,6 +11,8 @@
 #include <limits>
 #include <cmath>
 #include <algorithm>
+#include <stack>
+#include <map>
 #include "MutablePriorityQueue.h"
 
 template<class T>
@@ -130,6 +132,9 @@ public:
     void dijkstraShortestPath(const T &s);
     std::vector<T> getPath(const T &origin, const T &dest) const;
     void travellingSalesmanProblem(const T &origin);
+
+    std::vector<std::vector<Vertex<T>*>> connectivity();
+    void numeration( std::stack<Vertex<T>*> vertexStack, Vertex<T>* vertex);
 
 };
 
@@ -344,6 +349,36 @@ void Graph<T>::travellingSalesmanProblem(const T &origin) {
             dijkstraShortestPath(origin, vertexIt);
     }
 
+}
+
+template <class T>
+std::vector<std::vector<Vertex<T>*>> Graph<T>::connectivity(){
+    std::stack<Vertex<T>*> vertexStack ;
+    //initialize map
+    for(auto it = vertexSet.begin(); it != vertexSet.end(); it++){
+        (*it)->visited = false;
+    }
+    for(auto it = vertexSet.begin(); it != vertexSet.end(); it++){
+        if((*it)->visited ==true) continue;
+        else {
+            numeration(vertexStack, *it);
+        }
+    }
+    return *(new std::vector<std::vector<Vertex<T>*>>);
+}
+
+
+template <class T>
+void Graph<T>::numeration( std::stack<Vertex<T>*> vertexStack, Vertex<T>* vertex){
+    vertex->visited = true;
+    for (auto it = vertex->adj.begin();it != vertex->adj.end(); it++){
+        if(((*it).dest)->visited == true)
+            continue;
+        else{
+            //TODO recursive part
+        }
+    }
+    vertexStack.push(vertex);
 }
 
 #endif /* GRAPH_H_ */

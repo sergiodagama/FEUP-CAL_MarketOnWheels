@@ -340,29 +340,6 @@ TEST(test, floydWarshall_penafielMap){
     std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
 }
 
- /*TEST(test, floydWarshall_penafielMap){
-    Headquarter headquarter("123");
-
-    std::cout << std::endl << "----STARTED LOADING PENAFIEL MAP----" << std::endl;
-    std::cout << "MAP: 10365 nodes" << std::endl;
-
-    headquarter.loadMap("../src/Resources/penafiel_nodes.txt", "../src/Resources/penafiel_edges.txt");
-
-    std::cout << "-------------LOADED MAP-------------" << std::endl << std::endl;
-
-    std::cout << "--------STARTED FLOYD WARSHALL------" << std::endl;
-
-    auto start = std::chrono::high_resolution_clock::now();
-
-    headquarter.getGraph().floydWarshallShortestPath();
-
-    auto finish = std::chrono::high_resolution_clock::now();
-
-    std::chrono::duration<double> elapsed = finish - start;
-
-    std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
-}*/
-
 TEST(test, getProvidersThatSatisfy){
     Headquarter headquarter("123");
 
@@ -398,4 +375,11 @@ TEST(test, getProvidersThatSatisfy){
     std::vector<Provider * > providersNeeded3 = headquarter.getProvidersThatSatisfy(orders2);
     EXPECT_EQ(providersNeeded3.size(), 2);
 
+}
+
+TEST(test, connectivity){
+    Headquarter headquarter("123");
+    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    Graph<Position> graph = headquarter.getGraph();
+    graph.connectivity();
 }
