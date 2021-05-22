@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "Headquarter.h"
 #include <chrono>
+#include <vector>
 
 /**
  * TESTS TO HEADQUARTERS FUNCTIONS AND CLASSES
@@ -515,9 +516,10 @@ TEST(test, calculateTrucksPathFromProvidersToClients){
 
 TEST(test, connectivity){
     Headquarter headquarter("123");
-    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
     Graph<Position> graph = headquarter.getGraph();
-    graph.connectivity();
+    std::vector<std::vector<Vertex<Position> *>> test = graph.connectivity();
+    EXPECT_EQ(test.size(), 25);
 }
 
 TEST(test, calculateTrucksPaths){
