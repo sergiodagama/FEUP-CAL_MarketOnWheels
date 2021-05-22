@@ -380,8 +380,12 @@ std::vector<std::vector<Vertex<T>*>> Graph<T>::connectivity(){
 
     for (auto it = vertexSet.begin(); it != vertexSet.end(); it++){
         for(auto it_e = (*it)->adj.begin(); it_e != (*it)->adj.end(); it_e++){
-            ((*it_e).dest)->addEdge(temp.findVertex((*it)->info) , 1);
-           // std::cout << (*it_e)->info;
+            //std::cout << "HERE" << (*it)->getInfo() << std::endl;
+           // std::cout << "HERHE: " << (*it_e).dest->getInfo() << std::endl;
+            temp.addEdge(((*it_e).dest->getInfo()), (*it)->getInfo() , 1);
+            //std::cout << findVertex(*it).getInfo() << std::endl;
+            std::cout << "HERHE: " << (*it_e).dest->getInfo() << std::endl;
+            std::cout << "RHE: " << (*it)->getInfo() << std::endl;
         }
     }
     //dfs by order in the stack
@@ -431,6 +435,8 @@ void Graph<T>::numeration( std::stack<Vertex<T>*> &vertexStack, Vertex<T>* verte
             numeration(vertexStack, ((*it).dest));
         }
     }
+
+
     vertexStack.push(vertex);
 }
 
