@@ -397,6 +397,7 @@ std::vector<std::vector<Vertex<T>*>> Graph<T>::connectivity(){
     std::cout << vertexStack.size() << " size of stack\n";
     while(!vertexStack.empty()){
         std::vector<Vertex<T>*>* partial = new std::vector<Vertex<T>*>;
+        partial->clear();
         Vertex<T>* vert = temp.findVertex(vertexStack.top()->getInfo());
         vertexStack.pop();
         if(vert->visited) continue;
@@ -405,9 +406,9 @@ std::vector<std::vector<Vertex<T>*>> Graph<T>::connectivity(){
             std::cout << partial->size() << " size of partial\n";
         }
         answer.push_back(*partial);
-        std::cout << (*partial).size();
+        std::cout << (*partial).size() << std::endl;
     }
-    std::cout << answer.size() << std::endl;
+    std::cout << std::endl << answer.size() << std::endl;
     return answer;
 }
 
