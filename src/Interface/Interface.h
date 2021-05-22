@@ -4,6 +4,9 @@
 #include "Headquarter.h"
 #include "Menu.h"
 
+/**
+ * Main menu of the application
+ */
 void interface();
 
 #endif //MARKETONWHEELS_INTERFACE_H

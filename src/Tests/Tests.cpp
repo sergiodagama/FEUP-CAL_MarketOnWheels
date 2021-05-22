@@ -360,9 +360,18 @@ TEST(test, connectivity){
         headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
     }catch (NotStronglyConnected e){
         Graph<Position> graph = headquarter.getGraph();
+
+        auto start = std::chrono::high_resolution_clock::now();
         std::vector<std::vector<Vertex<Position> *>> test = graph.connectivity();
+        auto finish = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start);
+
+        std::cout << "Elapsed time in function call: " << duration.count() << " milisecs" << std::endl;
+
         EXPECT_EQ(test.size(), 25);
     }
+
+
 }
 
 TEST(test, connectivity2){
@@ -373,9 +382,44 @@ TEST(test, connectivity2){
     catch(NotStronglyConnected e)
     {
         Graph<Position> graph = headquarter.getGraph();
+        auto start = std::chrono::high_resolution_clock::now();
         std::vector<std::vector<Vertex<Position> *>> test = graph.connectivity();
+        auto finish = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start);
+
+        std::cout << "Elapsed time in function call: " << duration.count() << " milisecs" << std::endl;
         EXPECT_EQ(test.size(), 5);
     }
+
+}
+
+TEST(test, connectivity3_onlyTime){
+    Headquarter headquarter("123");
+    try {
+        headquarter.loadMap("../src/Resources/Maps/penafiel_full_nodes.txt", "../src/Resources/Maps/penafiel_full_edges.txt");
+    }
+    catch(NotStronglyConnected e)
+    {
+        Graph<Position> graph = headquarter.getGraph();
+        auto start = std::chrono::high_resolution_clock::now();
+        std::vector<std::vector<Vertex<Position> *>> test = graph.connectivity();
+        auto finish = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start);
+
+        std::cout << "Elapsed time in function call: " << duration.count() << " milisecs" << std::endl;
+    }
+
+}
+
+TEST(test, connectivity4_onlyTime){
+    Headquarter headquarter("123");
+    headquarter.loadMap("../src/Resources/Maps/porto_strong_nodes.txt", "../src/Resources/Maps/porto_strong_edges.txt");
+    Graph<Position> graph = headquarter.getGraph();
+    auto start = std::chrono::high_resolution_clock::now();
+    std::vector<std::vector<Vertex<Position> *>> test = graph.connectivity();
+    auto finish = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(finish - start);
+    std::cout << "Elapsed time in function call: " << duration.count() << " milisecs" << std::endl;
 
 }
 
