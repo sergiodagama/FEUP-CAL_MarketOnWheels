@@ -8,7 +8,7 @@
 
 class Position {
 private:
-    double id;
+    int id;
     long double latitude;
     long double longitude;
 public:
@@ -20,14 +20,14 @@ public:
     * @param latitude the latitude of the position
     * @param longitude the longitude of the position
     */
-    Position(double id, long double latitude, long double longitude);
+    Position(int id, long double latitude, long double longitude);
 
     /**
     * Gets the position id
     *
     * @return the position id
     */
-    double getId() const;
+    int getId() const;
 
     /**
     * Gets the position latitude

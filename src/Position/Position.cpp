@@ -2,13 +2,13 @@
 
 using namespace std;
 
-Position::Position(double id, long double latitude, long double longitude) {
+Position::Position(int id, long double latitude, long double longitude) {
     this->id = id;
     this->latitude = latitude;
     this->longitude = longitude;
 }
 
-double Position::getId() const {
+int Position::getId() const {
     return id;
 }
 

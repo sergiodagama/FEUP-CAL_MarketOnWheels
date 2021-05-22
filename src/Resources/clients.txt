@@ -1,4 +1,4 @@
-1 Jon jony 2/10/2000 4
-2 Tom tomy 25/4/1996 10
-3 Dan dan 3/6/1987 21
-4 Mary mary 17/9/2005 5
+1 Jon jony 2/10/2000 18
+2 Tom tomy 25/4/1996 17
+3 Dan dan 3/6/1987 20
+4 Mary mary 17/9/2005 9

@@ -50,15 +50,15 @@ void Truck::removeOrder(Order *order) {
     //TODO
 }
 
-void Truck::setPath(std::queue<Position *> &path) {
+void Truck::setPath(std::queue<Position> path) {
     this->path = path;
 }
 
-queue<Position *> Truck::getPath() const {
+queue<Position> Truck::getPath() const {
     return path;
 }
 
-void Truck::addPositionToPath(Position *position) {
+void Truck::addPositionToPath(Position position) {
     path.push(position);
 }
 

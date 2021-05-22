@@ -125,6 +125,8 @@ public:
 
     double getWeight(Vertex<T>* vertex1, Vertex<T>* vertex2);
 
+    long double distanceFromPath(const std::vector<T> &path);
+
     std::vector<Vertex<T> *> getVertexSet() const;
 
     void floydWarshallShortestPath();
@@ -134,7 +136,7 @@ public:
     void travellingSalesmanProblem(const T &origin);
 
     std::vector<std::vector<Vertex<T>*>> connectivity();
-    void numeration( std::stack<Vertex<T>*> vertexStack, Vertex<T>* vertex);
+    void numeration( std::stack<Vertex<T>*> &vertexStack, Vertex<T>* vertex);
 
 };
 
@@ -324,15 +326,19 @@ std::vector<T> Graph<T>::getPath(const T &origin, const T &dest) const{
     std::vector<T> res;
 
     Vertex<T> * first = findVertex(origin);
+    if(first == NULL) return std::vector<T>();
     Vertex<T> * end = findVertex(dest);
+    if(end == NULL) return std::vector<T>();
+
+    if(first->getInfo() == end->getInfo()) return std::vector<T>();
+
     Vertex<T> * current = end;
     res.push_back(current->info);
 
-    while(current != first)
-    {
-        res.push_back(current->path->info);
+    while(current != first) {
+        if(current->path == NULL) return std::vector<T>();
         current = current->path;
-
+        res.push_back(current->info);
     }
     reverse(res.begin(), res.end());
 
@@ -351,34 +357,57 @@ void Graph<T>::travellingSalesmanProblem(const T &origin) {
 
 }
 
+
 template <class T>
 std::vector<std::vector<Vertex<T>*>> Graph<T>::connectivity(){
     std::stack<Vertex<T>*> vertexStack ;
-    //initialize map
+    //initialize visited as false
     for(auto it = vertexSet.begin(); it != vertexSet.end(); it++){
         (*it)->visited = false;
     }
+    //push to the stack in order
     for(auto it = vertexSet.begin(); it != vertexSet.end(); it++){
         if((*it)->visited ==true) continue;
         else {
             numeration(vertexStack, *it);
         }
     }
+    //reverse all edges
+
+    std::cout << vertexStack.size();
     return *(new std::vector<std::vector<Vertex<T>*>>);
 }
 
 
 template <class T>
-void Graph<T>::numeration( std::stack<Vertex<T>*> vertexStack, Vertex<T>* vertex){
+void Graph<T>::numeration( std::stack<Vertex<T>*> &vertexStack, Vertex<T>* vertex){
     vertex->visited = true;
     for (auto it = vertex->adj.begin();it != vertex->adj.end(); it++){
         if(((*it).dest)->visited == true)
             continue;
         else{
-            //TODO recursive part
+            numeration(vertexStack, ((*it).dest));
         }
     }
     vertexStack.push(vertex);
 }
 
+/**
+ * Calculates the distance between two nodes, from a vector containing the path
+ *
+ * @return the distance between the nodes
+ */
+template<class T>
+long double Graph<T>::distanceFromPath(const std::vector<T> &path) {
+    long double distance = 0;
+    for(auto it = path.begin(); it != path.end() - 1; it++){
+        Vertex<T>* i = findVertex((*it));
+        if(i == NULL) return 0;
+        Vertex<T>* j = findVertex((*(it+1)));
+        if(j == NULL) return 0;
+
+        distance += getWeight(i, j);
+    }
+    return distance;
+}
 #endif /* GRAPH_H_ */

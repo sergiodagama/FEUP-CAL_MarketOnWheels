@@ -8,13 +8,17 @@
 
 using testing::Eq;
 
+/**
+ * LOADERS AND SAVERS, DATA STRUCTURES
+ */
+
 TEST(test, saveProductData) {
     Headquarter headquarter("1000000");
 
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadMap("../src/Resources/Maps/nodes.txt", "../src/Resources/Maps/edges.txt");
 
     Product* potato = new Product("potato", 1.2, 2);
-    Product* rice = new Product("rice", 1, 5);
+    Product* rice = new Product("rice", 1, 2);
     Product* pasta = new Product("pasta", 2.1, 3);
     Product* tomato = new Product("tomato", 1.3, 1);
     Product* bread = new Product("bread", 0.4, 1);
@@ -36,10 +40,10 @@ TEST(test, saveProductData) {
     std::cout << std::endl << "SEE INFORMATION ON PRODUCTS FILE" << std::endl;
 }
 
-//run after saving test
+//run after saving products data test
 TEST(test, loadProductData) {
     Headquarter headquarter("1000000");
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadMap("../src/Resources/Maps/nodes.txt", "../src/Resources/Maps/edges.txt");
 
     headquarter.loadProductData("../src/Resources/products.txt");
     headquarter.showProducts();
@@ -48,7 +52,7 @@ TEST(test, loadProductData) {
 
 TEST(test, saveProviderData) {
     Headquarter headquarter("1000000");
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadMap("../src/Resources/Maps/nodes.txt", "../src/Resources/Maps/edges.txt");
 
     Product* potato = new Product("potato", 1.2, 2);
     Product* rice = new Product("rice", 1, 5);
@@ -59,8 +63,8 @@ TEST(test, saveProviderData) {
     Product* wine = new Product("wine", 4.5, 4);
     Product* chips = new Product("chips", 2.3, 3);
 
-    Provider* continente = new Provider("continente", "cont", 30);
-    Provider* pingodoce = new Provider("pingodoce", "ping", 31);
+    Provider* continente = new Provider("continente", "cont", 26);
+    Provider* pingodoce = new Provider("pingodoce", "ping", 32);
 
     continente->addProduct(potato, 200);
     continente->addProduct(rice, 300);
@@ -89,7 +93,7 @@ TEST(test, saveProviderData) {
 //run after save providers test
 TEST(test, loadProviderData){
     Headquarter headquarter("1000000");
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadMap("../src/Resources/Maps/nodes.txt", "../src/Resources/Maps/edges.txt");
     headquarter.loadProductData("../src/Resources/products.txt");
 
     headquarter.loadProviderData("../src/Resources/providers.txt");
@@ -112,12 +116,12 @@ TEST(test, loadProviderData){
 
 TEST(test, saveClientData){
     Headquarter headquarter("1000000");
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadMap("../src/Resources/Maps/nodes.txt", "../src/Resources/Maps/edges.txt");
 
-    Client* client = new Client("Jon", "jony", Date(2, 10 ,2000), 4);
-    Client* client2 = new Client("Tom", "tomy", Date(25, 4 ,1996), 10);
-    Client* client3 = new Client("Dan", "dan", Date(3, 6 ,1987), 21);
-    Client* client4 = new Client("Mary", "mary", Date(17, 9 ,2005), 5);
+    Client* client = new Client("Jon", "jony", Date(2, 10 ,2000), 18);
+    Client* client2 = new Client("Tom", "tomy", Date(25, 4 ,1996), 17);
+    Client* client3 = new Client("Dan", "dan", Date(3, 6 ,1987), 20);
+    Client* client4 = new Client("Mary", "mary", Date(17, 9 ,2005), 9);
 
     headquarter.addClient(client);
     headquarter.addClient(client2);
@@ -132,7 +136,7 @@ TEST(test, saveClientData){
 //run after the save clients data test
 TEST(test, loadClientsData){
     Headquarter headquarter("1000000");
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadMap("../src/Resources/Maps/nodes.txt", "../src/Resources/Maps/edges.txt");
 
     headquarter.loadClientData("../src/Resources/clients.txt");
     headquarter.showClients();
@@ -182,7 +186,7 @@ TEST(test, saveOrdersData){
 //run after save orders test
 TEST(test, loadOrderData){
     Headquarter headquarter("1000000");
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadMap("../src/Resources/Maps/nodes.txt", "../src/Resources/Maps/edges.txt");
     headquarter.loadProductData("../src/Resources/products.txt");
     headquarter.loadOrderData("../src/Resources/orders.txt");
 
@@ -198,7 +202,7 @@ TEST(test, loadOrderData){
 
 TEST(test, saveTrucksData){
     Headquarter headquarter("1000000");
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadMap("../src/Resources/Maps/nodes.txt", "../src/Resources/Maps/edges.txt");
     headquarter.loadProductData("../src/Resources/products.txt");
     headquarter.loadOrderData("../src/Resources/orders.txt");
 
@@ -223,7 +227,7 @@ TEST(test, saveTrucksData){
 //run after the save trucks data test
 TEST(test, loadTrucksData){
     Headquarter headquarter("1000000");
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadMap("../src/Resources/Maps/nodes.txt", "../src/Resources/Maps/edges.txt");
 
     headquarter.loadProductData("../src/Resources/products.txt");
     headquarter.loadOrderData("../src/Resources/orders.txt");
@@ -233,6 +237,123 @@ TEST(test, loadTrucksData){
 
     headquarter.showTrucks();
 }
+
+/**
+ * SHORTEST PATH ALGORITHMS
+ */
+
+TEST(test, floydWarshall_simpleMap){
+    Headquarter headquarter("123");
+
+    std::cout << std::endl << "-------STARTED LOADING MAP--------" << std::endl;
+    std::cout << "MAP: 25 nodes" << std::endl;
+
+    headquarter.loadMap("../src/Resources/Maps/nodes.txt", "../src/Resources/Maps/edges.txt");
+
+    std::cout << "--------LOADED SIMPLE MAP---------" << std::endl << std::endl;
+
+    std::cout << "------STARTED FLOYD WARSHALL------" << std::endl;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    headquarter.getGraph().floydWarshallShortestPath();
+
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = finish - start;
+
+    std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
+}
+
+//WARNING PROCESSING TIME TOO BIG (just for demo purpose)
+TEST(test, floydWarshall_penafielMap){
+    Headquarter headquarter("123");
+
+    std::cout << std::endl << "----STARTED LOADING PENAFIEL MAP----" << std::endl;
+    std::cout << "MAP: 10365 nodes" << std::endl;
+
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    std::cout << "-------------LOADED MAP-------------" << std::endl << std::endl;
+
+    std::cout << "--------STARTED FLOYD WARSHALL------" << std::endl;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    headquarter.getGraph().floydWarshallShortestPath();
+
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = finish - start;
+
+    std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
+}
+
+TEST(test, dijkstraShortestPath_getPath){
+    Headquarter headquarter("123");
+
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    int begin = 3423, end = 3570;
+
+    std::cout << "PATH FROM VERTEX " << begin << " TO " << end << std::endl;
+
+    headquarter.getGraph().dijkstraShortestPath(headquarter.getPositionById(begin));
+
+    std::vector<Position> path = headquarter.getGraph().getPath(headquarter.getPositionById(begin), headquarter.getPositionById(end));
+
+    for(auto it : path){
+        std::cout << it << "\t";
+    }
+
+    EXPECT_EQ(path.size(), 45);
+
+    std::cout << std::endl << "\nREVERSE PATH FROM VERTEX " << end << " TO " << begin << std::endl;
+
+    headquarter.getGraph().dijkstraShortestPath(headquarter.getPositionById(end));
+
+    std::vector<Position> reverse_path = headquarter.getGraph().getPath(headquarter.getPositionById(end), headquarter.getPositionById(begin));
+
+    for(auto it : reverse_path){
+        std::cout << it << "\t";
+    }
+
+    EXPECT_EQ(reverse_path.size(), 123);
+
+    int begin2 = 2, end2 = 300;
+
+    std::cout << std::endl << "\nNO PATH FROM VERTEX " << begin2 << " TO " << end2 << std::endl;
+
+    headquarter.getGraph().dijkstraShortestPath(headquarter.getPositionById(begin2));
+
+    std::vector<Position> no_path = headquarter.getGraph().getPath(headquarter.getPositionById(begin2), headquarter.getPositionById(end2));
+
+    EXPECT_EQ(no_path.size(), 0);
+}
+
+TEST(test, distanceFromPath){
+    Headquarter headquarter("123");
+
+    int begin = 2555, end = 6865;
+    //int begin = 1, end = 32;
+    int intermediate = 10361;
+
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    headquarter.getGraph().dijkstraShortestPath(headquarter.getPositionById(begin));
+
+    std::vector<Position> path = headquarter.getGraph().getPath(headquarter.getPositionById(begin), headquarter.getPositionById(end));
+
+    std::cout << "DISTANCE FROM " << begin << " TO " << intermediate << " : " << headquarter.getGraph().getWeight(headquarter.getGraph().findVertex(headquarter.getPositionById(begin)), headquarter.getGraph().findVertex(headquarter.getPositionById(intermediate)));
+
+    std::cout << "\nDISTANCE FROM " << intermediate << " TO " << end << " : " << headquarter.getGraph().getWeight(headquarter.getGraph().findVertex(headquarter.getPositionById(intermediate)), headquarter.getGraph().findVertex(headquarter.getPositionById(end)));
+
+    std::cout << "\nDISTANCE FROM VERTEX " << begin << " TO "  << end << " : " << headquarter.getGraph().distanceFromPath(path);
+}
+
+/**
+ * FUNCTIONS THAT HANDLES DELIVERS AND SHORTEST PATHS
+ */
 
 TEST(test, distributeOrdersToTrucks){
     Headquarter headquarter("1000000");
@@ -293,59 +414,11 @@ TEST(test, distributeOrdersToTrucks){
     EXPECT_EQ(truck2->getOrders().size(), 4);
 }
 
-TEST(test, floydWarshall_simpleMap){
-    Headquarter headquarter("123");
-
-    std::cout << std::endl << "-------STARTED LOADING MAP--------" << std::endl;
-    std::cout << "MAP: 25 nodes" << std::endl;
-
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
-
-    std::cout << "--------LOADED SIMPLE MAP---------" << std::endl << std::endl;
-
-    std::cout << "------STARTED FLOYD WARSHALL------" << std::endl;
-
-    auto start = std::chrono::high_resolution_clock::now();
-
-    headquarter.getGraph().floydWarshallShortestPath();
-
-    auto finish = std::chrono::high_resolution_clock::now();
-
-    std::chrono::duration<double> elapsed = finish - start;
-
-    std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
-}
-
-//WARNING PROCESSING TIME TOO BIG (just for demo purpose)
-TEST(test, floydWarshall_penafielMap){
-    Headquarter headquarter("123");
-
-    std::cout << std::endl << "----STARTED LOADING PENAFIEL MAP----" << std::endl;
-    std::cout << "MAP: 10365 nodes" << std::endl;
-
-    headquarter.loadMap("../src/Resources/penafiel_nodes.txt", "../src/Resources/penafiel_edges.txt");
-
-    std::cout << "-------------LOADED MAP-------------" << std::endl << std::endl;
-
-    std::cout << "--------STARTED FLOYD WARSHALL------" << std::endl;
-
-    auto start = std::chrono::high_resolution_clock::now();
-
-    headquarter.getGraph().floydWarshallShortestPath();
-
-    auto finish = std::chrono::high_resolution_clock::now();
-
-    std::chrono::duration<double> elapsed = finish - start;
-
-    std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
-}
-
 TEST(test, getProvidersThatSatisfy){
     Headquarter headquarter("123");
 
     std::cout << std::endl << "----getProvidersThatSatisfy----" << std::endl;
-
-    headquarter.loadClientData("../src/Resources/clients.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
     headquarter.loadProductData("../src/Resources/products.txt");
     headquarter.loadProviderData("../src/Resources/providers.txt");
 
@@ -361,12 +434,13 @@ TEST(test, getProvidersThatSatisfy){
     orders1.push(order2);
 
     std::vector<Provider * > providersNeeded2 = headquarter.getProvidersThatSatisfy(orders1);
-    /*One provider that has all the products of the given orders*/
+
+    //One provider that has all the products of the given orders
     EXPECT_EQ(providersNeeded2.size(), 1);
     EXPECT_EQ(providersNeeded2[0]->getName() , "continente");
     EXPECT_EQ(providersNeeded2[0]->getProducts()[headquarter.getProductById(2)] , 285);
 
-    /*More than one provider is needed to complete a given order*/
+    //More than one provider is needed to complete a given order
     order1->addProduct(headquarter.getProductById(6), 5);
     std::queue<Order *> orders2;
     orders2.push(order1);
@@ -374,8 +448,68 @@ TEST(test, getProvidersThatSatisfy){
 
     std::vector<Provider * > providersNeeded3 = headquarter.getProvidersThatSatisfy(orders2);
     EXPECT_EQ(providersNeeded3.size(), 2);
-
 }
+
+TEST(test, calculateTrucksPathFromHeadToProviders){
+    Headquarter headquarter("123");
+
+    headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    headquarter.distributeOrdersToTrucks();
+
+    headquarter.calculateTrucksPathFromHeadToProviders();
+}
+
+TEST(test, getClientsFromOrders){
+    Headquarter headquarter("123");
+
+    headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    std::queue<Order*> ords;
+
+    Order* order1 = new Order(1);
+    Order* order2 = new Order(1);
+    Order* order3 = new Order(2);
+    Order* order4 = new Order(1);
+    Order* order5 = new Order(3);
+
+    order1->addProduct(headquarter.getProductById(1), 5);
+    order2->addProduct(headquarter.getProductById(1), 10);
+    order3->addProduct(headquarter.getProductById(1), 10);
+    order4->addProduct(headquarter.getProductById(1), 10);
+    order5->addProduct(headquarter.getProductById(1), 10);
+
+    ords.push(order1);
+    ords.push(order2);
+    ords.push(order3);
+    ords.push(order4);
+    ords.push(order5);
+
+    std::vector<Client*> cli = headquarter.getClientsFromOrders(ords);
+
+    std::cout << "AFTER GET CLIENTS" << std::endl;
+    for(auto i : cli){
+        std::cout << i->getId() << std::endl;
+    }
+    EXPECT_EQ(cli.size(), 3);
+    EXPECT_EQ(cli.at(1)->getId(), 3);
+}
+
+TEST(test, calculateTrucksPathFromProvidersToClients){
+    Headquarter headquarter("123");
+
+    headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    headquarter.distributeOrdersToTrucks();
+
+    headquarter.calculateTrucksPathFromHeadToProviders();
+
+    headquarter.calculateTrucksPathFromProvidersToClients();
+}
+
 
 TEST(test, connectivity){
     Headquarter headquarter("123");

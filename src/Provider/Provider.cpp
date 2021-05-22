@@ -71,3 +71,11 @@ void Provider::setAddress(unsigned int position_id) {
 unsigned int Provider::getAddress() const {
     return position_id;
 }
+
+void Provider::setDist(long double dist) {
+    this->dist = dist;
+}
+
+long double Provider::getDist() const {
+    return dist;
+}

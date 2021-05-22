@@ -22,7 +22,7 @@ private:
     unsigned int capacity;
     unsigned int load;
     std::queue<Order* > orders;
-    std::queue<Position *> path;
+    std::queue<Position> path;
 public:
 
     /**
@@ -99,21 +99,21 @@ public:
     *
     * @param path the trucks path
     */
-    void setPath(std::queue<Position *> &path);
+    void setPath(std::queue<Position> path);
 
     /**
     * Gets path queue
     *
     * @return the path queue
     */
-    std::queue<Position *> getPath() const;
+    std::queue<Position> getPath() const;
 
     /**
     * Adds a position to the current path
     *
     * @param position the position to be added
     */
-    void addPositionToPath(Position *position);
+    void addPositionToPath(Position position);
 
     void removePositionFromPath();
 

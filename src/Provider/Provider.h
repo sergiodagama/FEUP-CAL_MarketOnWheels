@@ -15,6 +15,7 @@ private:
     std::string name;
     std::string user_name;
     unsigned int position_id;
+    long double dist = 0;  //used to calculate minimal path of trucks
 public:
     /**
      * Void constructor for provider
@@ -86,6 +87,16 @@ public:
      * @return the position_id of provider
      */
     unsigned int getAddress() const;
+
+    /**
+     * Sets the dist from headquarter to the provider
+     */
+     void setDist(long double dist);
+
+     /**
+      * Gets the distance from headquarter to provider
+      */
+      long double getDist() const;
 
     /**
     * Overload to << operator of Provider
