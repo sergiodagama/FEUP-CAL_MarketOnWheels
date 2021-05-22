@@ -515,7 +515,7 @@ TEST(test, calculateTrucksPathFromProvidersToClients){
 
 TEST(test, connectivity){
     Headquarter headquarter("123");
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
     Graph<Position> graph = headquarter.getGraph();
     graph.connectivity();
 }

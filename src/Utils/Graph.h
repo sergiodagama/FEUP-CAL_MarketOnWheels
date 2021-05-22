@@ -137,7 +137,7 @@ public:
 
     std::vector<std::vector<Vertex<T>*>> connectivity();
     void numeration( std::stack<Vertex<T>*> &vertexStack, Vertex<T>* vertex);
-    void search(Vertex<T>* vertex, std::vector<Vertex<T>*> &vector);
+    void search(Vertex<T>* &vertex, std::vector<Vertex<T>*> &vector);
 };
 
 template<class T>
@@ -380,12 +380,7 @@ std::vector<std::vector<Vertex<T>*>> Graph<T>::connectivity(){
 
     for (auto it = vertexSet.begin(); it != vertexSet.end(); it++){
         for(auto it_e = (*it)->adj.begin(); it_e != (*it)->adj.end(); it_e++){
-            //std::cout << "HERE" << (*it)->getInfo() << std::endl;
-           // std::cout << "HERHE: " << (*it_e).dest->getInfo() << std::endl;
             temp.addEdge(((*it_e).dest->getInfo()), (*it)->getInfo() , 1);
-            //std::cout << findVertex(*it).getInfo() << std::endl;
-            std::cout << "HERHE: " << (*it_e).dest->getInfo() << std::endl;
-            std::cout << "RHE: " << (*it)->getInfo() << std::endl;
         }
     }
     //dfs by order in the stack
@@ -403,17 +398,15 @@ std::vector<std::vector<Vertex<T>*>> Graph<T>::connectivity(){
         if(vert->visited) continue;
         else {
             search(vert, *partial);
-            std::cout << partial->size() << " size of partial\n";
         }
         answer.push_back(*partial);
-        std::cout << (*partial).size() << std::endl;
     }
-    std::cout << std::endl << answer.size() << std::endl;
+    std::cout << std::endl << "Answer size " << answer.size() << std::endl;
     return answer;
 }
 
 template <class T>
-void Graph<T>::search(Vertex<T>* vertex, std::vector<Vertex<T>*> &vector){
+void Graph<T>::search(Vertex<T>* &vertex, std::vector<Vertex<T>*> &vector){
     vertex->visited = true;
     vector.push_back(vertex);
     for (auto it = vertex->adj.begin();it != vertex->adj.end(); it++){
