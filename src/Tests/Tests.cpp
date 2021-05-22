@@ -522,6 +522,20 @@ TEST(test, connectivity){
     EXPECT_EQ(test.size(), 25);
 }
 
+TEST(test, connectivity2){
+    Headquarter headquarter("123");
+    try {
+        headquarter.loadMap("../src/Resources/Maps/test_connectivity_nodes.txt", "../src/Resources/Maps/test_connectivity_edges.txt");
+    }
+    catch(NotStronglyConnected)
+    {
+
+    }
+    Graph<Position> graph = headquarter.getGraph();
+    std::vector<std::vector<Vertex<Position> *>> test = graph.connectivity();
+    EXPECT_EQ(test.size(), 5);
+}
+
 TEST(test, calculateTrucksPaths){
     Headquarter headquarter("123");
 
