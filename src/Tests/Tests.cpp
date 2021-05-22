@@ -512,6 +512,14 @@ TEST(test, calculateTrucksPathFromProvidersToClients){
     headquarter.calculateTrucksPathFromProvidersToClients();
 }
 
+
+TEST(test, connectivity){
+    Headquarter headquarter("123");
+    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    Graph<Position> graph = headquarter.getGraph();
+    graph.connectivity();
+}
+
 TEST(test, calculateTrucksPaths){
     Headquarter headquarter("123");
 
@@ -545,3 +553,4 @@ TEST(test, deliver){
 /**
  * END OF TESTS
  */
+
