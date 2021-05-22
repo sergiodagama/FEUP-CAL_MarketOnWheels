@@ -354,6 +354,14 @@ TEST(test, distanceFromPath){
     std::cout << "\nDISTANCE FROM VERTEX " << begin << " TO "  << end << " : " << headquarter.getGraph().distanceFromPath(path);
 }
 
+TEST(test, connectivity){
+    Headquarter headquarter("123");
+    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    Graph<Position> graph = headquarter.getGraph();
+    std::vector<std::vector<Vertex<Position> *>> test = graph.connectivity();
+    EXPECT_EQ(test.size(), 25);
+}
+
 /**
  * FUNCTIONS THAT HANDLES DELIVERS AND SHORTEST PATHS
  */
@@ -511,15 +519,6 @@ TEST(test, calculateTrucksPathFromProvidersToClients){
     headquarter.calculateTrucksPathFromHeadToProviders();
 
     headquarter.calculateTrucksPathFromProvidersToClients();
-}
-
-
-TEST(test, connectivity){
-    Headquarter headquarter("123");
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
-    Graph<Position> graph = headquarter.getGraph();
-    std::vector<std::vector<Vertex<Position> *>> test = graph.connectivity();
-    EXPECT_EQ(test.size(), 25);
 }
 
 TEST(test, calculateTrucksPaths){
