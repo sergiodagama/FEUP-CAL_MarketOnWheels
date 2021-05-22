@@ -356,10 +356,13 @@ TEST(test, distanceFromPath){
 
 TEST(test, connectivity){
     Headquarter headquarter("123");
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
-    Graph<Position> graph = headquarter.getGraph();
-    std::vector<std::vector<Vertex<Position> *>> test = graph.connectivity();
-    EXPECT_EQ(test.size(), 25);
+    try {
+        headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    }catch (NotStronglyConnected e){
+        Graph<Position> graph = headquarter.getGraph();
+        std::vector<std::vector<Vertex<Position> *>> test = graph.connectivity();
+        EXPECT_EQ(test.size(), 25);
+    }
 }
 
 /**
