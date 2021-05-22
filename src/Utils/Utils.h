@@ -6,6 +6,8 @@
 #include "../Position/Position.h"
 
 #define EARTH_RADIUS 6371  //radius of Earth in km
+#define SPACE 15
+#define ID 5
 
 /**
  * Util function that converts angle in degrees to radians
@@ -22,13 +24,5 @@ long double convertToRadians(const long double degree);
  */
 long double distanceBetweenTwoPos(Position position1, Position position2);
 
-/**
- * Used to print to console elements in a table format
- *
- * @param t the variable to print
- * @param width the with of the variable
- */
-template<typename T>
-void printElem(T t, const int& width);
 
 #endif //MARKETONWHEELS_UTILS_H

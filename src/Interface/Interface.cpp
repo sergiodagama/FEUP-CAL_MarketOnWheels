@@ -26,7 +26,8 @@ void interface(){
 
     Menu providers_menu = Menu("Provider's Area");
     providers_menu.addOption("Add product");
-    providers_menu.addOption("Add Quantity to product");
+    providers_menu.addOption("Add quantity to product");
+    providers_menu.addOption("Show inventory");
 
     Menu admin_menu = Menu("Administration");
     admin_menu.addOption("Save Data");
@@ -71,6 +72,7 @@ void interface(){
                         bool end = false;
                         cout << "Give me the product id and the quantity you want. If you want to stop, insert an negative id\n";
                         Order* order = new Order(client_id);
+                        headquarter.showProducts();
                         while (!end){
                             cout << "What's the id of the product?\n";
                             int id; cin >> id;
@@ -106,6 +108,7 @@ void interface(){
                         }
                         if(headquarter.acceptOrder(order)){
                             headquarter.addOrder(order);
+                            headquarter.showOrders();
                         } else{
                             cout << "Not enough stock\n";
                             delete order;
@@ -134,6 +137,7 @@ void interface(){
                 switch (option) {
                     //Add a new product
                     case 1: {
+
                         cout << "What's the product name?\n";
                         string name; cin >> name;
 
@@ -176,6 +180,7 @@ void interface(){
                     }
                         //Add quantity to an existing product
                     case 2: {
+                        headquarter.showInventory(provider);
                         cout << "What's the product name?\n";
                         string name; cin >> name;
 
@@ -199,6 +204,11 @@ void interface(){
                             cout << "You don't sell this product\n";
                             break;
                         }
+                        break;
+                    }
+                    case 3:
+                    {
+                        headquarter.showInventory(provider);
                         break;
                     }
                 }

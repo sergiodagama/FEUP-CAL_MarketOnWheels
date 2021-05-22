@@ -23,6 +23,7 @@ private:
     std::vector<Product *> products;
     unsigned int position_id = 1;
     Graph<Position> graph;
+    Graph<Position> graphTransposed;
     std::string admin_password = "123";
 public:
 
@@ -319,6 +320,11 @@ public:
     * Displays orders to user
     */
     void showOrders();
+
+    /**
+    * Displays the inventory to user
+    */
+    void showInventory(Provider * provider);
 
     //------------------------- FUNCTIONS TO HANDLE DELIVERS -------------------------
 

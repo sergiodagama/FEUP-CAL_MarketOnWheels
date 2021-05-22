@@ -23,8 +23,3 @@ long double distanceBetweenTwoPos(Position position1, Position position2) {
 
     return res * EARTH_RADIUS;
 }
-
-template<typename T>
-void printElem(T t, const int& width){
-    std::cout << std::left << std::setw(width) << std::setfill(' ') << t;
-}

@@ -56,24 +56,26 @@ Product *Headquarter::productSearcher(std::string name) {
 
 bool Headquarter::acceptOrder(Order *order) {
     ProductsWrapper total;
+
     for (auto it = products.begin(); it != products.end(); it++) {
         total.addProduct(*it, 0);
     }
+
     for (auto it = providers.begin(); it != providers.end(); it++) {
-        map<Product *, unsigned int> products = (*it)->getProducts();
-        for (auto it2 = products.begin(); it2 != products.end(); it2++) {
+        map<Product *, unsigned int> providersProducts = (*it)->getProducts();
+        for (auto it2 = providersProducts.begin(); it2 != providersProducts.end(); it2++) {
             try {
                 total.addQuantityOfProduct((*it2).first, (*it2).second);
             }
             catch (ProductNotFound) {
                 continue;
             }
-
         }
     }
+
     for (auto it = orders.begin(); it != orders.end(); it++) {
-        map<Product *, unsigned int> products = (*it)->getProducts();
-        for (auto it2 = products.begin(); it2 != products.end(); it2++) {
+        map<Product *, unsigned int> ordersProducts = (*it)->getProducts();
+        for (auto it2 = ordersProducts.begin(); it2 != ordersProducts.end(); it2++) {
             try {
                 total.addQuantityOfProduct((*it2).first, -1 * (*it2).second);
             }
@@ -82,9 +84,13 @@ bool Headquarter::acceptOrder(Order *order) {
             }
         }
     }
+
     map<Product *, unsigned int> ord = order->getProducts();
     for (auto it = ord.begin(); it != ord.end(); it++) {
-        if (total.getQuantityOfProduct((*it).first) < (*it).second) return false;
+        if (total.getQuantityOfProduct((*it).first) < (*it).second)
+        {
+            return false;
+        }
     }
     return true;
 }
@@ -211,6 +217,10 @@ void Headquarter::loadMap(const std::string &nodes_path, const std::string &edge
                 if (!graph.addVertex(Position(id, latitude, longitude))) {
                     cout << "ERROR" << endl;
                 }
+
+                if (!graphTransposed.addVertex(Position(id, latitude, longitude))) {
+                    cout << "ERROR" << endl;
+                }
             }
         }
         nodesFile.close();
@@ -242,6 +252,9 @@ void Headquarter::loadMap(const std::string &nodes_path, const std::string &edge
                 Position position = getPositionById(id);
                 Position position2 = getPositionById(id2);
                 if (!graph.addEdge(position, position2, distanceBetweenTwoPos(position, position2))) {
+                    cout << "ERROR" << endl;
+                };
+                if (!graphTransposed.addEdge(position2 , position, distanceBetweenTwoPos(position, position2))) {
                     cout << "ERROR" << endl;
                 };
             }
@@ -435,21 +448,22 @@ void Headquarter::loadProductData(const string &products_path) {
 
 void Headquarter::showProducts() {
     cout << "----------------Products----------------" << endl;
+    cout  << setw(SPACE) << "Id" << setw(SPACE) << "Name" << setw(SPACE)<< "Price"<< endl;
     for (auto it = products.begin(); it != products.end(); it++) {
-        cout << *(*it);
+        cout  << setw(SPACE) << (*it)->getId() << setw(SPACE) << (*it)->getName() << setw(SPACE) << (*it)->getPrice() << endl;
     }
 }
 
 void Headquarter::showTrucks() {
-    cout << "----------------Trucks----------------" << endl;
+    cout << "----------------------Trucks----------------------" << endl;
     if (trucks.empty()) {
         cout << "It does not exist any truck yet" << endl;
         return;
     }
-    cout << "Id\tCapacity\tLoad\tState" << endl;
+    cout  << setw(ID) << "Id" << setw(SPACE) << "Capacity" << setw(SPACE)<< "Load"<< setw(SPACE) << "Delivering" << endl;
     for (auto it = trucks.begin(); it != trucks.end(); it++) {
-        cout << (*it)->getId() << "\t" << (*it)->getCapacity() << "\t" << (*it)->getLoad() << "\t" << (*it)->isDelivering()
-             << endl;
+        cout << setw(ID) << (*it)->getId() << setw(SPACE) << (*it)->getCapacity() << setw(SPACE) << (*it)->getLoad() << setw(SPACE);
+         (*it)->isDelivering() ? cout << "Yes" : cout << "No" << endl;
     }
 }
 
@@ -459,35 +473,61 @@ void Headquarter::showOrders() {
         cout << "It does not exist any order yet" << endl;
         return;
     }
-    cout << "Id\t" << endl;
+
+    cout  << setw(ID) << "ID" << setw(SPACE) << "ClientId" << setw(SPACE) << "Delivering" << setw(SPACE) << "Products" <<endl;
     for (auto it = orders.begin(); it != orders.end(); it++) {
-        cout << (*it)->getId() << endl;
+        cout << setw(ID) << (*it)->getId();
+
+        cout << setw(SPACE) << (*it)->getClientId() << setw(SPACE);
+        (*it)->getFlag() ? cout << "Yes" : cout << "No";
+
+        auto ordersProducts = (*it)->getProducts();
+        for(auto it2 = ordersProducts.begin(); it2 != ordersProducts.end(); it2++)
+        {
+            cout << setw(SPACE ) << (*(*it2).first).getName() << setw(SPACE) << (*it2).second << " ";
+        }
+        cout << endl;
     }
 }
 
-void Headquarter::showClients() { //TODO investigate format
-    cout << "----------------Clients----------------" << endl;
+void Headquarter::showClients() {
+    cout << "---------------------Clients---------------------" << endl;
     if (clients.empty()) {
         cout << "It does not exist any client yet" << endl;
         return;
     }
-    cout << "Id\tName\tUsername\tDate\t\tAdressId" << endl;
+    cout << setw(ID)<< "Id" << setw(SPACE) << "Name" << setw(SPACE) << "UserName" << setw(SPACE) << "AddressId" << endl;
     for (auto it = clients.begin(); it != clients.end(); it++) {
-        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t" << (*it)->getDate()
-             << "\t" << (*it)->getAddress() << endl;
+        cout <<  setw(ID) << (*it)->getId() <<  setw(SPACE) << (*it)->getName() <<  setw(SPACE) << (*it)->getUserName()
+             <<  setw(SPACE) << (*it)->getAddress()  << endl;
     }
 }
 
 void Headquarter::showProviders() {
-    cout << "----------------Providers----------------" << endl;
+    cout << "---------------------Providers----------------------" << endl;
     if (providers.empty()) {
         cout << "It does not exist any provider yet" << endl;
         return;
     }
-    cout << "Id\tName\t\tUserName\tnProducts\tAddressId" << endl;
+    cout << setw(ID)<< "Id" << setw(SPACE) << "Name" << setw(SPACE) << "UserName" << setw(SPACE) << "nProducts"  << setw(SPACE) << "AddressId" << endl;
     for (auto it = providers.begin(); it != providers.end(); it++) {
-        cout << (*it)->getId() << "\t" << (*it)->getName() << "\t" << (*it)->getUserName() << "\t\t"
-             << (*it)->getNumOfDifProducts() << "\t\t\t" << (*it)->getAddress() << endl;
+        cout << setw(ID)<< (*it)->getId() << setw(SPACE) << (*it)->getName() <<setw(SPACE)<< (*it)->getUserName() << setw(SPACE)
+             << (*it)->getNumOfDifProducts() << setw(SPACE) << (*it)->getAddress() << endl;
+    }
+}
+
+void Headquarter::showInventory(Provider * provider)
+{
+    cout << "---------------------Inventory----------------------" << endl;
+    cout <<  setw(SPACE) << "Name" << setw(SPACE) << "Quantity" << endl;
+
+    for(auto it = providers.begin(); it != providers.end(); it++)
+    {
+        auto providersProvider = (*it)->getProducts();
+        for(auto it2 = providersProvider.begin(); it2 != providersProvider.end(); it2++)
+        {
+            cout << setw(SPACE ) << (*(*it2).first).getName() << setw(SPACE) << (*it2).second << " " << endl;
+        }
     }
 }
 
@@ -784,3 +824,5 @@ void Headquarter::deliver() {
         (*it).setDelivering(false);
     }
 }
+
+
