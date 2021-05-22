@@ -3,14 +3,14 @@
 
 /**
  *  THE FOLLOWING TESTS ARE ONLY USED TO FILL FILES WITH SPECIFIC DATA
- *  each filler has valid position id's for the respective maps
+ *  this dataset as valid positions for both penafiel_strong and porto_strong maps
  */
 
-TEST(test, FILLER_PENAFIEL){
+TEST(test, FILLER_PENAFIEL_OR_PORTO) {
 
     //---------------PRODUCTS---------------
 
-    Headquarter headquarter("1");
+    Headquarter headquarter("123");
 
     //total of 30 alimentary supermarket products
     headquarter.addProduct(new Product("snack", 1.5, 1));
@@ -48,9 +48,9 @@ TEST(test, FILLER_PENAFIEL){
 
     //---------------PROVIDERS---------------
 
-    Provider* lidl = new Provider("lidl", "lidl", 26);
-    Provider* continente = new Provider("continente", "continente", 26);
-    Provider* pingo_doce = new Provider("pingo_doce", "pingo_doce", 26);
+    Provider *lidl = new Provider("lidl", "lidl", 26);
+    Provider *continente = new Provider("continente", "continente", 200);
+    Provider *pingo_doce = new Provider("pingo_doce", "pingo_doce", 201);
 
     lidl->addProduct(headquarter.getProductById(1), 200);
     lidl->addProduct(headquarter.getProductById(2), 120);
@@ -93,60 +93,127 @@ TEST(test, FILLER_PENAFIEL){
 
     //---------------CLIENTS---------------
 
-    headquarter.addClient(new Client("Mary", "mary", Date(17, 9 ,2000), 9));
-    headquarter.addClient(new Client("Lionel", "lio", Date(19, 7 ,1975), 9));
-    headquarter.addClient(new Client("Erica", "erica", Date(24, 1 ,1947), 9));
-    headquarter.addClient(new Client("Rebecca", "rebecca", Date(25, 4 ,1985), 9));
-    headquarter.addClient(new Client("Frances", "fran", Date(6, 4 ,1956), 9));
-    headquarter.addClient(new Client("Carmen", "carmen", Date(27, 6 ,1993), 9));
-    headquarter.addClient(new Client("John", "john", Date(16, 3 ,1977), 9));
-    headquarter.addClient(new Client("Christopher", "chris", Date(9, 2 ,1991), 9));
-    headquarter.addClient(new Client("Patricia", "patri", Date(13, 11 ,1987), 9));
-    headquarter.addClient(new Client("David", "davi", Date(21, 5 ,1976), 9));
+    headquarter.addClient(new Client("Mary", "mary", Date(17, 9, 2000), 9));
+    headquarter.addClient(new Client("Lionel", "lio", Date(19, 7, 1975), 11));
+    headquarter.addClient(new Client("Erica", "erica", Date(24, 1, 1947), 17));
+    headquarter.addClient(new Client("Rebecca", "rebecca", Date(25, 4, 1985), 91));
+    headquarter.addClient(new Client("Frances", "fran", Date(6, 4, 1956), 80));
+    headquarter.addClient(new Client("Carmen", "carmen", Date(27, 6, 1993), 81));
+    headquarter.addClient(new Client("John", "john", Date(16, 3, 1977), 98));
+    headquarter.addClient(new Client("Christopher", "chris", Date(9, 2, 1991), 92));
+    headquarter.addClient(new Client("Patricia", "patri", Date(13, 11, 1987), 101));
+    headquarter.addClient(new Client("David", "davi", Date(21, 5, 1976), 106));
 
     //---------------ORDERS---------------
 
-    Order* order1 = new Order(1);
-    Order* order1_2 = new Order(1);
-    Order* order1_3 = new Order(1);
-    Order* order2 = new Order(2);
-    Order* order2_2 = new Order(2);
-    Order* order3 = new Order(3);
-    Order* order3_2 = new Order(3);
-    Order* order3_3 = new Order(3);
-    Order* order3_4 = new Order(3);
-    Order* order3_5 = new Order(3);
-    Order* order4 = new Order(4);
-    Order* order4_2 = new Order(4);
-    Order* order5 = new Order(5);
-    Order* order5_2 = new Order(5);
-    Order* order5_3 = new Order(5);
-    Order* order5_4 = new Order(5);
-    Order* order6 = new Order(6);
-    Order* order6_2 = new Order(6);
-    Order* order6_3 = new Order(6);
-    Order* order7 = new Order(7);
-    Order* order7_2 = new Order(7);
-    Order* order7_3 = new Order(7);
-    Order* order7_4 = new Order(7);
-    Order* order7_5 = new Order(7);
-    Order* order7_6 = new Order(7);
-    Order* order7_7 = new Order(7);
-    Order* order8 = new Order(8);
-    Order* order8_2 = new Order(8);
-    Order* order9 = new Order(9);
-    Order* order9_2 = new Order(9);
-    Order* order9_3 = new Order(9);
-    Order* order9_4 = new Order(9);
-    Order* order10 = new Order(10);
-    Order* order10_2 = new Order(10);
-    Order* order10_3 = new Order(10);
-    Order* order10_4 = new Order(10);
-    Order* order10_5 = new Order(10);
+    Order *order1 = new Order(1);
+    Order *order1_2 = new Order(1);
+    Order *order1_3 = new Order(1);
+    Order *order2 = new Order(2);
+    Order *order2_2 = new Order(2);
+    Order *order3 = new Order(3);
+    Order *order3_2 = new Order(3);
+    Order *order3_3 = new Order(3);
+    Order *order3_4 = new Order(3);
+    Order *order3_5 = new Order(3);
+    Order *order4 = new Order(4);
+    Order *order4_2 = new Order(4);
+    Order *order5 = new Order(5);
+    Order *order5_2 = new Order(5);
+    Order *order5_3 = new Order(5);
+    Order *order5_4 = new Order(5);
+    Order *order6 = new Order(6);
+    Order *order6_2 = new Order(6);
+    Order *order6_3 = new Order(6);
+    Order *order7 = new Order(7);
+    Order *order7_2 = new Order(7);
+    Order *order7_3 = new Order(7);
+    Order *order7_4 = new Order(7);
+    Order *order7_5 = new Order(7);
+    Order *order7_6 = new Order(7);
+    Order *order7_7 = new Order(7);
+    Order *order8 = new Order(8);
+    Order *order8_2 = new Order(8);
+    Order *order9 = new Order(9);
+    Order *order9_2 = new Order(9);
+    Order *order9_3 = new Order(9);
+    Order *order9_4 = new Order(9);
+    Order *order10 = new Order(10);
+    Order *order10_2 = new Order(10);
+    Order *order10_3 = new Order(10);
+    Order *order10_4 = new Order(10);
+    Order *order10_5 = new Order(10);
 
-    order1->addProduct(headquarter.getProductById(1), 10);
-
-    //TODO add products to orders and change positions of clients and providers
+    order1->addProduct(headquarter.getProductById(1), 20);
+    order1->addProduct(headquarter.getProductById(2), 70);
+    order1->addProduct(headquarter.getProductById(3), 10);
+    order1_2->addProduct(headquarter.getProductById(3), 27);
+    order1_2->addProduct(headquarter.getProductById(1), 60);
+    order1_3->addProduct(headquarter.getProductById(3), 50);
+    order2->addProduct(headquarter.getProductById(3), 10);
+    order2->addProduct(headquarter.getProductById(4), 38);
+    order2_2->addProduct(headquarter.getProductById(5), 40);
+    order2_2->addProduct(headquarter.getProductById(6), 102);
+    order2_2->addProduct(headquarter.getProductById(7), 70);
+    order3->addProduct(headquarter.getProductById(7), 23);
+    order3->addProduct(headquarter.getProductById(3), 10);
+    order3->addProduct(headquarter.getProductById(4), 60);
+    order3->addProduct(headquarter.getProductById(8), 14);
+    order3_2->addProduct(headquarter.getProductById(1), 100);
+    order3_2->addProduct(headquarter.getProductById(8), 10);
+    order3_2->addProduct(headquarter.getProductById(9), 15);
+    order3_2->addProduct(headquarter.getProductById(6), 12);
+    order3_2->addProduct(headquarter.getProductById(10), 30);
+    order3_3->addProduct(headquarter.getProductById(5), 36);
+    order3_4->addProduct(headquarter.getProductById(9), 20);
+    order3_5->addProduct(headquarter.getProductById(6), 59);
+    order3_5->addProduct(headquarter.getProductById(10), 50);
+    order3_5->addProduct(headquarter.getProductById(20), 47);
+    order4->addProduct(headquarter.getProductById(19), 22);
+    order4->addProduct(headquarter.getProductById(18), 110);
+    order4_2->addProduct(headquarter.getProductById(20), 31);
+    order4_2->addProduct(headquarter.getProductById(18), 78);
+    order4_2->addProduct(headquarter.getProductById(19), 13);
+    order5->addProduct(headquarter.getProductById(17), 49);
+    order5->addProduct(headquarter.getProductById(15), 43);
+    order5_2->addProduct(headquarter.getProductById(16), 60);
+    order5_2->addProduct(headquarter.getProductById(14), 134);
+    order5_2->addProduct(headquarter.getProductById(15), 64);
+    order5_3->addProduct(headquarter.getProductById(17), 60);
+    order5_3->addProduct(headquarter.getProductById(13), 23);
+    order5_4->addProduct(headquarter.getProductById(12), 70);
+    order6->addProduct(headquarter.getProductById(12), 38);
+    order6->addProduct(headquarter.getProductById(11), 11);
+    order6_2->addProduct(headquarter.getProductById(11), 12);
+    order6_3->addProduct(headquarter.getProductById(13), 20);
+    order7->addProduct(headquarter.getProductById(21), 5);
+    order7_2->addProduct(headquarter.getProductById(11), 3);
+    order7_2->addProduct(headquarter.getProductById(22), 17);
+    order7_2->addProduct(headquarter.getProductById(29), 44);
+    order7_3->addProduct(headquarter.getProductById(22), 16);
+    order7_4->addProduct(headquarter.getProductById(22), 120);
+    order7_5->addProduct(headquarter.getProductById(21), 7);
+    order7_6->addProduct(headquarter.getProductById(24), 16);
+    order7_7->addProduct(headquarter.getProductById(26), 3);
+    order7_7->addProduct(headquarter.getProductById(25), 10);
+    order8->addProduct(headquarter.getProductById(24), 31);
+    order8->addProduct(headquarter.getProductById(26), 12);
+    order8_2->addProduct(headquarter.getProductById(21), 6);
+    order9->addProduct(headquarter.getProductById(29), 120);
+    order9_2->addProduct(headquarter.getProductById(23), 8);
+    order9_3->addProduct(headquarter.getProductById(30), 2);
+    order9_3->addProduct(headquarter.getProductById(26), 7);
+    order9_4->addProduct(headquarter.getProductById(23), 6);
+    order9_4->addProduct(headquarter.getProductById(30), 5);
+    order10->addProduct(headquarter.getProductById(24), 9);
+    order10_2->addProduct(headquarter.getProductById(23), 29);
+    order10_2->addProduct(headquarter.getProductById(28), 34);
+    order10_3->addProduct(headquarter.getProductById(27), 23);
+    order10_3->addProduct(headquarter.getProductById(23), 17);
+    order10_3->addProduct(headquarter.getProductById(28), 28);
+    order10_4->addProduct(headquarter.getProductById(24), 22);
+    order10_5->addProduct(headquarter.getProductById(28), 57);
+    order10_5->addProduct(headquarter.getProductById(23), 63);
 
     headquarter.addOrder(order1);
     headquarter.addOrder(order1_2);
@@ -186,4 +253,16 @@ TEST(test, FILLER_PENAFIEL){
     headquarter.addOrder(order10_3);
     headquarter.addOrder(order10_4);
     headquarter.addOrder(order10_5);
+
+    //---------------TRUCKS---------------
+
+    headquarter.addTruck(new Truck(100));
+    headquarter.addTruck(new Truck(500));
+    headquarter.addTruck(new Truck(500));
+    headquarter.addTruck(new Truck(1000));
+    headquarter.addTruck(new Truck(3000));
+
+    headquarter.saveAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
+                            "../src/Resources/trucks.txt", "../src/Resources/orders.txt",
+                            "../src/Resources/products.txt");
 }
