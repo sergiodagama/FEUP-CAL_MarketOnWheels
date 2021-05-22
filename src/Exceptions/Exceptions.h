@@ -58,4 +58,6 @@ class NameDosNotExist : std::exception{};
 
 class NotAvailableSpace : std::exception{};
 
+class NotStronglyConnected : std::exception{};
+
 #endif //SRC_EXCEPTIONS_H

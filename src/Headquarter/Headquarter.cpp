@@ -228,10 +228,6 @@ void Headquarter::loadMap(const std::string &nodes_path, const std::string &edge
                 if (!graph.addVertex(Position(id, latitude, longitude))) {
                     cout << "ERROR" << endl;
                 }
-
-                if (!graphTransposed.addVertex(Position(id, latitude, longitude))) {
-                    cout << "ERROR" << endl;
-                }
             }
         }
         nodesFile.close();
@@ -265,13 +261,16 @@ void Headquarter::loadMap(const std::string &nodes_path, const std::string &edge
                 if (!graph.addEdge(position, position2, distanceBetweenTwoPos(position, position2))) {
                     cout << "ERROR" << endl;
                 };
-                if (!graphTransposed.addEdge(position2 , position, distanceBetweenTwoPos(position, position2))) {
-                    cout << "ERROR" << endl;
-                };
             }
         }
         nodesFile.close();
     } else cout << "Unable to open edges file";
+
+    //checking connectivity after load
+    if(graph.connectivity().size() != 1){
+        cout << "THE MAP IMPORTED IS NOT STRONGLY CONNECTED" << std::endl;
+        throw NotStronglyConnected();
+    }
 }
 
 void Headquarter::loadAllData(const string &clients_path, const string &providers_path, const string &trucks_path,
