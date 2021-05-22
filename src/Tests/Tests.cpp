@@ -519,13 +519,23 @@ TEST(test, calculateTrucksPaths){
     headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
 
     headquarter.calculateTrucksPaths();
+
+    std::vector<Truck*> trucks = headquarter.getTrucks();
+
+    for(auto it = trucks.begin(); it != trucks.end(); it++){
+        (*it)->showOrders();
+    }
+
+    headquarter.saveTruckData("../src/Resources/trucks.txt");
+
+    std::cout <<  "Also check trucks file" << std::endl;
 }
 
 TEST(test, deliver){
     Headquarter headquarter("123");
 
     headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
-    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+    headquarter.loadMap("../src/Resources/Maps/porto_strong_nodes.txt", "../src/Resources/Maps/porto_strong_edges.txt");
 
     headquarter.calculateTrucksPaths();
 
