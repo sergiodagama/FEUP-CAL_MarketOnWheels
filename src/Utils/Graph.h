@@ -137,7 +137,7 @@ public:
 
     std::vector<std::vector<Vertex<T>*>> connectivity();
     void numeration( std::stack<Vertex<T>*> &vertexStack, Vertex<T>* vertex);
-
+    void search(Vertex<T>* vertex, std::vector<Vertex<T>*> &vector);
 };
 
 template<class T>
@@ -373,9 +373,51 @@ std::vector<std::vector<Vertex<T>*>> Graph<T>::connectivity(){
         }
     }
     //reverse all edges
+    Graph<T> temp;
+    for (auto it = vertexSet.begin(); it != vertexSet.end(); it++){
+        temp.addVertex((*it)->getInfo());
+    }
 
-    std::cout << vertexStack.size();
-    return *(new std::vector<std::vector<Vertex<T>*>>);
+    for (auto it = vertexSet.begin(); it != vertexSet.end(); it++){
+        for(auto it_e = (*it)->adj.begin(); it_e != (*it)->adj.end(); it_e++){
+            ((*it_e).dest)->addEdge(temp.findVertex((*it)->info) , 1);
+           // std::cout << (*it_e)->info;
+        }
+    }
+    //dfs by order in the stack
+    //set all not visited
+    for(auto it = temp.vertexSet.begin(); it != temp.vertexSet.end(); it++){
+        (*it)->visited = false;
+    }
+    std::vector<std::vector<Vertex<T>*>> answer;
+    std::cout << vertexStack.size() << " size of stack\n";
+    while(!vertexStack.empty()){
+        std::vector<Vertex<T>*>* partial = new std::vector<Vertex<T>*>;
+        Vertex<T>* vert = temp.findVertex(vertexStack.top()->getInfo());
+        vertexStack.pop();
+        if(vert->visited) continue;
+        else {
+            search(vert, *partial);
+            std::cout << partial->size() << " size of partial\n";
+        }
+        answer.push_back(*partial);
+        std::cout << (*partial).size();
+    }
+    std::cout << answer.size() << std::endl;
+    return answer;
+}
+
+template <class T>
+void Graph<T>::search(Vertex<T>* vertex, std::vector<Vertex<T>*> &vector){
+    vertex->visited = true;
+    vector.push_back(vertex);
+    for (auto it = vertex->adj.begin();it != vertex->adj.end(); it++){
+        if(((*it).dest)->visited == true)
+            continue;
+        else{
+            search((*it).dest, vector);
+        }
+    }
 }
 
 
