@@ -137,6 +137,13 @@ Order *Headquarter::getOrderById(unsigned int id) {
     return nullptr;
 }
 
+Truck* Headquarter::getTruckById(unsigned int id){
+    for (auto it = trucks.begin(); it != trucks.end(); it++) {
+        if ((*it)->getId() == id) return (*it);
+    }
+    return nullptr;
+}
+
 unsigned int Headquarter::getNProducts() const {
     return products.size();
 }
@@ -151,6 +158,10 @@ unsigned int Headquarter::getNOrders() const {
 
 unsigned int Headquarter::getNTrucks() const {
     return trucks.size();
+}
+
+std::vector<Truck *> Headquarter::getTrucks() const {
+    return trucks;
 }
 
 void Headquarter::addClient(Client *client) {
@@ -537,35 +548,35 @@ void Headquarter::distributeOrdersToTrucks() {
         return truck1->getCapacity() > truck2->getCapacity();
     });
 
-    //sorting orders by their price (prices)
-    sort(orders.begin(), orders.end(), [](Order const *const order1, Order const *const order2) {
-        return order1->getPrice() > order2->getPrice();
-    });
-
-    vector<Order *> ords(orders);
-
-    unsigned int current_client_id, cur_ord_id;
-
-    vector<Order *> ordsSorted;
-
-    //grouping orders by id, maintaining the order by price
-    while (ords.size() != 0) {
-        ordsSorted.push_back(ords.at(0));
-        current_client_id = ords.at(0)->getClientId();
-        cur_ord_id = ords.at(0)->getId();
-        ords.erase(ords.begin());
-
-        auto it = ords.begin();
-        while (it != ords.end()) {
-            if (current_client_id == (*it)->getClientId() && cur_ord_id != (*it)->getId()) {
-                ordsSorted.push_back((*it));
-                ords.erase(it);
-            } else it++;
-        }
-    }
-
     //going through all the trucks
     for (int t = 0; t < trucks.size(); t++) {
+
+        //sorting orders by their price (prices)
+        sort(orders.begin(), orders.end(), [](Order const *const order1, Order const *const order2) {
+            return order1->getPrice() > order2->getPrice();
+        });
+
+        vector<Order *> ords(orders);
+
+        unsigned int current_client_id, cur_ord_id;
+
+        vector<Order *> ordsSorted;
+
+        //grouping orders by id, maintaining the order by price
+        while (ords.size() != 0) {
+            ordsSorted.push_back(ords.at(0));
+            current_client_id = ords.at(0)->getClientId();
+            cur_ord_id = ords.at(0)->getId();
+            ords.erase(ords.begin());
+
+            auto it = ords.begin();
+            while (it != ords.end()) {
+                if (current_client_id == (*it)->getClientId() && cur_ord_id != (*it)->getId()) {
+                    ordsSorted.push_back((*it));
+                    ords.erase(it);
+                } else it++;
+            }
+        }
 
         //checking if truck is available
         if (!trucks[t]->isDelivering()) {
@@ -793,6 +804,7 @@ void Headquarter::calculateTrucksPathFromProvidersToClients() {
         }
 
         graph.dijkstraShortestPath(first->getInfo());
+
         vector<Position> pathToHead = graph.getPath(first->getInfo(), getPositionById(position_id));
         cout << "---------------FINAL PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
         for (auto itr = pathToHead.begin(); itr != pathToHead.end() - 1; itr++) {
@@ -822,6 +834,12 @@ void Headquarter::deliver() {
 
         //setting trucks state to available again
         (*it).setDelivering(false);
+    }
+
+    //clear all orders that were delivered
+    for(auto itr = orders.begin(); itr != orders.end();){
+        if((*itr)->getFlag()) orders.erase(itr);
+        else itr++;
     }
 }
 

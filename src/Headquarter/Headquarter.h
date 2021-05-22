@@ -114,6 +114,19 @@ public:
     Product *getProductById(unsigned int id);
 
     /**
+    * Gets truck by id
+    *
+    * @param id the truck id
+    * @return the truck wanted
+    */
+    Truck *getTruckById(unsigned int id);
+
+    /**
+     * Gets the trucks from headquarter
+     */
+     std::vector<Truck*> getTrucks() const;
+
+    /**
     * Gets the position in graph with the id specified
     *
     * @param id the id of the position to look for
