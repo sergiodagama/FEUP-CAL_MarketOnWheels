@@ -1,30 +1,29 @@
 #include <Headquarter.h>
 
 
-
 using namespace std;
 
 Headquarter::Headquarter(string admin_pass) {
     this->admin_password = admin_pass;
 }
 
-bool Headquarter::emptyAddress(double idVertex){
-    for(auto it = clients.begin(); it != clients.end(); it++){
-        if((double) (*it)->getAddress() == idVertex){
+bool Headquarter::emptyAddress(double idVertex) {
+    for (auto it = clients.begin(); it != clients.end(); it++) {
+        if ((double) (*it)->getAddress() == idVertex) {
             return false;
         }
     }
-    for(auto it = providers.begin(); it != providers.end(); it++){
-        if((double) (*it)->getAddress() == idVertex){
+    for (auto it = providers.begin(); it != providers.end(); it++) {
+        if ((double) (*it)->getAddress() == idVertex) {
             return false;
         }
     }
     return true;
 }
 
-bool Headquarter::clientSearcher(std::string userName){
-    for(vector<Client*>::iterator it = clients.begin(); it != clients.end(); it++){
-        if((*it)->getUserName() == userName){
+bool Headquarter::clientSearcher(std::string userName) {
+    for (vector<Client *>::iterator it = clients.begin(); it != clients.end(); it++) {
+        if ((*it)->getUserName() == userName) {
             return true;
         }
     }
@@ -32,38 +31,38 @@ bool Headquarter::clientSearcher(std::string userName){
 }
 
 bool Headquarter::positionSearcher(double idVertex) {
-    Vertex<Position>* pos =  graph.findVertex(Position(idVertex, 0, 0));
-    if(pos==NULL) return false;
+    Vertex<Position> *pos = graph.findVertex(Position(idVertex, 0, 0));
+    if (pos == NULL) return false;
     return true;
 }
 
 bool Headquarter::providerSearcher(std::string userName) {
-    for(vector<Provider*>::iterator it = providers.begin(); it != providers.end(); it++){
-        if((*it)->getUserName() == userName){
+    for (vector<Provider *>::iterator it = providers.begin(); it != providers.end(); it++) {
+        if ((*it)->getUserName() == userName) {
             return true;
         }
     }
     return false;
 }
 
-Product* Headquarter::productSearcher(std::string name){
-    for(vector<Product*>::iterator it = products.begin(); it != products.end(); it++){
-        if((*it)->getName() == name){
+Product *Headquarter::productSearcher(std::string name) {
+    for (vector<Product *>::iterator it = products.begin(); it != products.end(); it++) {
+        if ((*it)->getName() == name) {
             return *it;
         }
     }
     return NULL;
 }
 
-bool Headquarter::acceptOrder(Order* order){
+bool Headquarter::acceptOrder(Order *order) {
     ProductsWrapper total;
-    for(auto it = products.begin(); it != products.end(); it ++){
+    for (auto it = products.begin(); it != products.end(); it++) {
         total.addProduct(*it, 0);
     }
-    for(auto it = providers.begin(); it != providers.end(); it++){
-        map<Product*, unsigned int> products = (*it)->getProducts();
-        for (auto it2 = products.begin();  it2 != products.end(); it2++){
-            try{
+    for (auto it = providers.begin(); it != providers.end(); it++) {
+        map<Product *, unsigned int> products = (*it)->getProducts();
+        for (auto it2 = products.begin(); it2 != products.end(); it2++) {
+            try {
                 total.addQuantityOfProduct((*it2).first, (*it2).second);
             }
             catch (ProductNotFound) {
@@ -72,20 +71,20 @@ bool Headquarter::acceptOrder(Order* order){
 
         }
     }
-    for(auto it = orders.begin(); it != orders.end(); it ++){
-        map<Product*, unsigned int> products = (*it)->getProducts();
-        for (auto it2 = products.begin();  it2 != products.end(); it2++){
-            try{
-                total.addQuantityOfProduct((*it2).first, -1*(*it2).second);
+    for (auto it = orders.begin(); it != orders.end(); it++) {
+        map<Product *, unsigned int> products = (*it)->getProducts();
+        for (auto it2 = products.begin(); it2 != products.end(); it2++) {
+            try {
+                total.addQuantityOfProduct((*it2).first, -1 * (*it2).second);
             }
             catch (ProductNotFound) {
                 continue;
             }
         }
     }
-    map<Product*, unsigned int> ord = order->getProducts();
-    for(auto it = ord.begin(); it != ord.end(); it ++){
-        if(total.getQuantityOfProduct((*it).first) < (*it).second) return false;
+    map<Product *, unsigned int> ord = order->getProducts();
+    for (auto it = ord.begin(); it != ord.end(); it++) {
+        if (total.getQuantityOfProduct((*it).first) < (*it).second) return false;
     }
     return true;
 }
@@ -99,8 +98,8 @@ string Headquarter::getAdminPassword() const {
 }
 
 Position Headquarter::getPositionById(double id) {
-    Vertex<Position>* v = graph.findVertex(Position(id, 0, 0));
-    if(v != NULL) return v->getInfo();
+    Vertex<Position> *v = graph.findVertex(Position(id, 0, 0));
+    if (v != NULL) return v->getInfo();
     else return Position(0, 0, 0);
 }
 
@@ -164,9 +163,9 @@ void Headquarter::addOrder(Order *order) {
     orders.push_back(order);
 }
 
-void Headquarter::removeOrderById(unsigned int id){
-    for(auto it = orders.begin(); it != orders.end(); it++){
-        if((*it)->getId() == id){
+void Headquarter::removeOrderById(unsigned int id) {
+    for (auto it = orders.begin(); it != orders.end(); it++) {
+        if ((*it)->getId() == id) {
             orders.erase(it);
             break;
         }
@@ -449,7 +448,8 @@ void Headquarter::showTrucks() {
     }
     cout << "Id\tCapacity\tLoad\tState" << endl;
     for (auto it = trucks.begin(); it != trucks.end(); it++) {
-        cout << (*it)->getId() << "\t" << (*it)->getCapacity() << "\t" << (*it)->getLoad() << "\t" << (*it)->getState() << endl;
+        cout << (*it)->getId() << "\t" << (*it)->getCapacity() << "\t" << (*it)->getLoad() << "\t" << (*it)->isDelivering()
+             << endl;
     }
 }
 
@@ -497,92 +497,96 @@ void Headquarter::distributeOrdersToTrucks() {
         return truck1->getCapacity() > truck2->getCapacity();
     });
 
+    //sorting orders by their price (prices)
+    sort(orders.begin(), orders.end(), [](Order const *const order1, Order const *const order2) {
+        return order1->getPrice() > order2->getPrice();
+    });
+
+    vector<Order *> ords(orders);
+
+    unsigned int current_client_id, cur_ord_id;
+
+    vector<Order *> ordsSorted;
+
+    //grouping orders by id, maintaining the order by price
+    while (ords.size() != 0) {
+        ordsSorted.push_back(ords.at(0));
+        current_client_id = ords.at(0)->getClientId();
+        cur_ord_id = ords.at(0)->getId();
+        ords.erase(ords.begin());
+
+        auto it = ords.begin();
+        while (it != ords.end()) {
+            if (current_client_id == (*it)->getClientId() && cur_ord_id != (*it)->getId()) {
+                ordsSorted.push_back((*it));
+                ords.erase(it);
+            } else it++;
+        }
+    }
+
     //going through all the trucks
     for (int t = 0; t < trucks.size(); t++) {
 
-        //sorting orders by their price (prices)
-        sort(orders.begin(), orders.end(), [](Order const *const order1, Order const *const order2) {
-            return order1->getPrice() > order2->getPrice();
-        });
-
-        vector<Order*> ords(orders);
-
-        unsigned int current_client_id, cur_ord_id;
-
-        vector<Order*> ordsSorted;
-
-        //grouping orders by id, maintaining the order by price
-        while(ords.size() != 0) {
-            ordsSorted.push_back(ords.at(0));
-            current_client_id = ords.at(0)->getClientId();
-            cur_ord_id = ords.at(0)->getId();
-            ords.erase(ords.begin());
-
-            auto it = ords.begin();
-            while(it != ords.end()) {
-                if (current_client_id == (*it)->getClientId() && cur_ord_id != (*it)->getId()) {
-                    ordsSorted.push_back((*it));
-                    ords.erase(it);
+        //checking if truck is available
+        if (!trucks[t]->isDelivering()) {
+            //filling trucks [just needed to follow the order of the sorted vector]
+            for (auto it = ordsSorted.begin(); it != ordsSorted.end(); it++) {
+                if (getOrderById((*it)->getId())->getFlag()) continue; //if truck is already being delivered
+                try {
+                    trucks[t]->addOrder(getOrderById((*it)->getId()));
+                    getOrderById((*it)->getId())->setFlag();
+                    if (!trucks[t]->isDelivering()) trucks[t]->setDelivering(true);
                 }
-                else it++;
+                catch (NotAvailableSpace e) {
+                    continue;  //when there is no available space goes to next order, until finished
+                }
+                //here it's just an optimization, not actually necessary,
+                //but prevents going through all orders, when truck it's already full
+                if (trucks[t]->getCapacity() == trucks[t]->getLoad()) break;
             }
-        }
-
-        //filling trucks [just needed to follow the order of the sorted vector]
-        for(auto it = ordsSorted.begin(); it != ordsSorted.end(); it++) {
-            if(getOrderById((*it)->getId())->getFlag()) continue; //if truck is already being delivered
-            try {
-                trucks[t]->addOrder(getOrderById((*it)->getId()));
-                getOrderById((*it)->getId())->setFlag();
-            }
-            catch(NotAvailableSpace e) {
-                continue;  //when there is no available space goes to next order, until finished
-            }
-            //here it's just an optimization, not actually necessary,
-            //but prevents going through all orders, when truck it's already full
-            if(trucks[t]->getCapacity() == trucks[t]->getLoad()) break;
         }
     }
 }
 
 std::vector<Provider *> Headquarter::getProvidersThatSatisfy(std::queue<Order *> orders) {
-        auto iter = providers.begin();
+    auto iter = providers.begin();
 
-        graph.dijkstraShortestPath(getPositionById(position_id));
+    graph.dijkstraShortestPath(getPositionById(position_id));
 
-        //calculating distances from headquarter to providers
-        while (iter != providers.end()) {
-            cout << "Provider: " << (*iter)->getId() << " pos: " << (*iter)->getAddress() << endl;
-            vector<Position> path = graph.getPath(getPositionById(position_id), getPositionById((*iter)->getAddress()));
-            for(auto ee : path){
-                cout << ee.getId() << "\t";
-            }
-            long double distance = graph.distanceFromPath(path);
-            cout << endl << "DIST: " << distance << endl;
-            (*iter)->setDist(distance);
-            iter++;
+    //calculating distances from headquarter to providers
+    while (iter != providers.end()) {
+        //cout << "Provider: " << (*iter)->getId() << " pos: " << (*iter)->getAddress() << endl;
+        vector<Position> path = graph.getPath(getPositionById(position_id), getPositionById((*iter)->getAddress()));
+        for (auto ee : path) {
+            //cout << ee.getId() << "\t";
         }
+        long double distance = graph.distanceFromPath(path);
+        //cout << endl << "DIST: " << distance << endl;
+        (*iter)->setDist(distance);
+        iter++;
+    }
 
-        //sorting the provider by their distance to headquarters
-        sort(providers.begin(), providers.end(), [](Provider const *const provider1, Provider const *const provider2) {
-            return provider1->getDist() < provider2->getDist();
-        });
-
+    //sorting the provider by their distance to headquarters
+    sort(providers.begin(), providers.end(), [](Provider const *const provider1, Provider const *const provider2) {
+        return provider1->getDist() < provider2->getDist();
+    });
+/*
         cout << "AFTER SORTING" << endl;
         for(auto ii = providers.begin(); ii != providers.end(); ii++){
             cout << (*ii)->getId() << " " << (*ii)->getDist() << "\t";
         }
+        */
 
-    std::vector<Provider *> providersNeeded ;
+    std::vector<Provider *> providersNeeded;
     ProductsWrapper total;
 
     //building an auxiliary buffer that holds all orders products and respective quantities
-    while(!orders.empty()) {
-        Order * orderTop = orders.front();
+    while (!orders.empty()) {
+        Order *orderTop = orders.front();
         std::map<Product *, unsigned int> products = orderTop->getProducts();
 
-        for(auto it = products.begin(); it != products.end(); it ++){
-            try{
+        for (auto it = products.begin(); it != products.end(); it++) {
+            try {
                 total.addQuantityOfProduct((*it).first, (*it).second);
             } catch (ProductNotFound) {
                 total.addProduct((*it).first, (*it).second);
@@ -593,7 +597,7 @@ std::vector<Provider *> Headquarter::getProvidersThatSatisfy(std::queue<Order *>
     std::map<Product *, unsigned int> totalProducts = total.getProducts();
 
     //getting the actual providers needed mantaining the optimization of getting the ones closer first
-    for(auto itProvider = providers.begin(); itProvider != providers.end(); itProvider++) {
+    for (auto itProvider = providers.begin(); itProvider != providers.end(); itProvider++) {
         //cout << (*itProvider)->getName() << endl;
         bool firstProduct = false;
 
@@ -618,17 +622,17 @@ std::vector<Provider *> Headquarter::getProvidersThatSatisfy(std::queue<Order *>
     return providersNeeded;
 }
 
-void Headquarter::calculateTrucksPathFromHeadToProviders(){
+void Headquarter::calculateTrucksPathFromHeadToProviders() {
 
     //going through each truck
-    for(auto it = trucks.begin(); it != trucks.end(); it++) {
+    for (auto it = trucks.begin(); it != trucks.end(); it++) {
 
         //getting first position (headquarter position)
         vector<Provider *> providersNeeded = getProvidersThatSatisfy((*it)->getOrders());
         Vertex<Position> *first = graph.findVertex(getPositionById(position_id));
         cout << "---------------Providers needed for truck " << (*it)->getId() << " ---------------" << endl;
-        for(auto u = providersNeeded.begin(); u != providersNeeded.end(); u++) {
-            cout << *(*u) << endl;
+        for (auto u = providersNeeded.begin(); u != providersNeeded.end(); u++) {
+            //cout << *(*u) << endl;
         }
 
         for (int i = 0; i < providersNeeded.size(); i++) {
@@ -644,52 +648,55 @@ void Headquarter::calculateTrucksPathFromHeadToProviders(){
 
             first = end;
 
-            cout << "---------------PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
+            //cout << "---------------PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
             for (auto itr = path.begin(); itr != path.end() - 1; itr++) {
-                cout << "Position: " << (*itr).getId() << endl;
+                //cout << "Position: " << (*itr).getId() << endl;
                 (*it)->addPositionToPath((*itr));
             }
             (*it)->addPositionToPath(first->getInfo());
 
-            cout << "-------------END TRUCK PATH-------------" << endl;
+            //cout << "-------------END TRUCK PATH-------------" << endl;
         }
     }
 }
 
 
-std::vector<Client*> Headquarter::getClientsFromOrders(queue<Order*> orders){
+std::vector<Client *> Headquarter::getClientsFromOrders(queue<Order *> orders) {
     set<unsigned int> cliens;
-    vector<Client*> unique;
+    vector<Client *> unique;
 
-    while(!orders.empty()){
-        Order * ord = orders.front();
+    while (!orders.empty()) {
+        Order *ord = orders.front();
         cliens.insert(ord->getClientId());
         orders.pop();
     }
 
-    for(auto elem : cliens){
-        cout << "elem: " << elem << endl;
+    for (auto elem : cliens) {
+        //cout << "elem: " << elem << endl;
         unique.push_back(getClientById(elem));
     }
 
     //Getting pseudo minimal path that goes through all the clients
-    vector<Client*> res;
+    vector<Client *> res;
     res.push_back(unique.at(0));
 
-    for(int k = 0; k < unique.size(); k++){
+    if (unique.size() == 1) return res;
+
+    for (int k = 0; k < unique.size(); k++) {
         graph.dijkstraShortestPath(getPositionById(unique[k]->getAddress()));
 
         long double smaller = INF;
         unsigned int smaller_offset = 1;
 
-        for(int c = k + 1; c < unique.size(); c++) {
-            vector<Position> path = graph.getPath(getPositionById(unique[k]->getAddress()), getPositionById(unique[c]->getAddress()));
+        for (int c = k + 1; c < unique.size(); c++) {
+            vector<Position> path = graph.getPath(getPositionById(unique[k]->getAddress()),
+                                                  getPositionById(unique[c]->getAddress()));
 
             long double distance = graph.distanceFromPath(path);
 
-            cout << "DISTANCE: " << distance << endl;
+            //cout << "DISTANCE: " << distance << endl;
 
-            if(distance < smaller){
+            if (distance < smaller) {
                 smaller = distance;
                 smaller_offset = c;
             }
@@ -702,17 +709,18 @@ std::vector<Client*> Headquarter::getClientsFromOrders(queue<Order*> orders){
 
 void Headquarter::calculateTrucksPathFromProvidersToClients() {
     //going through all trucks
-    for(auto it = trucks.begin(); it != trucks.end(); it++) {
+    for (auto it = trucks.begin(); it != trucks.end(); it++) {
         //getting first position (headquarter position)
         queue<Order *> truckOrders = (*it)->getOrders();
 
         //using the getClientFromOrders function to obtain the optimized clients ordered vector
-        vector<Client*> truckClients = getClientsFromOrders(truckOrders);
+        vector<Client *> truckClients = getClientsFromOrders(truckOrders);
 
-        Vertex<Position> *first = graph.findVertex(getPositionById((*it)->getPath().back().getId()));
+        //getting first position from path
+        Vertex<Position> *first = graph.findVertex((*it)->getPath().back());
 
         cout << "---------------Clients of truck orders" << (*it)->getId() << " ---------------" << endl;
-        for(auto u = truckClients.begin(); u != truckClients.end(); u++) {
+        for (auto u = truckClients.begin(); u != truckClients.end(); u++) {
             cout << *(*u) << endl;
         }
 
@@ -723,6 +731,7 @@ void Headquarter::calculateTrucksPathFromProvidersToClients() {
 
             //getting last position
             Vertex<Position> *end = graph.findVertex(getPositionById(truckClients.at(i)->getAddress()));
+
             cout << "end: " << end->getInfo() << endl;
 
             graph.dijkstraShortestPath(first->getInfo());
@@ -731,25 +740,47 @@ void Headquarter::calculateTrucksPathFromProvidersToClients() {
 
             first = end;
 
-            //cout << "---------------PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
-            for (auto itr = path.begin(); itr != path.end() - 1; itr++) {
-                //cout << "Position: " << (*itr).getId() << endl;
-                (*it)->addPositionToPath((*itr));
+            if (path.size() > 1) {
+                //cout << "---------------PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
+                for (auto itr = path.begin(); itr != path.end() - 1; itr++) {
+                    //cout << "Position: " << (*itr).getId() << endl;
+                    (*it)->addPositionToPath((*itr));
+                }
             }
             (*it)->addPositionToPath(first->getInfo());
 
             //cout << "-------------END TRUCK PATH-------------" << endl;
         }
-        /*
+
         graph.dijkstraShortestPath(first->getInfo());
         vector<Position> pathToHead = graph.getPath(first->getInfo(), getPositionById(position_id));
-        //cout << "---------------FINAL PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
+        cout << "---------------FINAL PATH TRUCK " << (*it)->getId() << " ---------------" << endl;
         for (auto itr = pathToHead.begin(); itr != pathToHead.end() - 1; itr++) {
-           // cout << "Position: " << (*itr).getId() << endl;
+            cout << "Position: " << (*itr).getId() << endl;
             (*it)->addPositionToPath((*itr));
         }
-        //cout << "-------------END TRUCK PATH-------------" << endl;
-         */
+        cout << "-------------END TRUCK PATH-------------" << endl;
     }
+}
 
+void Headquarter::calculateTrucksPaths() {
+    //dividing orders into all trucks
+    distributeOrdersToTrucks();
+
+    //calculating trucks path from headquarter to providers
+    calculateTrucksPathFromHeadToProviders();
+
+    //calculating trucks path from providers to clients and finish in headquarter
+    calculateTrucksPathFromProvidersToClients();
+}
+
+void Headquarter::deliver() {
+    //going through all trucks
+    for(auto it : trucks){
+        //clears all trucks paths
+        (*it).clearPath();
+
+        //setting trucks state to available again
+        (*it).setDelivering(false);
+    }
 }

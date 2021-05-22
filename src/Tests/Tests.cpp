@@ -4,6 +4,8 @@
 
 /**
  * TESTS TO HEADQUARTERS FUNCTIONS AND CLASSES
+ *
+ * (WARNING: SOME TESTS DEPEND ON OTHERS)
  */
 
 using testing::Eq;
@@ -335,7 +337,7 @@ TEST(test, distanceFromPath){
     Headquarter headquarter("123");
 
     int begin = 2555, end = 6865;
-    //int begin = 1, end = 32;
+    //int begin = 17, end = 1;
     int intermediate = 10361;
 
     headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
@@ -517,3 +519,28 @@ TEST(test, connectivity){
     Graph<Position> graph = headquarter.getGraph();
     graph.connectivity();
 }
+
+TEST(test, calculateTrucksPaths){
+    Headquarter headquarter("123");
+
+    headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    headquarter.calculateTrucksPaths();
+}
+
+TEST(test, deliver){
+    Headquarter headquarter("123");
+
+    headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt", "../src/Resources/trucks.txt", "../src/Resources/orders.txt", "../src/Resources/products.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
+
+    headquarter.calculateTrucksPaths();
+
+    headquarter.deliver();
+}
+
+/**
+ * END OF TESTS
+ */
+

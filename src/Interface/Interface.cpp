@@ -219,10 +219,12 @@ void interface(){
                     }
                         //Calculated optimized paths
                     case 2 :{
+                        headquarter.calculateTrucksPaths();
                         break;
                     }
                         //Deliver
                     case 3 :{
+                        headquarter.deliver();
                         break;
                     }
                         //Show Trucks
