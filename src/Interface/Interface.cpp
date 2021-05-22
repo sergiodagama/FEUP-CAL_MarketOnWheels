@@ -5,7 +5,7 @@ using namespace std;
 void interface(){
     Headquarter headquarter("123");
 
-    headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    headquarter.loadMap("../src/Resources/Maps/penafiel_strong_nodes.txt", "../src/Resources/Maps/penafiel_strong_edges.txt");
     headquarter.loadAllData("../src/Resources/clients.txt", "../src/Resources/providers.txt",
                             "../src/Resources/trucks.txt", "../src/Resources/orders.txt",
                             "../src/Resources/products.txt");
