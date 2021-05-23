@@ -292,6 +292,88 @@ TEST(test, floydWarshall_penafielMap){
     std::cout << "Elapsed time in function call: " << elapsed.count() << std::endl;
 }
 
+TEST(test, dijkstraShortestPath_time1){
+    Headquarter headquarter("123");
+    try {
+        headquarter.loadMap("../src/Resources/nodes.txt", "../src/Resources/edges.txt");
+    }catch (NotStronglyConnected e){
+        Graph<Position> graph = headquarter.getGraph();
+
+        auto start = std::chrono::high_resolution_clock::now();
+
+        int begin = 0;
+
+        headquarter.getGraph().dijkstraShortestPath(headquarter.getPositionById(begin));
+
+        auto finish = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(finish - start);
+
+        std::cout << "Elapsed time in function call: " << duration.count() << " microsecs" << std::endl;
+    }
+}
+
+TEST(test, dijkstraShortestPath_time2){
+    Headquarter headquarter("123");
+    try {
+        headquarter.loadMap("../src/Resources/Maps/test_connectivity_nodes.txt", "../src/Resources/Maps/test_connectivity_edges.txt");
+    }catch (NotStronglyConnected e){
+        Graph<Position> graph = headquarter.getGraph();
+
+        auto start = std::chrono::high_resolution_clock::now();
+
+        int begin = 0;
+
+        headquarter.getGraph().dijkstraShortestPath(headquarter.getPositionById(begin));
+
+        auto finish = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(finish - start);
+
+        std::cout << "Elapsed time in function call: " << duration.count() << " microsecs" << std::endl;
+    }
+}
+
+
+TEST(test, dijkstraShortestPath_time3){
+    Headquarter headquarter("123");
+    try {
+        headquarter.loadMap("../src/Resources/Maps/penafiel_full_nodes.txt", "../src/Resources/Maps/penafiel_full_edges.txt");
+    }catch (NotStronglyConnected e){
+        Graph<Position> graph = headquarter.getGraph();
+
+        std::cout << "init path\n";
+        auto start = std::chrono::high_resolution_clock::now();
+
+        int begin = 0;
+
+        headquarter.getGraph().dijkstraShortestPath(headquarter.getPositionById(begin));
+
+        auto finish = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(finish - start);
+
+        std::cout << "Elapsed time in function call: " << duration.count() << " micro" << std::endl;
+    }
+}
+
+TEST(test, dijkstraShortestPath_time4){
+    Headquarter headquarter("123");
+    headquarter.loadMap("../src/Resources/Maps/porto_strong_nodes.txt", "../src/Resources/Maps/porto_strong_edges.txt");
+    Graph<Position> graph = headquarter.getGraph();
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    std::cout << "dijkstra initing" << std::endl;
+    int begin = 0;
+
+    headquarter.getGraph().dijkstraShortestPath(headquarter.getPositionById(begin));
+
+    auto finish = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(finish - start);
+
+    std::cout << "Elapsed time in function call: " << duration.count() << " micro" << std::endl;
+}
+
+
+
 TEST(test, dijkstraShortestPath_getPath){
     Headquarter headquarter("123");
 
